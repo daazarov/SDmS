@@ -1,0 +1,41 @@
+﻿@using SDmS.Mvc.Domain.Core.Constants
+@{
+    TempData[AppConstants.CurrentAction] = ViewContext.RouteData.GetRequiredString("action").ToLower();
+    TempData[AppConstants.CurrentController] = ViewContext.RouteData.GetRequiredString("controller").ToLower();
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+    <link rel="icon" href="~/Content/img/favicon.svg">
+    <!-- CSS FILES -->
+    @Html.Partial("_DashboardStyle")
+</head>
+<body>
+    @Html.Partial("_GenericMessage")
+    <!--HEADER-->
+    @Html.Partial("_Header")
+    <!--/HEADER-->
+    <!-- LEFT BAR -->
+    @Html.Partial("_LeftBar")
+    <!-- /LEFT BAR -->
+    <!-- CONTENT -->
+    <div id="content" data-uk-height-viewport="expand: true">
+        <div class="uk-container uk-container-expand">
+            @RenderBody()
+            <footer class="uk-section uk-section-small uk-text-center">
+                <hr>
+                <p class="uk-text-small uk-text-center">© @DateTime.Now.Year IT Academy Team - Built with <a href="http://getuikit.com" title="Visit UIkit 3 site" target="_blank" data-uk-tooltip><span data-uk-icon="uikit"></span></a></p>
+            </footer>
+        </div>
+    </div>
+    <!-- /CONTENT -->
+    <!-- OFFCANVAS -->
+    @Html.Partial("_OffCanvas")
+    <!-- /OFFCANVAS -->
+    @Html.Partial("_DashboardScripts")
+</body>
+</html>

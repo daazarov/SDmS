@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>@ViewBag.Title</title>
+		<link rel="icon" href="~/Content/img/favicon.svg">
+		<!-- CSS FILES -->
+        @Html.Partial("_LayoutStyles")
+	</head>
+	<body class="uk-light wrap uk-background-norepeat uk-background-cover uk-background-center-center uk-cover-container uk-background-secondary">
+		<img data-srcset="Content/img/cover/background_640x700.png 640w,
+		             Content/img/cover/background_960x700.png 960w,
+		             Content/img/cover/background_1200x900.png 1200w,
+		             Content/img/cover/background_2000x1000.png 2000w"
+		     sizes="100vw"
+		     data-src="Content/img/cover/background_1200x900.png" alt="" data-uk-cover data-uk-img>
+        @Html.Partial("_GenericMessage")
+		<div class="uk-flex uk-flex-center uk-flex-middle uk-height-viewport uk-position-z-index uk-position-relative" data-uk-height-viewport="min-height: 400">
+			
+			<!-- NAV -->
+			<div class="uk-position-top">
+				<div class="uk-container uk-container-large">
+					<nav class="uk-navbar-container uk-navbar-transparent" data-uk-navbar>
+						<div class="uk-navbar-left uk-visible@s">
+							<div class="uk-navbar-item">
+								<a class="uk-logo" href="/"><img src="~/Content/img/cover/cover-logo.svg" alt="Logo" style="vertical-align: text-top"></a>
+							</div>
+						</div>
+						<div class="uk-navbar-right">
+							<ul class="uk-navbar-nav">
+                                @Html.Partial("_LoginPartial")
+							</ul>
+						</div>
+					</nav>
+				</div>
+			</div>
+			<!-- /NAV -->
+			<!-- TEXT -->
+            @RenderBody()
+			<!-- /TEXT -->
+			<!-- FOOT -->
+			<div class="uk-position-bottom-center uk-position-small">
+				<span class="uk-text-small uk-text-center">© @DateTime.Now.Year IT Academy Team - Built with <a href="http://getuikit.com" title="Visit UIkit 3 site" target="_blank" data-uk-tooltip><span data-uk-icon="uikit"></span></a></span>
+			</div>
+			<!-- /FOOT -->
+		</div>
+		
+		<!-- JS FILES -->
+        @Scripts.Render("~/Content/uikit/js");
+	</body>
+</html>

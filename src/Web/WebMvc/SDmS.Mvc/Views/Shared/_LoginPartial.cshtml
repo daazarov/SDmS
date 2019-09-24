@@ -1,0 +1,12 @@
+﻿@using Microsoft.AspNet.Identity
+
+@if (Request.IsAuthenticated)
+{
+    <!--<li class="uk-active"><a href="/dashboard" uk-icon="icon: home; ratio: 2">My Dashboard&ensp;</a></li> -->
+    <li>@Html.ActionLink("My dashboard", "Index", "General", new { area = "Dashboard"}, new { @class = "active", @style = "font-size: 1.2rem !important" })</li>
+}
+else
+{
+    <li>@Html.ActionLink("Registration", "Registration", "Account", "", new { @style = "font-size: 1rem !important" })</li>
+    <li>@Html.ActionLink("Login", "Login", "Account", "", new { @style = "font-size: 1rem !important" })</li>
+}

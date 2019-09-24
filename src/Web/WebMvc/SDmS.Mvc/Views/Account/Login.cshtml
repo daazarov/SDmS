@@ -1,0 +1,75 @@
+﻿@using SDmS.Mvc.Models.Account
+@model AccountLoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<div class="uk-width-medium uk-padding-small uk-position-z-index" uk-scrollspy="cls: uk-animation-fade">
+
+    <!-- home action -->
+    <div>
+        <div class="uk-text-left">
+            <a href="/" class="uk-link-reset uk-text-small toggle-class" data-uk-toggle="target: .toggle-class ;animation: uk-animation-fade"><span data-uk-icon="arrow-left"></span> Back to Home</a>
+        </div>
+    </div>
+    <!-- home action -->
+
+    <div class="uk-text-center uk-margin">
+        <img src="~/Content/img/identity/login-logo.svg" alt="Logo">
+    </div>
+    <!-- login -->
+
+
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "toggle-class" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <fieldset class="uk-fieldset">
+            <div class="uk-margin-small">
+                <div class="uk-inline uk-width-1-1">
+                    <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: user"></span>
+                    @Html.TextBoxFor(m => m.Username, new { @class = "uk-input uk-border-pill", @placeholder = "Username", @required = "" })
+                </div>
+            </div>
+            <div class="uk-margin-small">
+                <div class="uk-inline uk-width-1-1">
+                    <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: lock"></span>
+                    @Html.PasswordFor(m => m.Password, new { @class = "uk-input uk-border-pill", @placeholder = "Password", @required = "" })
+                </div>
+            </div>
+            <div class="uk-margin-small">
+                <label>@Html.CheckBoxFor(m => m.RememberMe) Keep me logged in</label>
+            </div>
+            <div class="uk-margin-bottom">
+                <button type="submit" class="uk-button uk-button-primary uk-border-pill uk-width-1-1">LOG IN</button>
+            </div>
+        </fieldset>
+    }
+    <!-- /login -->
+    <!-- recover password -->
+    @using (Html.BeginForm("ForgotPassword", "Account", FormMethod.Post, new { @class = "toggle-class", @hidden = "" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="uk-margin-small">
+            <div class="uk-inline uk-width-1-1">
+                <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: mail"></span>
+                @Html.TextBox("Email", "",
+                htmlAttributes: new { @class = "uk-input uk-border-pill", @placeholder = "E-mail", @required = "" })
+            </div>
+        </div>
+        <div class="uk-margin-bottom">
+            <button type="submit" class="uk-button uk-button-primary uk-border-pill uk-width-1-1">SEND PASSWORD</button>
+        </div>
+    }
+    <!-- /recover password -->
+    <!-- action buttons -->
+    <div>
+        <div class="uk-text-center">
+            <a class="uk-link-reset uk-text-small toggle-class" data-uk-toggle="target: .toggle-class ;animation: uk-animation-fade">Forgot your password?</a>
+            <a class="uk-link-reset uk-text-small toggle-class" data-uk-toggle="target: .toggle-class ;animation: uk-animation-fade" hidden><span data-uk-icon="arrow-left"></span> Back to Login</a>
+        </div>
+    </div>
+    <!-- action buttons -->
+</div>

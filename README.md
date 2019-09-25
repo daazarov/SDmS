@@ -1,7 +1,5 @@
-# SDmS
  Smart Device management System
- 
- 
- | First Header  | Second Header |
+  
+ | SDmS.WebApp - Mvc  | SDmS Identity |
 | ------------- | ------------- |
-| Content Cell  | Content Cell  |
+| ![alt text](https://dev.azure.com/azarchik94/SDmS/_apis/build/status/SDmS-WebApp.Mvc)  |    |

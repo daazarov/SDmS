@@ -1,7 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FluentValidation.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace SDmS.Mvc.Models.Account
 {
+    [Validator(typeof(AccountRegistrationViewModel))]
     public class AccountRegistrationViewModel
     {
         public string Email { get; set; }

@@ -24,25 +24,25 @@ namespace SDmS.Identity.DI.Modules
         public override void Load()
         {
             // Context
-            Bind<IAppIdentityContext>().To<AppIdentityContext>().InTransientScope().WithConstructorArgument(_connectionString);
-
-            // Managers
-            Bind<IUserManager<ApplicationUser>>().To<ApplicationUserManager>().InTransientScope();
-            Bind<IRoleManager<ApplicationRole>>().To<ApplicationRoleManager>().InTransientScope();
+            Bind<IAppIdentityContext>().To<AppIdentityContext>().InRequestScope().WithConstructorArgument(_connectionString);
 
             // Services
-            Bind<IIdentityEmailService>().To<EmailService>().InSingletonScope();
+            Bind<IIdentityEmailService>().To<EmailService>().InRequestScope();
             Bind<IIdentityInitializationService>().To<IdentityInitializationService>().InRequestScope();
 
             // Stores
             Bind(typeof(IUserStore<>)).To(typeof(UserStore<>))
                 .InRequestScope()
-                .WithConstructorArgument("context", this.Kernel.GetService(typeof(IAppIdentityContext)));
+                .WithConstructorArgument("context", _ => _.Kernel.GetService(typeof(IAppIdentityContext)));
             Bind<IRoleStore<ApplicationRole, string>>().To<RoleStore<ApplicationRole>>()
                 .InRequestScope()
-                .WithConstructorArgument("context", this.Kernel.GetService(typeof(IAppIdentityContext)));
+                .WithConstructorArgument("context", _ => _.Kernel.GetService(typeof(IAppIdentityContext)));
 
             Bind<IdentityFactoryOptions<ApplicationUserManager>>().ToMethod(GetTokenProvider).InRequestScope();
+
+            // Managers
+            Bind<IUserManager<ApplicationUser>>().To<ApplicationUserManager>().InRequestScope();
+            Bind<IRoleManager<ApplicationRole>>().To<ApplicationRoleManager>().InRequestScope();
         }
 
         private IdentityFactoryOptions<ApplicationUserManager> GetTokenProvider(Ninject.Activation.IContext context)

@@ -61,7 +61,7 @@ namespace SDmS.Mvc.Controllers
                 Response.Cookies.Add(cookie);
             }
 
-            return RedirectToAction("Index", "General", new { area = "Dashboard" });
+            return RedirectToAction("Index", "Home");
         }
         #endregion
 

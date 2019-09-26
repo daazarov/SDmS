@@ -49,6 +49,8 @@ namespace SDmS.Identity.Core.Services
                 };
             }*/
 
+
+            //https://stackoverflow.com/questions/23455579/generating-reset-password-token-does-not-work-in-azure-website/30676983#30676983
             var provider = new MachineKeyProtectionProvider();
             this.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(
                 provider.Create("ResetPasswordPurpose"));

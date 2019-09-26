@@ -16,10 +16,12 @@ namespace SDmS.Mvc.Controllers
     public class AccountController : BaseController
     {
         private readonly IMembershipService _membershipService;
+        private readonly ILoggingService _loggingService;
 
-        public AccountController(IMembershipService membershipService)
+        public AccountController(IMembershipService membershipService, ILoggingService loggingService)
         {
             this._membershipService = membershipService;
+            this._loggingService = loggingService;
         }
 
         #region [SingUp/LogOff]
@@ -186,6 +188,12 @@ namespace SDmS.Mvc.Controllers
 
             filterContext.Result = this.RedirectToAction("Login", "Account");
             filterContext.ExceptionHandled = true;
+
+            try
+            {
+                _loggingService.Error(filterContext.Exception);
+            }
+            catch { }
         }
     }
 }

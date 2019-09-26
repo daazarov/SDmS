@@ -29,6 +29,7 @@ namespace SDmS.Identity.DI.Modules
             // Services
             Bind<IIdentityEmailService>().To<EmailService>().InRequestScope();
             Bind<IIdentityInitializationService>().To<IdentityInitializationService>().InRequestScope();
+            Bind<ILoggingService>().To<LoggingService>().InRequestScope();
 
             // Stores
             Bind(typeof(IUserStore<>)).To(typeof(UserStore<>))

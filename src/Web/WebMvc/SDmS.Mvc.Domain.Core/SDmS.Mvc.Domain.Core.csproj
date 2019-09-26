@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Constants\AppConstants.cs" />
     <Compile Include="Interfases\Services\IIdentityParser.cs" />
+    <Compile Include="Interfases\Services\ILoggingService.cs" />
     <Compile Include="Interfases\Services\IMembershipService.cs" />
     <Compile Include="Models\Account\AccountCreatedResponseModel.cs" />
     <Compile Include="Models\Account\AccountLoginModel.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="Models\Account\AccountResetPasswordModel.cs" />
     <Compile Include="Models\Account\JwtTokenModel.cs" />
     <Compile Include="Models\CommandResult.cs" />
+    <Compile Include="Models\LogEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

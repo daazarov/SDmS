@@ -105,9 +105,11 @@
   <ItemGroup>
     <Compile Include="Constants\AppConstants.cs" />
     <Compile Include="Data\Context\AppIdentityContext.cs" />
+    <Compile Include="EntityMapping\AppExceptionMapping.cs" />
     <Compile Include="Interfaces\Data\IAppIdentityContext.cs" />
     <Compile Include="Interfaces\Services\IIdentityEmailService.cs" />
     <Compile Include="Interfaces\Services\IIdentityInitializationService.cs" />
+    <Compile Include="Interfaces\Services\ILoggingService.cs" />
     <Compile Include="Interfaces\Services\IRoleManager.cs" />
     <Compile Include="Interfaces\Services\IUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -115,8 +117,8 @@
     <Compile Include="Services\ApplicationUserManager.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\IdentityInitializationService.cs" />
+    <Compile Include="Services\LoggingService.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />

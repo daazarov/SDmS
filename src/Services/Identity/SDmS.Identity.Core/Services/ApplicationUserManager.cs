@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security.DataProtection;
 using SDmS.Identity.Common.Entities;
 using SDmS.Identity.Core.Interfaces.Services;
 
@@ -36,7 +38,8 @@ namespace SDmS.Identity.Core.Services
 
             this.EmailService = _emailService;
 
-            var dataProtectionProvider = _options.DataProtectionProvider;
+            // Not working in Azure web app
+            /*var dataProtectionProvider = _options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
                 this.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"))
@@ -44,7 +47,39 @@ namespace SDmS.Identity.Core.Services
                     //Code for email confirmation and reset password life time
                     TokenLifespan = TimeSpan.FromHours(6)
                 };
-            }
+            }*/
+
+            var provider = new MachineKeyProtectionProvider();
+            this.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(
+                provider.Create("ResetPasswordPurpose"));
+        }
+    }
+
+    public class MachineKeyProtectionProvider : IDataProtectionProvider
+    {
+        public IDataProtector Create(params string[] purposes)
+        {
+            return new MachineKeyDataProtector(purposes);
+        }
+    }
+
+    public class MachineKeyDataProtector : IDataProtector
+    {
+        private readonly string[] _purposes;
+
+        public MachineKeyDataProtector(string[] purposes)
+        {
+            _purposes = purposes;
+        }
+
+        public byte[] Protect(byte[] userData)
+        {
+            return MachineKey.Protect(userData, _purposes);
+        }
+
+        public byte[] Unprotect(byte[] protectedData)
+        {
+            return MachineKey.Unprotect(protectedData, _purposes);
         }
     }
 }

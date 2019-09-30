@@ -1,5 +1,9 @@
-﻿namespace SDmS.Mvc.Models.Account
+﻿using FluentValidation.Attributes;
+using SDmS.Mvc.Validators;
+
+namespace SDmS.Mvc.Models.Account
 {
+    [Validator(typeof(AccountEmailModelValidator))]
     public class AccountEmailModel
     {
         public string Email { get; set; }

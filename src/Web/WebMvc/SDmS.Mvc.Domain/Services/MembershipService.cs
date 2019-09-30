@@ -68,7 +68,7 @@ namespace SDmS.Domain.Services
             return null;
         }
 
-        public async Task<CommandResult<string>> ResetPasswordAsync(AccountResetPasswordModel model)
+        public async Task<CommandResult<string>> ResetPasswordAsync(Core.Models.AccountResetPasswordModel model)
         {
             string uri = API.Account.ResetPassword(_baseAccountUrl);
 

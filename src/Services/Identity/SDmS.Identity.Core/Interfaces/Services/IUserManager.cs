@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -7,6 +8,8 @@ namespace SDmS.Identity.Core.Interfaces.Services
 {
     public interface IUserManager<IUser>
     {
+        IQueryable<IUser> Users { get; }
+
         Task<IUser> FindAsync(string userName, string password);
         Task<ClaimsIdentity> CreateIdentityAsync(IUser user, string authenticationType);
         Task<IdentityResult> CreateAsync(IUser user, string password);
@@ -23,5 +26,6 @@ namespace SDmS.Identity.Core.Interfaces.Services
         Task<string> GeneratePasswordResetTokenAsync(string userId);
         Task<IdentityResult> ResetPasswordAsync(string userId, string token, string newPassword);
         Task<IUser> FindByNameAsync(string userName);
+        Task<IdentityResult> DeleteAsync(IUser user);
     }
 }

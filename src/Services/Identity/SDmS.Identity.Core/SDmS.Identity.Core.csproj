@@ -114,6 +114,7 @@
     <Compile Include="Interfaces\Services\IRoleManager.cs" />
     <Compile Include="Interfaces\Services\IUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\MachineKeyProtectionProvider.cs" />
     <Compile Include="Services\ApplicationRoleManager.cs" />
     <Compile Include="Services\ApplicationUserManager.cs" />
     <Compile Include="Services\EmailService.cs" />

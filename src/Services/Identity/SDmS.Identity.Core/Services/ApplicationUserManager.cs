@@ -38,50 +38,11 @@ namespace SDmS.Identity.Core.Services
 
             this.EmailService = _emailService;
 
-            // Not working in Azure web app
-            /*var dataProtectionProvider = _options.DataProtectionProvider;
-            if (dataProtectionProvider != null)
+            var dataProtectionProvider = _options.DataProtectionProvider;
+            this.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ResetPasswordPurpose"))
             {
-                this.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"))
-                {
-                    //Code for email confirmation and reset password life time
-                    TokenLifespan = TimeSpan.FromHours(6)
-                };
-            }*/
-
-
-            //https://stackoverflow.com/questions/23455579/generating-reset-password-token-does-not-work-in-azure-website/30676983#30676983
-            var provider = new MachineKeyProtectionProvider();
-            this.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(
-                provider.Create("ResetPasswordPurpose"));
-        }
-    }
-
-    public class MachineKeyProtectionProvider : IDataProtectionProvider
-    {
-        public IDataProtector Create(params string[] purposes)
-        {
-            return new MachineKeyDataProtector(purposes);
-        }
-    }
-
-    public class MachineKeyDataProtector : IDataProtector
-    {
-        private readonly string[] _purposes;
-
-        public MachineKeyDataProtector(string[] purposes)
-        {
-            _purposes = purposes;
-        }
-
-        public byte[] Protect(byte[] userData)
-        {
-            return MachineKey.Protect(userData, _purposes);
-        }
-
-        public byte[] Unprotect(byte[] protectedData)
-        {
-            return MachineKey.Unprotect(protectedData, _purposes);
+                TokenLifespan = TimeSpan.FromHours(6)
+            };
         }
     }
 }

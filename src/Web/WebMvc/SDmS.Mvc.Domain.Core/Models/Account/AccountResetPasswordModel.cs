@@ -1,4 +1,4 @@
-﻿namespace SDmS.Domain.Core.Models.Account
+﻿namespace SDmS.Domain.Core.Models
 {
     public class AccountResetPasswordModel
     {

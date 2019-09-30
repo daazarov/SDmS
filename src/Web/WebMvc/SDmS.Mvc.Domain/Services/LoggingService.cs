@@ -14,7 +14,7 @@ namespace SDmS.Domain.Services
     {
         private const string LogFileNameOnly = @"LogFile";
         private const string LogFileExtension = @".txt";
-        private const string LogFileDirectory = @"~/App_Data";
+        private const string LogFileDirectory = @"~/App_Data/Logs";
 
         private const string DateTimeFormat = @"dd/MM/yyyy HH:mm:ss";
         private static readonly Object LogLock = new Object();
@@ -28,6 +28,7 @@ namespace SDmS.Domain.Services
             //_logFileFolder = HttpContext.Current != null ? HttpContext.Current.Server.MapPath(LogFileDirectory) : @".";
             _logFileFolder = System.Web.Hosting.HostingEnvironment.MapPath(LogFileDirectory);
             _logFileName = MakeLogFileName(false);
+            Initialise();
         }
 
         #region Private static methods
@@ -127,6 +128,7 @@ namespace SDmS.Domain.Services
         /// </summary>
         public void Initialise()
         {
+            CheckDirectoryExists();
             CheckFileExists(_maxLogSize);
         }
 
@@ -177,6 +179,19 @@ namespace SDmS.Domain.Services
             }
 
             Write(message.ToString());
+        }
+
+        private void CheckDirectoryExists()
+        {
+            if (!Directory.Exists(_logFileFolder))
+            {
+                if (!Directory.Exists(System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data")))
+                {
+                    Directory.CreateDirectory(System.Web.Hosting.HostingEnvironment.MapPath("~/App_Data"));
+                }
+
+                Directory.CreateDirectory(_logFileFolder);
+            }
         }
 
     }

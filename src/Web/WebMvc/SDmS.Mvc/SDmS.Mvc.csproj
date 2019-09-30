@@ -220,9 +220,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Validators\AccountValidator.cs" />
+    <Compile Include="Validators\ErrorMessages.cs" />
+    <Compile Include="Validators\Extensions\RuleBuilderExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\LogFile.txt" />
     <Content Include="Content\css\dashboard.css" />
     <Content Include="Content\css\img\background_1200x900.png" />
     <Content Include="Content\css\img\background_2000x1000.png" />
@@ -297,6 +298,7 @@
     <Content Include="Views\Account\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Areas\Dashboard\Models\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>

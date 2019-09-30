@@ -1,4 +1,4 @@
-﻿namespace SDmS.Infrastructure.Models.Account
+﻿namespace SDmS.Mvc.Infrastructure.Models.Account
 {
     public class AccountResetPasswordModel
     {

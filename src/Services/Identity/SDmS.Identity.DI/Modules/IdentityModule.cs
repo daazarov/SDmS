@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security.DataProtection;
 using Ninject.Modules;
 using Ninject.Web.Common;
 using SDmS.Identity.Common.Entities;
 using SDmS.Identity.Core.Data.Context;
 using SDmS.Identity.Core.Interfaces.Data;
 using SDmS.Identity.Core.Interfaces.Services;
+using SDmS.Identity.Core.Providers;
 using SDmS.Identity.Core.Services;
-using System.Reflection;
 
 namespace SDmS.Identity.DI.Modules
 {
@@ -50,7 +49,10 @@ namespace SDmS.Identity.DI.Modules
         {
             return new IdentityFactoryOptions<ApplicationUserManager>()
             {
-                DataProtectionProvider = new DpapiDataProtectionProvider(Assembly.GetExecutingAssembly().GetName().Name)
+                // DpapiDataProtectionProvider not working in Azure web app
+                // then implement MachineKeyProtectionProvider
+                // https://stackoverflow.com/questions/23455579/generating-reset-password-token-does-not-work-in-azure-website/23661872#23661872
+                DataProtectionProvider = new MachineKeyProtectionProvider()
             };
         }
     }

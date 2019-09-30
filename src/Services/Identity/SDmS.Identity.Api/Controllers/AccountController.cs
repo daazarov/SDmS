@@ -9,8 +9,10 @@ using System.Web.Hosting;
 using System.Web.Http;
 using SDmS.Identity.Core.Constants;
 using SDmS.Identity.Api.Application.Attributes.Filters;
-using System.Web;
 using System.Net;
+using System.Security.Claims;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace SDmS.Identity.Api.Controllers
 {
@@ -21,27 +23,6 @@ namespace SDmS.Identity.Api.Controllers
         public AccountController(IUserManager<ApplicationUser> userManager, IRoleManager<ApplicationRole> roleManager)
             : base(userManager, roleManager)
         {
-        }
-
-        [AllowAnonymous]
-        [Route(""), HttpPost]
-        public async Task<IHttpActionResult> Registration([FromBody]AccountRegistrationModel registrationModel)
-        {
-            var user = registrationModel.ViewToDomain();
-            IdentityResult addUserResult = await this._userManager.CreateAsync(user, registrationModel.Password);
-
-            if (!addUserResult.Succeeded)
-            {
-                return GetErrorResult(addUserResult);
-            }
-
-            string code = await this._userManager.GenerateEmailConfirmationTokenAsync(user.Id);
-
-            string callbackUrl = string.Format(WebUtility.UrlDecode(registrationModel.ConfirmCallbackUrl), user.Id, WebUtility.UrlEncode(code));
-
-            await this._userManager.SendEmailAsync(user.Id, "Confirm your account", LoadTemplate(callbackUrl, "email-confirmation.html"));
-
-            return Created("", user.CreaterDomainToView());
         }
 
         [AllowAnonymous]
@@ -109,6 +90,108 @@ namespace SDmS.Identity.Api.Controllers
             }
         }
 
+        #region [Account CRUD]
+        [AllowAnonymous]
+        [Route(""), HttpPost]
+        public async Task<IHttpActionResult> Registration([FromBody]AccountRegistrationModel registrationModel)
+        {
+            var user = registrationModel.ViewToDomain();
+            IdentityResult addUserResult = await this._userManager.CreateAsync(user, registrationModel.Password);
+
+            if (!addUserResult.Succeeded)
+            {
+                return GetErrorResult(addUserResult);
+            }
+
+            string code = await this._userManager.GenerateEmailConfirmationTokenAsync(user.Id);
+
+            string callbackUrl = string.Format(WebUtility.UrlDecode(registrationModel.ConfirmCallbackUrl), user.Id, WebUtility.UrlEncode(code));
+
+            await this._userManager.SendEmailAsync(user.Id, "Confirm your account", LoadTemplate(callbackUrl, "email-confirmation.html"));
+
+            return Created("", user.CreaterDomainToView());
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("{id:guid}")]
+        public async Task<IHttpActionResult> GetAccountById(string id)
+        {
+            if (id != GetCurrentUserId() || !User.IsInRole("Admin"))
+            {
+                return StatusCode(HttpStatusCode.Forbidden);
+            }
+
+            var result = await _userManager.FindByIdAsync(id);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result.CreaterDomainToView());
+        }
+
+        [HttpDelete]
+        [Authorize]
+        [Route("{id:guid}")]
+        public async Task<IHttpActionResult> DeleteAccountById(string id)
+        {
+            if (id != GetCurrentUserId() || !User.IsInRole("Admin"))
+            {
+                return StatusCode(HttpStatusCode.Forbidden);
+            }
+
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return new NoContentResult(Request);
+            }
+
+            await _userManager.DeleteAsync(user);
+
+            return new NoContentResult(Request);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        [Route("")]
+        public async Task<IHttpActionResult> GetAccountsByFilter([FromUri]AccountRequestModel model)
+        {
+            if (model == null)
+            {
+                model = new AccountRequestModel { limit = 20, offset = 0 };
+            }
+
+            if (!string.IsNullOrEmpty(model.Email))
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user != null)
+                {
+                    return Ok(user.CreaterDomainToView());
+                }
+                return NotFound();
+            }
+            else if (!string.IsNullOrEmpty(model.Username))
+            {
+                var user = await _userManager.FindByNameAsync(model.Username);
+                if (user != null)
+                {
+                    return Ok(user.CreaterDomainToView());
+                }
+                return NotFound();
+            }
+
+            // If there are no conditions, then display all users
+            var users = GetCollectionResult<AccountCreatedResponseModel>(
+                getCount: () => _userManager.Users.Count(),
+                getItems: () => _userManager.Users.ToList().Select(x => x.CreaterDomainToView()),
+                modelState: ModelState);
+
+            return Ok(users);
+        }
+        #endregion
 
         #region Help methods
         private string LoadTemplate(string url, string templateName)
@@ -125,6 +208,20 @@ namespace SDmS.Identity.Api.Controllers
 
                 return sb;
             }
+        }
+
+        private string GetCurrentUserId()
+        {
+            if (this.User.Identity is ClaimsIdentity)
+            {
+                var identity = this.User.Identity as ClaimsIdentity;
+
+                string id = identity.FindFirst(x => x.Type == ClaimTypes.Sid)?.Value;
+
+                return id;
+            }
+
+            return string.Empty;
         }
         #endregion
     }

@@ -51,7 +51,7 @@ namespace SDmS.Domain.Mappers.Account
             };
         }
 
-        public static AccountResetPasswordModel DomainToInfrastructure(this Core.Models.Account.AccountResetPasswordModel @this)
+        public static AccountResetPasswordModel DomainToInfrastructure(this Core.Models.AccountResetPasswordModel @this)
         {
             return new AccountResetPasswordModel
             {

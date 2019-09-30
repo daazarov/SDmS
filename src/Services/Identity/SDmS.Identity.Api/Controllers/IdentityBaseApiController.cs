@@ -1,11 +1,15 @@
 ﻿using Microsoft.AspNet.Identity;
+using SDmS.Identity.Api.Models;
 using SDmS.Identity.Common.Entities;
 using SDmS.Identity.Core.Interfaces.Services;
+using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.ModelBinding;
 
 namespace SDmS.Identity.Api.Controllers
 {
@@ -47,6 +51,31 @@ namespace SDmS.Identity.Api.Controllers
             }
 
             return null;
+        }
+
+        protected ResponseCollectionModel<T> GetCollectionResult<T>(Func<IEnumerable<T>> getItems, Func<int> getCount, ModelStateDictionary modelState)
+        {
+            ResponseCollectionModel<T> result = new ResponseCollectionModel<T>();
+
+            result.TotalCount = getCount();
+
+            result.Collection = new List<T>();
+
+            foreach (var user in getItems())
+            {
+                result.Collection.Add(user);
+            }
+
+            return result;
+        }
+
+        protected ResponseModel<T> GetResult<T>(Func<T> getItem, ModelStateDictionary modelState)
+        {
+            ResponseModel<T> result = new ResponseModel<T>();
+
+            result.Value = getItem();
+
+            return result;
         }
 
         public class NoContentResult : IHttpActionResult

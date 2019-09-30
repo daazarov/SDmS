@@ -5,11 +5,11 @@ using System.Web.Mvc;
 using SDmS.Mvc.Mappers;
 using System.Threading.Tasks;
 using SDmS.Mvc.Models.Enums;
-using SDmS.Domain.Core.Models.Account;
 using System;
 using SDmS.Mvc.Domain.Core.Constants;
 using System.Web.Routing;
 using System.Net;
+using SDmS.Domain.Core.Models;
 
 namespace SDmS.Mvc.Controllers
 {
@@ -143,7 +143,7 @@ namespace SDmS.Mvc.Controllers
                 return View(model);
             }
 
-            var callbackUrl = /*HttpUtility.HtmlEncode(*/Url.Action("ConfirmEmail", "Account", new { userId = "{0}", code = "{1}" }, Request.Url.Scheme);
+            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = "{0}", code = "{1}" }, Request.Url.Scheme);
             model.ConfirmCallbackUrl = callbackUrl;
 
             var result = await _membershipService.RegistrationAsync(model.ViewToDomain());

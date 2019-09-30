@@ -1,7 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FluentValidation.Attributes;
+using SDmS.Mvc.Validators;
+using System.ComponentModel.DataAnnotations;
 
 namespace SDmS.Mvc.Models.Account
 {
+    [Validator(typeof(AccountChangePasswordValidator))]
     public class AccountChangePasswordModel
     {
         public string Email { get; set; }
@@ -10,7 +13,6 @@ namespace SDmS.Mvc.Models.Account
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 }

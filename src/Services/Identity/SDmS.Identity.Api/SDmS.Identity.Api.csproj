@@ -231,10 +231,13 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\IdentityBaseApiController.cs" />
     <Compile Include="Mapping\AccountMapping.cs" />
-    <Compile Include="Models\AccountEmailModel.cs" />
-    <Compile Include="Models\AccountRegistrationModel.cs" />
-    <Compile Include="Models\AccountCreatedResponseModel.cs" />
-    <Compile Include="Models\AccountResetPasswordModel.cs" />
+    <Compile Include="Models\Account\AccountEmailModel.cs" />
+    <Compile Include="Models\Account\AccountRegistrationModel.cs" />
+    <Compile Include="Models\Account\AccountCreatedResponseModel.cs" />
+    <Compile Include="Models\Account\AccountRequestModel.cs" />
+    <Compile Include="Models\Account\AccountResetPasswordModel.cs" />
+    <Compile Include="Models\ResponseCollectionModel.cs" />
+    <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\CustomJwtFormat.cs" />
     <Compile Include="Providers\CustomOAuthProvider.cs" />

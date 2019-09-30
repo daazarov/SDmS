@@ -12,9 +12,9 @@ namespace SDmS.Mvc.Validators
             RuleFor(x => x.FirstName).NotEmpty().Length(3, 30);
             RuleFor(x => x.LastName).NotEmpty().Length(3, 30);
             RuleFor(x => x.Username).NotEmpty().Length(3, 30);
-            RuleFor(x => x.Username).Must(x => x.ToLower().Contains("admin".ToLower())).WithMessage(ErrorMessages.LoginForbiddenWords);
+            RuleFor(x => x.Username).Must(x => !x.ToLower().Contains("admin".ToLower())).WithMessage(ErrorMessages.LoginForbiddenWords);
             RuleFor(x => x.Password).Password();
-            RuleFor(x => x.ConfirmPassword).Equal(x => x.Password).WithMessage("The password and confirmation password do not match.");
+            RuleFor(x => x.ConfirmPassword).Equal(x => x.Password).WithMessage(ErrorMessages.PasswordConfirm);
         }
     }
 

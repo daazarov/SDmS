@@ -8,6 +8,7 @@
         public const string PasswordLowercaseLetter = "Password must contain lowercase letter";
         public const string PasswordDigit = "Password must contain digit";
         public const string PasswordSpecialCharacter = "Password must contain special character";
+        public const string PasswordConfirm = "Password and confirmation password do not match.";
 
         public const string LoginForbiddenWords = "Forbidden key words in login";
     }

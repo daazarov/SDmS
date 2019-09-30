@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace SDmS.Mvc.Validators.Extensions
@@ -13,10 +14,10 @@ namespace SDmS.Mvc.Validators.Extensions
             var options = ruleBuilder
                 .NotEmpty().WithMessage(ErrorMessages.PasswordEmpty)
                 .MinimumLength(minimumLength).WithMessage(ErrorMessages.PasswordLength)
-                .Matches("[A-Z]").WithMessage(ErrorMessages.PasswordUppercaseLetter)
-                .Matches("[a-z]").WithMessage(ErrorMessages.PasswordLowercaseLetter)
-                .Matches("[0-9]").WithMessage(ErrorMessages.PasswordDigit)
-                .Matches("[^a-zA-Z0-9]").WithMessage(ErrorMessages.PasswordSpecialCharacter);
+                .Must(x => Regex.IsMatch(x, "[A-Z]")).WithMessage(ErrorMessages.PasswordUppercaseLetter)
+                .Must(x => Regex.IsMatch(x, "[a-z]")).WithMessage(ErrorMessages.PasswordLowercaseLetter)
+                .Must(x => Regex.IsMatch(x, "[0-9]")).WithMessage(ErrorMessages.PasswordDigit)
+                .Must(x => Regex.IsMatch(x, "[^a-zA-Z0-9]")).WithMessage(ErrorMessages.PasswordSpecialCharacter);
             return options;
         }
     }

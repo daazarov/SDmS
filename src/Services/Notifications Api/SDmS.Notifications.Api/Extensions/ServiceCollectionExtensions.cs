@@ -16,8 +16,6 @@ namespace SDmS.Notifications.Api.Extensions
             {
                 e.AddDefaultPolicy(p => p.AllowAnyHeader().AllowAnyMethod().AllowCredentials().SetIsOriginAllowed(host => true));
             });
-
-            services.AddSignalR();
         }
     }
 

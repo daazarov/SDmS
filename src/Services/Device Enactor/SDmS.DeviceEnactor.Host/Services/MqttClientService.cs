@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SDmS.DeviceEnactor.Host.Services
 {
-    public class MqttService : IHostedService
+    public class MqttClientService : IHostedService
     {
         public Task StartAsync(CancellationToken cancellationToken)
         {

@@ -22,10 +22,13 @@ namespace SDmS.Mvc
 
             bundles.Add(new ScriptBundle("~/Content/uikit/js").Include(
                       "~/Content/js/uikit/uikit.min.js",
-                      "~/Content/js/uikit/uikit-icons.min.js"));
+                      "~/Content/js/uikit/uikit-icons.js"));
 
             bundles.Add(new StyleBundle("~/Content/dashboard/css").Include(
-                      "~/Content/css/dashboard.css"));
+                      "~/Content/css/dashboard.css",
+                      "~/Content/css/toogle-button.css",
+                      "~/Content/css/range-slider.css",
+                       "~/Content/css/btn-add-device.css"));
 
             bundles.Add(new StyleBundle("~/Content/uikit/css").Include(
                       "~/Content/css/uikit/uikit.min.css"));

@@ -200,6 +200,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Dashboard\Controllers\BaseDashboardController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\GeneralController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\LightsController.cs" />
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
     <Compile Include="Attributes\Filters\DashboardAuthorizationAttribute.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -224,12 +225,16 @@
     <Compile Include="Validators\Extensions\RuleBuilderExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\btn-add-device.css" />
     <Content Include="Content\css\dashboard.css" />
     <Content Include="Content\css\img\background_1200x900.png" />
     <Content Include="Content\css\img\background_2000x1000.png" />
     <Content Include="Content\css\img\background_640x700.png" />
     <Content Include="Content\css\img\background_960x700.png" />
     <Content Include="Content\css\login-dark.css" />
+    <Content Include="Content\css\range-slider.css" />
+    <Content Include="Content\css\StyleSheet1.css" />
+    <Content Include="Content\css\toogle-button.css" />
     <Content Include="Content\css\uikit\uikit-rtl.css" />
     <Content Include="Content\css\uikit\uikit-rtl.min.css" />
     <Content Include="Content\css\uikit\uikit.css" />
@@ -240,6 +245,8 @@
     <Content Include="Content\img\cover\background_960x700.png" />
     <Content Include="Content\img\cover\cover-logo.svg" />
     <Content Include="Content\img\dashboard\avatar.svg" />
+    <Content Include="Content\img\dashboard\light-off.svg" />
+    <Content Include="Content\img\dashboard\light-on.svg" />
     <Content Include="Content\img\dashboard\logo-dashboard.svg" />
     <Content Include="Content\img\favicon.svg" />
     <Content Include="Content\img\identity\login-logo.svg" />
@@ -261,6 +268,7 @@
     <Content Include="Areas\Dashboard\Views\General\Index.cshtml" />
     <Content Include="Areas\Dashboard\Views\Shared\_DashboardStyle.cshtml" />
     <Content Include="Areas\Dashboard\Views\Shared\_NavbarLinkList.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Lights\Index.cshtml" />
     <None Include="Content\js\jquery\jquery-1.10.2.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-1.10.2.js" />
     <Content Include="Content\js\jquery\jquery-1.10.2.min.js" />
@@ -300,6 +308,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Dashboard\Models\" />
+    <Folder Include="Content\img\ico\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

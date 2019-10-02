@@ -233,7 +233,6 @@
     <Content Include="Content\css\img\background_960x700.png" />
     <Content Include="Content\css\login-dark.css" />
     <Content Include="Content\css\range-slider.css" />
-    <Content Include="Content\css\StyleSheet1.css" />
     <Content Include="Content\css\toogle-button.css" />
     <Content Include="Content\css\uikit\uikit-rtl.css" />
     <Content Include="Content\css\uikit\uikit-rtl.min.css" />
@@ -255,7 +254,6 @@
     <Content Include="Content\img\logo.svg" />
     <Content Include="Content\js\chartScripts.js" />
     <Content Include="Content\js\uikit\uikit-icons.js" />
-    <Content Include="Content\js\uikit\uikit-icons.min.js" />
     <Content Include="Content\js\uikit\uikit.js" />
     <Content Include="Content\js\uikit\uikit.min.js" />
     <Content Include="Global.asax" />

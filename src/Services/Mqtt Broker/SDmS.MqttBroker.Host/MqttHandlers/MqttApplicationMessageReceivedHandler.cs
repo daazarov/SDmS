@@ -1,5 +1,6 @@
 ﻿using MQTTnet;
 using MQTTnet.Client.Receiving;
+using MQTTnet.Diagnostics;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,13 @@ namespace SDmS.MqttBroker.Host.MqttHandlers
 {
     public class MqttApplicationMessageReceivedHandler : IMqttApplicationMessageReceivedHandler
     {
+        private readonly IMqttNetLogger _logger;
+
+        public MqttApplicationMessageReceivedHandler(IMqttNetLogger logger)
+        {
+            this._logger = logger;
+        }
+
         public Task HandleApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs e)
         {
             Console.WriteLine("### RECEIVED APPLICATION MESSAGE ###");

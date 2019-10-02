@@ -9,9 +9,9 @@ namespace SDmS.MqttBroker.Host.Services
     internal class LifetimeEventsHostedService : IHostedService
     {
         private readonly ILogger _logger;
-        private readonly IHostApplicationLifetime _appLifetime;
+        private readonly IApplicationLifetime _appLifetime;
 
-        public LifetimeEventsHostedService(ILogger<LifetimeEventsHostedService> logger, IHostApplicationLifetime appLifetime)
+        public LifetimeEventsHostedService(ILogger<LifetimeEventsHostedService> logger, IApplicationLifetime appLifetime)
         {
             _logger = logger;
             _appLifetime = appLifetime;

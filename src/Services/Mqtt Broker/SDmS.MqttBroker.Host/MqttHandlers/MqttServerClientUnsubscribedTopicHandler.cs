@@ -1,4 +1,5 @@
-﻿using MQTTnet.Server;
+﻿using MQTTnet.Diagnostics;
+using MQTTnet.Server;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,9 +9,17 @@ namespace SDmS.MqttBroker.Host.MqttHandlers
 {
     public class MqttServerClientUnsubscribedTopicHandler : IMqttServerClientUnsubscribedTopicHandler
     {
+        private readonly IMqttNetLogger _logger;
+
+        public MqttServerClientUnsubscribedTopicHandler(IMqttNetLogger logger)
+        {
+            this._logger = logger;
+        }
+
         public Task HandleClientUnsubscribedTopicAsync(MqttServerClientUnsubscribedTopicEventArgs eventArgs)
         {
-            throw new NotImplementedException();
+            _logger.Publish(MqttNetLogLevel.Info, "", $"Client: {eventArgs.ClientId} unsubscribed topic!", null, null);
+            return Task.FromResult<object>(null);
         }
     }
 }

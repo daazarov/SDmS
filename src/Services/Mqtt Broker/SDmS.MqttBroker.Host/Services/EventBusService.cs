@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using NServiceBus.Logging;
 using NServiceBus;
+using System.Text;
 
-namespace Reservation
+namespace SDmS.MqttBroker.Host.Services
 {
     public class EventBusService : IHostedService
     {
@@ -25,13 +26,30 @@ namespace Reservation
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            _logger.Info("Service stared.");
-            _instance = await Endpoint.Start(_endpointConfiguration).ConfigureAwait(false);
+            try
+            {
+                _instance = await Endpoint.Start(_endpointConfiguration).ConfigureAwait(false);
+                _logger.Info("NServiceBus service stared.");
+            }
+            catch (Exception ex)
+            {
+                var message = new StringBuilder(ex.Message);
+
+                var inner = ex.InnerException;
+                while (inner != null)
+                {
+                    message.Append(" \nINNER EXCEPTION: ");
+                    message.Append(inner.Message);
+                    inner = inner.InnerException;
+                }
+
+                _logger.Error(message.ToString());
+            }
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
         {
-            _logger.Info("Service stoped.");
+            _logger.Info("NServiceBus service stoped.");
             await _instance.Stop();
         }
 

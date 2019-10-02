@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace SDmS.MqttBroker.Host
 {
-    class Program
+    public class Program
     {
-        static async Task Main(string[] args)
+        public static async Task Main(string[] args)
         {
             Console.Title = "DeviceEnactor.Host";
 
@@ -19,15 +19,18 @@ namespace SDmS.MqttBroker.Host
                 .ConfigureHostConfiguration(configHost =>
                 {
                     configHost.SetBasePath(Directory.GetCurrentDirectory());
+                    configHost.AddCommandLine(args);
                 })
                 .ConfigureAppConfiguration((hostContext, configApp) =>
                 {
                     configApp.AddJsonFile("appsettings.json", optional: true);
+                    configApp.AddCommandLine(args);
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddHostedService<LifetimeEventsHostedService>();
                     services.AddHostedService<MqttServerService>();
+                    services.AddHostedService<EventBusService>();
                 })
                 .ConfigureLogging((hostContext, configLogging) =>
                 {

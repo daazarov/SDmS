@@ -2,7 +2,7 @@
 using NServiceBus.UniformSession;
 using System.Threading.Tasks;
 
-namespace SDmS.DeviceEnactor.Host
+namespace SDmS.MqttBroker.Host
 {
     public class ReusedComponent
     {

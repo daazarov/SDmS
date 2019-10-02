@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using MQTTnet;
+﻿using MQTTnet;
 using MQTTnet.Server;
 using Newtonsoft.Json;
 using System;

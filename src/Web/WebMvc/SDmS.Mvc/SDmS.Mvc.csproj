@@ -234,10 +234,8 @@
     <Content Include="Content\css\login-dark.css" />
     <Content Include="Content\css\range-slider.css" />
     <Content Include="Content\css\toogle-button.css" />
-    <Content Include="Content\css\uikit\uikit-rtl.css" />
-    <Content Include="Content\css\uikit\uikit-rtl.min.css" />
-    <Content Include="Content\css\uikit\uikit.css" />
     <Content Include="Content\css\uikit\uikit.min.css" />
+    <Content Include="Content\css\uikit\uikit.min.dashboard.css" />
     <Content Include="Content\img\cover\background_1200x900.png" />
     <Content Include="Content\img\cover\background_2000x1000.png" />
     <Content Include="Content\img\cover\background_640x700.png" />

@@ -32,6 +32,9 @@ namespace SDmS.Mvc
 
             bundles.Add(new StyleBundle("~/Content/uikit/css").Include(
                       "~/Content/css/uikit/uikit.min.css"));
+
+            bundles.Add(new StyleBundle("~/Content/uikit-dashboard/css").Include(
+                      "~/Content/css/uikit/uikit.min.dashboard.css"));
         }
     }
 }

@@ -31,6 +31,8 @@ namespace SDmS.MqttBroker.Host
                     services.AddHostedService<LifetimeEventsHostedService>();
                     services.AddHostedService<MqttServerService>();
                     services.AddHostedService<EventBusService>();
+
+                    services.AddScoped<ReusedComponent>();
                 })
                 .ConfigureLogging((hostContext, configLogging) =>
                 {

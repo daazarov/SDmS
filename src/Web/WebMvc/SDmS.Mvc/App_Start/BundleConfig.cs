@@ -28,10 +28,14 @@ namespace SDmS.Mvc
                       "~/Content/css/dashboard.css",
                       "~/Content/css/toogle-button.css",
                       "~/Content/css/range-slider.css",
-                       "~/Content/css/btn-add-device.css"));
+                       "~/Content/css/btn-add-device.css",
+                       "~/Content/css/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/uikit/css").Include(
                       "~/Content/css/uikit/uikit.min.css"));
+
+            bundles.Add(new StyleBundle("~/Content/uikit-dashboard/css").Include(
+                      "~/Content/css/uikit/uikit.min.dashboard.css"));
         }
     }
 }

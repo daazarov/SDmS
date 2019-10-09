@@ -7,10 +7,10 @@ using SDmS.Mvc.Attributes.Filters;
 
 namespace SDmS.Mvc.Areas.Dashboard.Controllers
 {
-    //[DashboardAuthorization]
-    public class GeneralController : BaseDashboardController
+    [DashboardAuthorization]
+	public class ClimateController : BaseDashboardController
     {
-        // GET: Dashboard/Dashboard
+        // GET: Dashboard/Lights
         public ActionResult Index()
         {
             return View();

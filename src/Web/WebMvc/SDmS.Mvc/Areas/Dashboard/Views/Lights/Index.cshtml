@@ -8,12 +8,12 @@
 
     <!-- price -->
     <div>
-        <div class="uk-card uk-card-default uk-card-small">
+        <div class="uk-card uk-card-default uk-card-hover uk-card-small">
             <div class="uk-card-header">
                 <div class="uk-grid uk-grid-small">
                     <div class="uk-width-auto"><h4>Kitchen</h4></div>
                     <div class="uk-width-expand uk-text-right panel-icons">
-                        <a href="#" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
+                        <a id="js-modal-confirm" href="/dfghndf" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
                         <a href="#" class="uk-icon-link" title="Configuration" data-uk-tooltip data-uk-icon="icon: cog; ratio: 1.2"></a>
                         <input type="checkbox" checked class="sd-toogle" style="vertical-align: middle;" data-uk-toggle="target: .toogle-state-1; animation: uk-animation-fade">
                     </div>
@@ -63,12 +63,12 @@
     <!-- /price -->
     <!-- price -->
     <div>
-        <div class="uk-card uk-card-default uk-card-small">
+        <div class="uk-card uk-card-default uk-card-hover uk-card-small">
             <div class="uk-card-header">
                 <div class="uk-grid uk-grid-small">
                     <div class="uk-width-auto"><h4>Bathroom</h4></div>
                     <div class="uk-width-expand uk-text-right panel-icons">
-                        <a href="#" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
+                        <a id="js-modal-confirm" href="#" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
                         <a href="#" class="uk-icon-link" title="Configuration" data-uk-tooltip data-uk-icon="icon: cog; ratio: 1.2"></a>
                         <input type="checkbox" class="sd-toogle" style="vertical-align: middle;" data-uk-toggle="target: .toogle-state-2; animation: uk-animation-fade">
                     </div>
@@ -118,12 +118,12 @@
     <!-- /price -->
     <!-- price -->
     <div>
-        <div class="uk-card uk-card-default uk-card-small " data-uk-scrollspy-class="uk-animation-slide-right-small">
+        <div class="uk-card uk-card-default uk-card-hover uk-card-small " data-uk-scrollspy-class="uk-animation-slide-right-small">
             <div class="uk-card-header">
                 <div class="uk-grid uk-grid-small">
                     <div class="uk-width-auto"><h4>Living room</h4></div>
                     <div class="uk-width-expand uk-text-right panel-icons">
-                        <a href="#" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
+                        <a id="js-modal-confirm" href="#" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
                         <a href="#" class="uk-icon-link" title="Configuration" data-uk-tooltip data-uk-icon="icon: cog; ratio: 1.2"></a>
                         <input type="checkbox" class="sd-toogle" style="vertical-align: middle;" checked data-uk-toggle="target: .toogle-state-3; animation: uk-animation-fade">
                     </div>
@@ -169,12 +169,12 @@
     <!-- /price -->
     <!-- price -->
     <div>
-        <div class="uk-card uk-card-default uk-card-small" data-uk-scrollspy-class="uk-animation-slide-right-small">
+        <div class="uk-card uk-card-default uk-card-hover uk-card-small" data-uk-scrollspy-class="uk-animation-slide-right-small">
             <div class="uk-card-header">
                 <div class="uk-grid uk-grid-small">
                     <div class="uk-width-auto"><h4>Garage</h4></div>
                     <div class="uk-width-expand uk-text-right panel-icons">
-                        <a href="#" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
+                        <a id="js-modal-confirm" href="#" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
                         <a href="#" class="uk-icon-link" title="Configuration" data-uk-tooltip data-uk-icon="icon: cog; ratio: 1.2"></a>
                         <input type="checkbox" class="sd-toogle uk-disabled" style="vertical-align: middle;" data-uk-toggle="target: .toogle-state-4; animation: uk-animation-fade">
                     </div>
@@ -220,12 +220,12 @@
     <!-- /price -->
     <!-- price -->
     <div>
-        <div class="uk-card uk-card-default uk-card-small" data-uk-scrollspy-class="uk-animation-slide-right-small">
+        <div class="uk-card uk-card-default uk-card-hover uk-card-small" data-uk-scrollspy-class="uk-animation-slide-right-small">
             <div class="uk-card-header">
                 <div class="uk-grid uk-grid-small">
                     <div class="uk-width-auto"><h4>Pool</h4></div>
                     <div class="uk-width-expand uk-text-right panel-icons">
-                        <a href="#" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
+                        <a id="js-modal-confirm" href="#" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
                         <a href="#" class="uk-icon-link" title="Configuration" data-uk-tooltip data-uk-icon="icon: cog; ratio: 1.2"></a>
                         <input type="checkbox" class="sd-toogle" style="vertical-align: middle;" data-uk-toggle="target: .toogle-state-5; animation: uk-animation-fade">
                     </div>
@@ -272,21 +272,81 @@
 </div>
 
 <div class="md-fab-wrapper">
-    <a class="md-fab md-fab-accent md-fab-wave-light waves-effect waves-button waves-light" href="#">
+    <a class="md-fab md-fab-accent md-fab-wave-light waves-effect waves-button waves-light uk-toggle" uk-toggle href="#add-device-modal-sections">
         <i class="material-icons">+</i>
     </a>
 </div>
 
+<!--New device section-->
+<div id="add-device-modal-sections" uk-modal>
+    <div class="uk-modal-dialog">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="uk-modal-header">
+            <h2 class="uk-modal-title">Add new light device</h2>
+        </div>
+        @using (Html.BeginForm("AddDevice", "Lights", new { area = "Dashboard" }, FormMethod.Post, new { @class = "uk-form-stacked" }))
+        {
+            <div class="uk-modal-body">
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-stacked-text">Name</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text...">
+                    </div>
+                </div>
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-stacked-text">Serial number</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text...">
+                    </div>
+                </div>
+
+            </div>
+            <div class="uk-modal-footer uk-text-right">
+                <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                <button class="uk-button uk-button-primary" type="submit">Add</button>
+            </div>
+        }
+    </div>
+</div>
+<!--/New device section-->
+
 @section Scripts{
 
-    <script>
-        function UpdateDim(selectElem) {
-            var rangePercent = selectElem.value;
-            var id = selectElem.id;
+<script>
+    function UpdateDim(selectElem) {
+        var rangePercent = selectElem.value;
+        var id = selectElem.id;
 
-            $('#dimVal_' + id).text(rangePercent);
-            $(selectElem).css('filter', 'hue-rotate(-' + rangePercent + 'deg)');
+        $('#dimVal_' + id).text(rangePercent);
+        $(selectElem).css('filter', 'hue-rotate(-' + rangePercent + 'deg)');
+    };
+</script>
+<script>
+    UIkit.util.on('#js-modal-confirm', 'click', function (e) {
+    e.preventDefault();
+    e.target.blur();
+
+    var url = e["currentTarget"];
+
+    UIkit.modal.confirm('Are you sure?').then(function () { OnConfirmDelete(url)}, function () { });
+
+    function OnConfirmDelete(ulr) {
+
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            dataType: 'json',
+            success: function (data) {
+                window.location.href = location.href;
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                UIkit.notification({ message: "<span uk-icon=\'icon: warning\'></span>&#8195" + "Error! Please, try again later", status: 'warning', timeout: 7000 });
+            }
+        });
         };
-    </script>
+    });
+
+</script>
 }
 

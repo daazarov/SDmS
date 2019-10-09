@@ -1,0 +1,154 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Dashboard/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="uk-grid uk-grid-medium uk-child-width-1-2@s uk-grid-match js-filter" data-uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div > .uk-card; delay: 200" data-uk-grid>
+    <!-- termometr -->
+    <div>
+        <div class="uk-card uk-card-default uk-card-hover uk-card-small">
+            <div class="uk-card-header">
+                <div class="uk-grid uk-grid-small">
+                    <div class="uk-width-auto"><h4>Living Room</h4></div>
+                    <div class="uk-width-expand uk-text-right panel-icons">
+                        <a id="js-modal-confirm" href="/dfghndf" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
+                        <a href="#" class="uk-icon-link" title="Configuration" data-uk-tooltip data-uk-icon="icon: cog; ratio: 1.2"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-card-body">
+                <div class="uk-grid uk-grid-small">
+                    <div class="uk-width-1-5" style="margin-top: 10px;">
+                        <div class="uk-text-center">
+                            <img src="~/Content/img/dashboard/temperature.png">
+                        </div>
+                    </div>
+                    <div class="uk-width-3-5">
+                        <p>Desired temperature</p>
+                        <p class="mb-0 mt-2 display-5">
+                            <span>74.4</span>
+                            <sup>°F</sup>
+                        </p>
+                        <p class="mb-0 mt-2 lead">
+                            <span>23.56</span>
+                            <sup>°C</sup>
+                        </p>
+                    </div>
+                    <div class="uk-width-expand uk-text-right">
+                        <input type="range" orient="vertical" class="sd-slider" value="23.56" min="19" max="25">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /termometr -->
+    <!-- termometr -->
+    <div>
+        <div class="uk-card uk-card-default uk-card-hover uk-card-small">
+            <div class="uk-card-header">
+                <div class="uk-grid uk-grid-small">
+                    <div class="uk-width-auto"><h4>Kitchen</h4></div>
+                    <div class="uk-width-expand uk-text-right panel-icons">
+                        <a id="js-modal-confirm" href="/dfghndf" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
+                        <a href="#" class="uk-icon-link" title="Configuration" data-uk-tooltip data-uk-icon="icon: cog; ratio: 1.2"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-card-body">
+                <div class="uk-grid uk-grid-small">
+                    <div class="uk-width-1-5" style="margin-top: 10px;">
+                        <div class="uk-text-center">
+                            <img src="~/Content/img/dashboard/temperature.png">
+                        </div>
+                    </div>
+                    <div class="uk-width-3-5">
+                        <p>Desired temperature</p>
+                        <p class="mb-0 mt-2 display-5">
+                            <span>74.4</span>
+                            <sup>°F</sup>
+                        </p>
+                        <p class="mb-0 mt-2 lead">
+                            <span>23.56</span>
+                            <sup>°C</sup>
+                        </p>
+                    </div>
+                    <div class="uk-width-expand uk-text-right">
+                        <input type="range" orient="vertical" class="sd-slider" value="23.56" min="19" max="25">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /termometr -->
+</div>
+
+<div class="md-fab-wrapper">
+    <a class="md-fab md-fab-accent md-fab-wave-light waves-effect waves-button waves-light uk-toggle" uk-toggle href="#add-device-modal-sections">
+        <i class="material-icons">+</i>
+    </a>
+</div>
+
+<!--New device section-->
+<div id="add-device-modal-sections" uk-modal>
+    <div class="uk-modal-dialog">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="uk-modal-header">
+            <h2 class="uk-modal-title">Add new light device</h2>
+        </div>
+        @using (Html.BeginForm("AddTermometr", "Climate", new { area = "Dashboard" }, FormMethod.Post, new { @class = "uk-form-stacked" }))
+        {
+            <div class="uk-modal-body">
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-stacked-text">Name</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text...">
+                    </div>
+                </div>
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-stacked-text">Serial number</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text...">
+                    </div>
+                </div>
+
+            </div>
+            <div class="uk-modal-footer uk-text-right">
+                <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                <button class="uk-button uk-button-primary" type="submit">Add</button>
+            </div>
+        }
+    </div>
+</div>
+<!--/New device section-->
+
+@section Scripts{
+
+<script>
+    UIkit.util.on('#js-modal-confirm', 'click', function (e) {
+    e.preventDefault();
+    e.target.blur();
+
+    var url = e["currentTarget"];
+
+    UIkit.modal.confirm('Are you sure?').then(function () { OnConfirmDelete(url)}, function () { });
+
+    function OnConfirmDelete(ulr) {
+
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            dataType: 'json',
+            success: function (data) {
+                window.location.href = location.href;
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                UIkit.notification({ message: "<span uk-icon=\'icon: warning\'></span>&#8195" + "Error! Please, try again later", status: 'warning', timeout: 7000 });
+            }
+        });
+        };
+    });
+
+</script>
+}

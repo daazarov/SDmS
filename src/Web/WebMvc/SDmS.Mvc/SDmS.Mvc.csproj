@@ -200,6 +200,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Dashboard\Controllers\BaseDashboardController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\GeneralController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\ClimateController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\LightsController.cs" />
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
     <Compile Include="Attributes\Filters\DashboardAuthorizationAttribute.cs" />
@@ -233,11 +234,10 @@
     <Content Include="Content\css\img\background_960x700.png" />
     <Content Include="Content\css\login-dark.css" />
     <Content Include="Content\css\range-slider.css" />
+    <Content Include="Content\css\site.css" />
     <Content Include="Content\css\toogle-button.css" />
-    <Content Include="Content\css\uikit\uikit-rtl.css" />
-    <Content Include="Content\css\uikit\uikit-rtl.min.css" />
-    <Content Include="Content\css\uikit\uikit.css" />
     <Content Include="Content\css\uikit\uikit.min.css" />
+    <Content Include="Content\css\uikit\uikit.min.dashboard.css" />
     <Content Include="Content\img\cover\background_1200x900.png" />
     <Content Include="Content\img\cover\background_2000x1000.png" />
     <Content Include="Content\img\cover\background_640x700.png" />
@@ -247,6 +247,7 @@
     <Content Include="Content\img\dashboard\light-off.svg" />
     <Content Include="Content\img\dashboard\light-on.svg" />
     <Content Include="Content\img\dashboard\logo-dashboard.svg" />
+    <Content Include="Content\img\dashboard\temperature.png" />
     <Content Include="Content\img\favicon.svg" />
     <Content Include="Content\img\identity\login-logo.svg" />
     <Content Include="Content\img\identity\password-logo.svg" />
@@ -267,6 +268,7 @@
     <Content Include="Areas\Dashboard\Views\Shared\_DashboardStyle.cshtml" />
     <Content Include="Areas\Dashboard\Views\Shared\_NavbarLinkList.cshtml" />
     <Content Include="Areas\Dashboard\Views\Lights\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Climate\Index.cshtml" />
     <None Include="Content\js\jquery\jquery-1.10.2.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-1.10.2.js" />
     <Content Include="Content\js\jquery\jquery-1.10.2.min.js" />

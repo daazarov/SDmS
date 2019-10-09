@@ -34,7 +34,6 @@ input.sd-slider[type="range"] {
 		border-radius: 50%;
 		transition: box-shadow 0.2s ease-in-out;
 		position: relative;
-		// top: 1px;
 	}
 	input.sd-slider[type="range"]:active::-webkit-slider-thumb {
 		background: #fff;

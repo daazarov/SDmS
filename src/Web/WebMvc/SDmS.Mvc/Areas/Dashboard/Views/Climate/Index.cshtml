@@ -4,13 +4,14 @@
     Layout = "~/Areas/Dashboard/Views/Shared/_DashboardLayout.cshtml";
 }
 
-<div class="uk-grid uk-grid-medium uk-child-width-1-2@s uk-grid-match js-filter" data-uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div > .uk-card; delay: 200" data-uk-grid>
+<div class="uk-grid uk-grid-medium uk-child-width-1-2@s uk-child-width-1-3@l uk-grid-match js-filter" data-uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div > .uk-card; delay: 200" data-uk-grid>
     <!-- termometr -->
     <div>
         <div class="uk-card uk-card-default uk-card-hover uk-card-small">
             <div class="uk-card-header">
                 <div class="uk-grid uk-grid-small">
                     <div class="uk-width-auto"><h4>Living Room</h4></div>
+                    <div class="uk-text-left"><span class="uk-text-success">Online</span></div>
                     <div class="uk-width-expand uk-text-right panel-icons">
                         <a id="js-modal-confirm" href="/dfghndf" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
                         <a href="#" class="uk-icon-link" title="Configuration" data-uk-tooltip data-uk-icon="icon: cog; ratio: 1.2"></a>
@@ -25,18 +26,21 @@
                         </div>
                     </div>
                     <div class="uk-width-3-5">
-                        <p>Desired temperature</p>
+                        <p>Temperature</p>
                         <p class="mb-0 mt-2 display-5">
+                            <span>25.36</span>
+                            <sup>°C</sup>
+                        </p>
+                        <p class="mb-0 mt-2 lead">
                             <span>74.4</span>
                             <sup>°F</sup>
                         </p>
-                        <p class="mb-0 mt-2 lead">
-                            <span>23.56</span>
-                            <sup>°C</sup>
-                        </p>
                     </div>
-                    <div class="uk-width-expand uk-text-right">
-                        <input type="range" orient="vertical" class="sd-slider" value="23.56" min="19" max="25">
+                    <div class="uk-width-expand uk-text-center">
+                        <label><input type="checkbox" class="uk-checkbox"> Desired</label>
+                        <div class="vertical" style="margin-top: 15px;">
+                            <div id="flat-slider-vertical-3"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -49,6 +53,7 @@
             <div class="uk-card-header">
                 <div class="uk-grid uk-grid-small">
                     <div class="uk-width-auto"><h4>Kitchen</h4></div>
+                    <div class="uk-width-auto"><span class="uk-text-danger">Offline</span></div>
                     <div class="uk-width-expand uk-text-right panel-icons">
                         <a id="js-modal-confirm" href="/dfghndf" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
                         <a href="#" class="uk-icon-link" title="Configuration" data-uk-tooltip data-uk-icon="icon: cog; ratio: 1.2"></a>
@@ -63,18 +68,57 @@
                         </div>
                     </div>
                     <div class="uk-width-3-5">
-                        <p>Desired temperature</p>
+                        <p>Temperature</p>
                         <p class="mb-0 mt-2 display-5">
+                            <span>-</span>
+                            <sup>°C</sup>
+                        </p>
+                        <p class="mb-0 mt-2 lead">
+                            <span>-</span>
+                            <sup>°F</sup>
+                        </p>
+                    </div>
+                    <div class="uk-width-expand uk-text-center">
+                        <label><input type="checkbox" class="uk-checkbox"> Desired</label>
+                        <div class="vertical" style="margin-top: 10px;">
+                            <div id="flat-slider-vertical-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /termometr -->
+    <!-- termometr -->
+    <div>
+        <div class="uk-card uk-card-default uk-card-hover uk-card-small">
+            <div class="uk-card-header">
+                <div class="uk-grid uk-grid-small">
+                    <div class="uk-width-auto"><h4>Garage</h4></div>
+                    <div class="uk-text-left"><span class="uk-text-success">Online</span></div>
+                    <div class="uk-width-expand uk-text-right panel-icons">
+                        <a id="js-modal-confirm" href="/dfghndf" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
+                        <a href="#" class="uk-icon-link" title="Configuration" data-uk-tooltip data-uk-icon="icon: cog; ratio: 1.2"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-card-body">
+                <div class="uk-grid uk-grid-small">
+                    <div class="uk-width-1-4" style="margin-top: 10px;">
+                        <div class="uk-text-center">
+                            <img src="~/Content/img/dashboard/temperature.png">
+                        </div>
+                    </div>
+                    <div class="uk-width-expand">
+                        <p>Temperature</p>
+                        <p class="mb-0 mt-2 display-5">
+                            <span>25.36</span>
+                            <sup>°C</sup>
+                        </p>
+                        <p class="mb-0 mt-2 lead">
                             <span>74.4</span>
                             <sup>°F</sup>
                         </p>
-                        <p class="mb-0 mt-2 lead">
-                            <span>23.56</span>
-                            <sup>°C</sup>
-                        </p>
-                    </div>
-                    <div class="uk-width-expand uk-text-right">
-                        <input type="range" orient="vertical" class="sd-slider" value="23.56" min="19" max="25">
                     </div>
                 </div>
             </div>
@@ -94,7 +138,7 @@
     <div class="uk-modal-dialog">
         <button class="uk-modal-close-default" type="button" uk-close></button>
         <div class="uk-modal-header">
-            <h2 class="uk-modal-title">Add new light device</h2>
+            <h2 class="uk-modal-title">Add new device</h2>
         </div>
         @using (Html.BeginForm("AddTermometr", "Climate", new { area = "Dashboard" }, FormMethod.Post, new { @class = "uk-form-stacked" }))
         {
@@ -150,5 +194,20 @@
         };
     });
 
+</script>
+<script>
+    $("#flat-slider-vertical-1, #flat-slider-vertical-2, #flat-slider-vertical-3")
+        .slider({
+            max: 27,
+            min: 19,
+            range: "min",
+            value: 23,
+            orientation: "vertical"
+        })
+        .slider("pips", {
+            first: "pip",
+            last: "pip"
+        })
+        .slider("float");
 </script>
 }

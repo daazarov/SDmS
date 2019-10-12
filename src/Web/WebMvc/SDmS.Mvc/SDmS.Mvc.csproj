@@ -228,10 +228,8 @@
   <ItemGroup>
     <Content Include="Content\css\btn-add-device.css" />
     <Content Include="Content\css\dashboard.css" />
-    <Content Include="Content\css\img\background_1200x900.png" />
-    <Content Include="Content\css\img\background_2000x1000.png" />
-    <Content Include="Content\css\img\background_640x700.png" />
-    <Content Include="Content\css\img\background_960x700.png" />
+    <Content Include="Content\css\jquery-ui\jquery-ui-slider-pips.css" />
+    <Content Include="Content\css\jquery-ui\jquery-ui.css" />
     <Content Include="Content\css\login-dark.css" />
     <Content Include="Content\css\range-slider.css" />
     <Content Include="Content\css\site.css" />
@@ -253,10 +251,26 @@
     <Content Include="Content\img\identity\password-logo.svg" />
     <Content Include="Content\img\identity\registration-logo.svg" />
     <Content Include="Content\img\logo.svg" />
+    <Content Include="Content\img\ui-icons\ui-bg_highlight-soft_100_f6f6f6_1x100.png" />
+    <Content Include="Content\img\ui-icons\ui-bg_highlight-soft_25_0073ea_1x100.png" />
     <Content Include="Content\js\chartScripts.js" />
+    <Content Include="Content\js\jquery-ui-slider-pips.js" />
+    <Content Include="Content\js\jquery\jquery-ui.js" />
     <Content Include="Content\js\uikit\uikit-icons.js" />
     <Content Include="Content\js\uikit\uikit.js" />
     <Content Include="Content\js\uikit\uikit.min.js" />
+    <Content Include="Content\img\ui-icons\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\img\ui-icons\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\img\ui-icons\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\img\ui-icons\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\img\ui-icons\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\img\ui-icons\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\img\ui-icons\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\img\ui-icons\ui-icons_222222_256x240.png" />
+    <Content Include="Content\img\ui-icons\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\img\ui-icons\ui-icons_454545_256x240.png" />
+    <Content Include="Content\img\ui-icons\ui-icons_888888_256x240.png" />
+    <Content Include="Content\img\ui-icons\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Global.asax" />
     <Content Include="Areas\Dashboard\Views\web.config" />
     <Content Include="Areas\Dashboard\Views\_ViewStart.cshtml" />
@@ -269,9 +283,6 @@
     <Content Include="Areas\Dashboard\Views\Shared\_NavbarLinkList.cshtml" />
     <Content Include="Areas\Dashboard\Views\Lights\Index.cshtml" />
     <Content Include="Areas\Dashboard\Views\Climate\Index.cshtml" />
-    <None Include="Content\js\jquery\jquery-1.10.2.intellisense.js" />
-    <Content Include="Content\js\jquery\jquery-1.10.2.js" />
-    <Content Include="Content\js\jquery\jquery-1.10.2.min.js" />
     <None Include="Content\js\jquery\jquery.validate-vsdoc.js" />
     <Content Include="Content\js\jquery\jquery.unobtrusive-ajax.js" />
     <Content Include="Content\js\jquery\jquery.unobtrusive-ajax.min.js" />
@@ -282,6 +293,9 @@
     <Content Include="Content\js\_references.js" />
     <Content Include="Content\js\chart\Chart.js" />
     <Content Include="Content\js\chart\Chart.min.js" />
+    <None Include="Content\js\jquery\jquery-2.1.1.intellisense.js" />
+    <Content Include="Content\js\jquery\jquery-2.1.1.js" />
+    <Content Include="Content\js\jquery\jquery-2.1.1.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -304,16 +318,15 @@
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Shared\_GenericMessage.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Content\js\jquery\jquery-2.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Dashboard\Models\" />
-    <Folder Include="Content\img\ico\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="Content\js\jquery\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SDmS.Mvc.DI\SDmS.Mvc.DI.csproj">

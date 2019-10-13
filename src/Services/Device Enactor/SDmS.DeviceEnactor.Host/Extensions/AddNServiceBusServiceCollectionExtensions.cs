@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
 using SDmS.DeviceEnactor.Host.Configuration;
-using SDmS.MqttBroker.Host.Services;
+using SDmS.DeviceEnactor.Host.NServiceBus;
+using SDmS.DeviceEnactor.Host.Services;
 using System;
 using System.Threading;
 

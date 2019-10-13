@@ -41,11 +41,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDmS.MqttBroker.Host", "src
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Device Enactor", "Device Enactor", "{14A00796-9A1F-4CE4-B297-DCAD95F10EA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDmS.DeviceEnactor.Host", "SDmS.DeviceEnactor.Host\SDmS.DeviceEnactor.Host.csproj", "{F23D9E2F-E460-4BAB-9FD1-825CB91A7848}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDmS.DeviceEnactor.Host", "src\Services\Device Enactor\SDmS.DeviceEnactor.Host\SDmS.DeviceEnactor.Host.csproj", "{F23D9E2F-E460-4BAB-9FD1-825CB91A7848}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Device Listener", "Device Listener", "{5A98E3AE-E5AE-4944-B4F3-F5BF4AA3787D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDmS.DeviceListener.Host", "SDmS.DeviceListener.Host\SDmS.DeviceListener.Host.csproj", "{3F04F000-FC0B-4A3D-A98A-6122713BF445}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDmS.DeviceListener.Host", "src\Services\Device Listener\SDmS.DeviceListener.Host\SDmS.DeviceListener.Host.csproj", "{3F04F000-FC0B-4A3D-A98A-6122713BF445}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

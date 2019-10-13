@@ -2,8 +2,13 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NServiceBus;
+using NServiceBus.ObjectBuilder.MSDependencyInjection;
 using SDmS.DeviceEnactor.Host.Configuration;
 using SDmS.DeviceEnactor.Host.Extensions;
+using SDmS.DeviceEnactor.Host.Mqtt;
+using SDmS.DeviceEnactor.Host.Mqtt.Handlers;
+using SDmS.DeviceEnactor.Host.Mqtt.Logging;
 using SDmS.DeviceEnactor.Host.Services;
 using System;
 using System.IO;
@@ -30,11 +35,20 @@ namespace SDmS.DeviceEnactor.Host
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
+                    ReadSettings(hostContext.Configuration, services);
+
                     services.AddHostedService<LifetimeEventsHostedService>();
 
                     var busSettings = new BusSettingsModel();
                     hostContext.Configuration.Bind("NServiceBus", busSettings);
                     services.AddNServiceBus(busSettings);
+
+                    services.AddSingleton<MqttNetLoggerWrapper>();
+                    services.AddSingleton<CustomMqttFactory>();
+                    services.AddSingleton<MqttClientService>();
+
+                    services.AddSingleton<MqttApplicationMessageReceivedHandler>();
+                    services.AddSingleton<MqttClientConnectedHandler>();
                 })
                 .ConfigureLogging((hostContext, configLogging) =>
                 {
@@ -43,11 +57,15 @@ namespace SDmS.DeviceEnactor.Host
                 .UseConsoleLifetime()
                 .Build();
 
+            await host.Services.GetService<MqttClientService>().Configure();
             await host.RunAsync();
         }
 
         private static void ReadSettings(IConfiguration configuration, IServiceCollection services)
         {
+            var mqttSettings = new MqttSettingsModel();
+            configuration.Bind("MQTT", mqttSettings);
+            services.AddSingleton(mqttSettings);
         }
     }
 }

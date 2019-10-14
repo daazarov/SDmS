@@ -6,11 +6,13 @@ using NServiceBus;
 using NServiceBus.ObjectBuilder.MSDependencyInjection;
 using SDmS.DeviceEnactor.Host.Configuration;
 using SDmS.DeviceEnactor.Host.Extensions;
+using SDmS.DeviceEnactor.Host.Interfaces;
 using SDmS.DeviceEnactor.Host.Mqtt;
 using SDmS.DeviceEnactor.Host.Mqtt.Handlers;
 using SDmS.DeviceEnactor.Host.Mqtt.Logging;
 using SDmS.DeviceEnactor.Host.Services;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -49,6 +51,9 @@ namespace SDmS.DeviceEnactor.Host
 
                     services.AddSingleton<MqttApplicationMessageReceivedHandler>();
                     services.AddSingleton<MqttClientConnectedHandler>();
+
+                    services.AddSingleton<Dictionary<string, IMqttMessageHandler>>(new Dictionary<string, IMqttMessageHandler>());
+                    services.AddSingleton<MqttReceiverMessageFactory>();
                 })
                 .ConfigureLogging((hostContext, configLogging) =>
                 {

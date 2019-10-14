@@ -7,7 +7,7 @@ using SDmS.Mvc.Attributes.Filters;
 
 namespace SDmS.Mvc.Areas.Dashboard.Controllers
 {
-    //[DashboardAuthorization]
+    [DashboardAuthorization]
     public class GeneralController : BaseDashboardController
     {
         // GET: Dashboard/Dashboard

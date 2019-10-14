@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<SDmS.Mvc.Areas.Dashboard.Models.Led.LedViewModel>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Dashboard/Views/Shared/_DashboardLayout.cshtml";
@@ -6,269 +7,86 @@
 
 <div class="uk-grid uk-grid-medium uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@xl uk-grid-match js-filter" data-uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div > .uk-card; delay: 200" data-uk-grid>
 
-    <!-- price -->
-    <div>
-        <div class="uk-card uk-card-default uk-card-hover uk-card-small">
-            <div class="uk-card-header">
-                <div class="uk-grid uk-grid-small">
-                    <div class="uk-width-auto"><h4>Kitchen</h4></div>
-                    <div class="uk-width-expand uk-text-right panel-icons">
-                        <a id="js-modal-confirm" href="/dfghndf" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
-                        <a href="#" class="uk-icon-link" title="Configuration" data-uk-tooltip data-uk-icon="icon: cog; ratio: 1.2"></a>
-                        <input type="checkbox" checked class="sd-toogle" style="vertical-align: middle;" data-uk-toggle="target: .toogle-state-1; animation: uk-animation-fade">
-                    </div>
-                </div>
-            </div>
-            <div class="uk-card-body">
-                <div class="uk-grid uk-grid-small">
-                    <div class="uk-width-1-5" style="margin-top: 10px;">
-                        <div class="toogle-state-1 uk-text-center">
-                            <img src="~/Content/img/dashboard/light-on.svg">
-                        </div>
-                        <div class="toogle-state-1" hidden>
-                            <img src="~/Content/img/dashboard/light-off.svg">
-                        </div>
-                    </div>
-                    <div class="uk-width-expand">
-                        <table class="uk-table">
-                            <tbody>
-                                <tr>
-                                    <td><p>Connection</p></td>
-                                    <td><span class="uk-text-success">Ok</span></td>
-                                </tr>
-                                <tr>
-                                    <td><p>Power Consumption</p></td>
-                                    <td><p class="uk-text-secondary">24W</p></td>
-                                </tr>
-                                <tr>
-                                    <td><p>Voltage range</p></td>
-                                    <td><p class="uk-text-secondary">110-130V</p></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="uk-card-footer">
-                <div class="uk-grid uk-grid-small">
-                    <div class="uk-width-auto"><span>Intensity</span></div>
-                    <div class="uk-width-expand uk-text-right panel-icons">
-                        <span class="uk-text-bolder" id="dimVal_1">100</span><span class="uk-text-bolder">%</span>
-                    </div>
-                </div>
-                <input id="1" type="range" class="sd-slider" value="100" min="10" max="100" oninput="UpdateDim(this)">
-            </div>
-        </div>
-    </div>
-    <!-- /price -->
-    <!-- price -->
-    <div>
-        <div class="uk-card uk-card-default uk-card-hover uk-card-small">
-            <div class="uk-card-header">
-                <div class="uk-grid uk-grid-small">
-                    <div class="uk-width-auto"><h4>Bathroom</h4></div>
-                    <div class="uk-width-expand uk-text-right panel-icons">
-                        <a id="js-modal-confirm" href="#" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
-                        <a href="#" class="uk-icon-link" title="Configuration" data-uk-tooltip data-uk-icon="icon: cog; ratio: 1.2"></a>
-                        <input type="checkbox" class="sd-toogle" style="vertical-align: middle;" data-uk-toggle="target: .toogle-state-2; animation: uk-animation-fade">
-                    </div>
-                </div>
-            </div>
-            <div class="uk-card-body">
-                <div class="uk-grid uk-grid-small">
-                    <div class="uk-width-1-5" style="margin-top: 10px;">
-                        <div class="toogle-state-2">
-                            <img src="~/Content/img/dashboard/light-off.svg">
-                        </div>
-                        <div class="toogle-state-2" hidden>
-                            <img src="~/Content/img/dashboard/light-on.svg">
+    @foreach (var item in Model)
+    {
+        <!-- led -->
+        <div>
+            <div class="uk-card uk-card-default uk-card-hover uk-card-small">
+                <div class="uk-card-header">
+                    <div class="uk-grid uk-grid-small">
+                        <div class="uk-width-auto"><h4>@item.Name</h4></div>
+                        <div class="uk-width-expand uk-text-right panel-icons">
+                            <a id="js-modal-confirm" href="@Url.Action("DeleteLed", "lights", new { area = "Dashboard", serial_number = @item.SerialNumber}, null)" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
+                            <a href="@Url.Action("Configure", "lights", new { area= "Dashboard", serial_number = @item.SerialNumber}, null)" class="uk-icon-link" title="Configuration" data-uk-tooltip data-uk-icon="icon: cog; ratio: 1.2"></a>
+                            @using (Ajax.BeginForm("ChangeProperty", new { area = "Dashboard", serial_number = item.SerialNumber }, new AjaxOptions
+                            {
+                                HttpMethod = "POST",
+                            },
+                            htmlAttributes: new { id = "LedSwitchForm_" + item.SerialNumber, @style = "float: left" }))
+                            {
+
+                                @Html.CheckBox("isEnable", item.IsEnable,
+                                    htmlAttributes: new
+                                    {
+                                        @data_uk_toggle = String.Format("target: .toogle-state-{0}; animation: uk-animation-fade", item.SerialNumber),
+                                        @class = String.Format("sd-toogle {0}", ((!item.IsOnline) ? "uk-disabled" : "")),
+                                        @style = "vertical-align: middle;",
+                                        @oninput = String.Format("OnInputChange('#LedSwitchForm_{0}')", item.SerialNumber)
+                                    })
+                            }
                         </div>
                     </div>
-                    <div class="uk-width-expand">
-                        <table class="uk-table">
-                            <tbody>
-                                <tr>
-                                    <td><p>Connection</p></td>
-                                    <td><span class="uk-text-success">Ok</span></td>
-                                </tr>
-                                <tr>
-                                    <td><p>Power Consumption</p></td>
-                                    <td><p class="uk-text-secondary">24W</p></td>
-                                </tr>
-                                <tr>
-                                    <td><p>Voltage range</p></td>
-                                    <td><p class="uk-text-secondary">110-130V</p></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                </div>
+                <div class="uk-card-body @((!item.IsOnline) ? "uk-disabled" : "")">
+                    <div class="uk-grid uk-grid-small">
+                        <div class="uk-width-1-5" style="margin-top: 10px;">
+                            <div class="toogle-state-@item.SerialNumber uk-text-center" @(!(item.IsEnable) ? "hidden=\"true\"" : "")>
+                                <img src="~/Content/img/dashboard/light-on.svg">
+                            </div>
+                            <div class="toogle-state-@item.SerialNumber" @((item.IsEnable) ? "hidden=\"true\"" : "")>
+                                <img src="~/Content/img/dashboard/light-off.svg">
+                            </div>
+                        </div>
+                        <div class="uk-width-expand">
+                            <table class="uk-table">
+                                <tbody>
+                                    <tr>
+                                        <td><p>Connection</p></td>
+                                        <td><span class="uk-text-@(item.IsOnline ? "success" : "danger")">@(item.IsOnline ? "Ok" : "Offline")</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><p>Power Consumption</p></td>
+                                        <td><p class="uk-text-secondary">@(item.Power)W</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><p>Voltage range</p></td>
+                                        <td><p class="uk-text-secondary">@item.VoltageRange</p></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="uk-card-footer">
-                <div class="uk-grid uk-grid-small">
-                    <div class="uk-width-auto"><span>Intensity</span></div>
-                    <div class="uk-width-expand uk-text-right panel-icons">
-                        <span class="uk-text-bolder" id="dimVal_2">100</span><span class="uk-text-bolder">%</span>
+                <div class="uk-card-footer @((!item.IsOnline) ? "uk-disabled" : "")">
+                    <div class="uk-grid uk-grid-small">
+                        <div class="uk-width-auto"><span>Intensity</span></div>
+                        <div class="uk-width-expand uk-text-right panel-icons">
+                            <span class="uk-text-bolder" id="dimVal_@item.SerialNumber">@item.Intensity</span><span class="uk-text-bolder">%</span>
+                        </div>
                     </div>
+                    @using (Ajax.BeginForm("ChangeProperty", new { area = "Dashboard", serial_number = item.SerialNumber }, new AjaxOptions
+                    {
+                        HttpMethod = "POST",
+                    },
+                    htmlAttributes: new { id = "LedIntensityForm_" + item.SerialNumber }))
+                    {
+                        <input id="@item.SerialNumber" name="Intensity" type="range" class="sd-slider" value="@item.Intensity" min="10" max="100" step="5" oninput="UpdateDim(this);@(String.Format("OnInputChange('#LedIntensityForm_{0}')", item.SerialNumber))">
+                    }
                 </div>
-                <input id="2" type="range" class="sd-slider" value="100" min="10" max="100" oninput="UpdateDim(this)">
             </div>
         </div>
-    </div>
-    <!-- /price -->
-    <!-- price -->
-    <div>
-        <div class="uk-card uk-card-default uk-card-hover uk-card-small " data-uk-scrollspy-class="uk-animation-slide-right-small">
-            <div class="uk-card-header">
-                <div class="uk-grid uk-grid-small">
-                    <div class="uk-width-auto"><h4>Living room</h4></div>
-                    <div class="uk-width-expand uk-text-right panel-icons">
-                        <a id="js-modal-confirm" href="#" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
-                        <a href="#" class="uk-icon-link" title="Configuration" data-uk-tooltip data-uk-icon="icon: cog; ratio: 1.2"></a>
-                        <input type="checkbox" class="sd-toogle" style="vertical-align: middle;" checked data-uk-toggle="target: .toogle-state-3; animation: uk-animation-fade">
-                    </div>
-                </div>
-            </div>
-            <div class="uk-card-body">
-                <div class="uk-grid uk-grid-small">
-                    <div class="uk-width-1-5" style="margin-top: 10px;">
-                        <img src="~/Content/img/dashboard/light-on.svg" class="toogle-state-3">
-                        <img src="~/Content/img/dashboard/light-off.svg" class="toogle-state-3" hidden>
-                    </div>
-                    <div class="uk-width-expand">
-                        <table class="uk-table">
-                            <tbody>
-                                <tr>
-                                    <td><p>Connection</p></td>
-                                    <td><span class="uk-text-success">Ok</span></td>
-                                </tr>
-                                <tr>
-                                    <td><p>Power Consumption</p></td>
-                                    <td><p class="uk-text-secondary">24W</p></td>
-                                </tr>
-                                <tr>
-                                    <td><p>Voltage range</p></td>
-                                    <td><p class="uk-text-secondary">110-130V</p></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="uk-card-footer">
-                <div class="uk-grid uk-grid-small">
-                    <div class="uk-width-auto"><span>Intensity</span></div>
-                    <div class="uk-width-expand uk-text-right panel-icons">
-                        <span class="uk-text-bolder" id="dimVal_3">100</span><span class="uk-text-bolder">%</span>
-                    </div>
-                </div>
-                <input id="3" type="range" class="sd-slider" value="100" min="10" max="100" oninput="UpdateDim(this)">
-            </div>
-        </div>
-    </div>
-    <!-- /price -->
-    <!-- price -->
-    <div>
-        <div class="uk-card uk-card-default uk-card-hover uk-card-small" data-uk-scrollspy-class="uk-animation-slide-right-small">
-            <div class="uk-card-header">
-                <div class="uk-grid uk-grid-small">
-                    <div class="uk-width-auto"><h4>Garage</h4></div>
-                    <div class="uk-width-expand uk-text-right panel-icons">
-                        <a id="js-modal-confirm" href="#" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
-                        <a href="#" class="uk-icon-link" title="Configuration" data-uk-tooltip data-uk-icon="icon: cog; ratio: 1.2"></a>
-                        <input type="checkbox" class="sd-toogle uk-disabled" style="vertical-align: middle;" data-uk-toggle="target: .toogle-state-4; animation: uk-animation-fade">
-                    </div>
-                </div>
-            </div>
-            <div class="uk-card-body uk-disabled">
-                <div class="uk-grid uk-grid-small">
-                    <div class="uk-width-1-5" style="margin-top: 10px;">
-                        <img src="~/Content/img/dashboard/light-off.svg" class="toogle-state-4">
-                        <img src="~/Content/img/dashboard/light-on.svg" hidden class="toogle-state-4">
-                    </div>
-                    <div class="uk-width-expand">
-                        <table class="uk-table">
-                            <tbody>
-                                <tr>
-                                    <td><p>Connection</p></td>
-                                    <td><span class="uk-text-danger">Offline</span></td>
-                                </tr>
-                                <tr>
-                                    <td><p>Power Consumption</p></td>
-                                    <td><p class="uk-text-secondary">24W</p></td>
-                                </tr>
-                                <tr>
-                                    <td><p>Voltage range</p></td>
-                                    <td><p class="uk-text-secondary">110-130V</p></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="uk-card-footer uk-disabled">
-                <div class="uk-grid uk-grid-small">
-                    <div class="uk-width-auto"><span>Intensity</span></div>
-                    <div class="uk-width-expand uk-text-right panel-icons">
-                        <span class="uk-text-bolder" id="dimVal_4">100</span><span class="uk-text-bolder">%</span>
-                    </div>
-                </div>
-                <input id="4" type="range" class="sd-slider" value="100" min="10" max="100" oninput="UpdateDim(this)">
-            </div>
-        </div>
-    </div>
-    <!-- /price -->
-    <!-- price -->
-    <div>
-        <div class="uk-card uk-card-default uk-card-hover uk-card-small" data-uk-scrollspy-class="uk-animation-slide-right-small">
-            <div class="uk-card-header">
-                <div class="uk-grid uk-grid-small">
-                    <div class="uk-width-auto"><h4>Pool</h4></div>
-                    <div class="uk-width-expand uk-text-right panel-icons">
-                        <a id="js-modal-confirm" href="#" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
-                        <a href="#" class="uk-icon-link" title="Configuration" data-uk-tooltip data-uk-icon="icon: cog; ratio: 1.2"></a>
-                        <input type="checkbox" class="sd-toogle" style="vertical-align: middle;" data-uk-toggle="target: .toogle-state-5; animation: uk-animation-fade">
-                    </div>
-                </div>
-            </div>
-            <div class="uk-card-body">
-                <div class="uk-grid uk-grid-small">
-                    <div class="uk-width-1-5" style="margin-top: 10px;">
-                        <img src="~/Content/img/dashboard/light-off.svg" class="toogle-state-5">
-                        <img src="~/Content/img/dashboard/light-on.svg" hidden class="toogle-state-5">
-                    </div>
-                    <div class="uk-width-expand">
-                        <table class="uk-table">
-                            <tbody>
-                                <tr>
-                                    <td><p>Connection</p></td>
-                                    <td><span class="uk-text-success">Ok</span></td>
-                                </tr>
-                                <tr>
-                                    <td><p>Power Consumption</p></td>
-                                    <td><p class="uk-text-secondary">24W</p></td>
-                                </tr>
-                                <tr>
-                                    <td><p>Voltage range</p></td>
-                                    <td><p class="uk-text-secondary">110-130V</p></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="uk-card-footer">
-                <div class="uk-grid uk-grid-small">
-                    <div class="uk-width-auto"><span>Intensity</span></div>
-                    <div class="uk-width-expand uk-text-right panel-icons">
-                        <span class="uk-text-bolder" id="dimVal_5">100</span><span class="uk-text-bolder">%</span>
-                    </div>
-                </div>
-                <input id="5" type="range" class="sd-slider" value="100" min="10" max="100" oninput="UpdateDim(this)">
-            </div>
-        </div>
-    </div>
-    <!-- /price -->
+    <!-- /led -->
+    }
 </div>
 
 <div class="md-fab-wrapper">
@@ -332,7 +150,6 @@
     UIkit.modal.confirm('Are you sure?').then(function () { OnConfirmDelete(url)}, function () { });
 
     function OnConfirmDelete(ulr) {
-
         $.ajax({
             url: url,
             type: 'DELETE',
@@ -346,6 +163,10 @@
         });
         };
     });
+
+    function OnInputChange(form_id) {
+        $(form_id).submit();
+    };
 
 </script>
 }

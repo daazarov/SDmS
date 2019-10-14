@@ -19,7 +19,7 @@ namespace SDmS.DeviceEnactor.Host.Mqtt.Handlers
 
         public Task HandleConnectedAsync(MqttClientConnectedEventArgs eventArgs)
         {
-            _logger.LogInformation($"Authenticate result: {eventArgs.AuthenticateResult.ReasonString}");
+            _logger.LogInformation($"Authenticate result: {eventArgs.AuthenticateResult.ResultCode.ToString()}");
             return Task.CompletedTask;
         }
     }

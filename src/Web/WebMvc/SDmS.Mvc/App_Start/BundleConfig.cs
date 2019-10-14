@@ -23,7 +23,7 @@ namespace SDmS.Mvc
                       "~/Content/js/jquery-ui-slider-pips.js"));
 
             bundles.Add(new ScriptBundle("~/Content/uikit/js").Include(
-                      "~/Content/js/uikit/uikit.min.js",
+                      "~/Content/js/uikit/uikit.js",
                       "~/Content/js/uikit/uikit-icons.js"));
 
             bundles.Add(new StyleBundle("~/Content/dashboard/css").Include(

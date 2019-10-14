@@ -5,8 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Events\" />
     <Folder Include="Commands\" />
+    <Folder Include="Events\Led\" />
+    <Folder Include="Events\Temperature\" />
   </ItemGroup>
 
   <ItemGroup>

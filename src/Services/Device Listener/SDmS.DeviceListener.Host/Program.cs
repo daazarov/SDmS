@@ -18,36 +18,36 @@ namespace SDmS.DeviceListener.Host
             Console.Title = "DeviceListener.Host";
 
             var host = new HostBuilder()
-                .ConfigureHostConfiguration(configHost =>
-                {
-                    configHost.SetBasePath(Directory.GetCurrentDirectory());
-                    configHost.AddCommandLine(args);
-                })
-                .ConfigureAppConfiguration((hostContext, configApp) =>
-                {
-                    configApp.AddJsonFile("appsettings.json", optional: true);
-                    configApp.AddCommandLine(args);
-                })
-                .ConfigureServices((hostContext, services) =>
-                {
-                    ReadSettings(hostContext.Configuration, services);
+            .ConfigureHostConfiguration(configHost =>
+            {
+                configHost.SetBasePath(Directory.GetCurrentDirectory());
+                configHost.AddCommandLine(args);
+            })
+            .ConfigureAppConfiguration((hostContext, configApp) =>
+            {
+                configApp.AddJsonFile("appsettings.json", optional: true);
+                configApp.AddCommandLine(args);
+            })
+            .ConfigureServices((hostContext, services) =>
+            {
+                ReadSettings(hostContext.Configuration, services);
 
-                    services.AddHostedService<LifetimeEventsHostedService>();
+                services.AddHostedService<LifetimeEventsHostedService>();
 
-                    services.RegisterModule<InfrastructureModule>();
-                    services.RegisterModule<CoreModule>();
+                services.RegisterModule<InfrastructureModule>();
+                services.RegisterModule<CoreModule>();
 
-                    services.AddNServiceBus(hostContext.Configuration);
+                services.AddNServiceBus(hostContext.Configuration);
 
-                })
-                .ConfigureLogging((hostContext, configLogging) =>
-                {
-                    configLogging.AddConsole();
-                })
-                .UseConsoleLifetime()
-                .Build();
+            })
+               .ConfigureLogging((hostContext, configLogging) =>
+            {
+                configLogging.AddConsole();
+            })
+            .UseConsoleLifetime()
+            .Build();
 
-            host.Services.GetRequiredService<Infrastructure.Interfaces.Data.IDeviceListenerContext>();
+            //host.Services.GetRequiredService<Infrastructure.Interfaces.Data.IDeviceListenerContext>();
             await host.RunAsync();
         }
 

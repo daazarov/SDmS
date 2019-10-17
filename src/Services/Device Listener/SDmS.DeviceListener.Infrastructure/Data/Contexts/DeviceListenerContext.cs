@@ -13,9 +13,9 @@ namespace SDmS.DeviceListener.Infrastructure.Data.Contexts
     public class DeviceListenerContext : IDeviceListenerContext
     {
         private readonly ILogger _logger;
-		private readonly MongoSettingsModel _settings;
-		
-		private readonly IMongoDatabase _database;
+        private readonly MongoSettingsModel _settings;
+
+        private readonly IMongoDatabase _database;
 
         private bool _isConnected;
 
@@ -23,14 +23,14 @@ namespace SDmS.DeviceListener.Infrastructure.Data.Contexts
         public IMongoCollection<TempSensor> TempSensors => _database.GetCollection<TempSensor>(nameof(TempSensor));
         public IMongoCollection<Climate> ClimateDevices => _database.GetCollection<Climate>(nameof(Climate));
         public IMongoCollection<BsonDocument> NewDevices => _database.GetCollection<BsonDocument>("new");
-		
-		public IMongoDatabase Database => _database;
+
+        public IMongoDatabase Database => _database;
         public bool IsConnected => _isConnected;
 
         public DeviceListenerContext(MongoSettingsModel settings, ILogger<DeviceListenerContext> logger)
         {
             this._settings = settings ?? throw new ArgumentNullException(nameof(settings));
-			this._logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this._logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
             try
             {
@@ -66,14 +66,14 @@ namespace SDmS.DeviceListener.Infrastructure.Data.Contexts
                 _logger.LogError(e, e.Message);
             }
         }
-		
-		private MongoClientSettings ConfigureClient()
-		{
-			var mongoConnectionUrl = new MongoUrl(_settings.ConnectionString);
-			var mongoClientSettings = MongoClientSettings.FromUrl(mongoConnectionUrl);
-			
-			if(_settings.EnableCommandLogging)
-			{
+
+        private MongoClientSettings ConfigureClient()
+        {
+            var mongoConnectionUrl = new MongoUrl(_settings.ConnectionString);
+            var mongoClientSettings = MongoClientSettings.FromUrl(mongoConnectionUrl);
+
+            if (_settings.EnableCommandLogging)
+            {
                 mongoClientSettings.ClusterConfigurator = cb =>
                 {
                     cb.Subscribe<CommandStartedEvent>(e =>
@@ -81,12 +81,12 @@ namespace SDmS.DeviceListener.Infrastructure.Data.Contexts
                         _logger.LogInformation($"{e.CommandName} - {e.Command.ToJson()}");
                     });
                 };
-				
-				_logger.LogWarning("Commands logging is enabled. Performance of Mongo DB is decreased!");
-			}
-			
-			return mongoClientSettings;
-		}
+
+                _logger.LogWarning("Commands logging is enabled. Performance of Mongo DB is decreased!");
+            }
+
+            return mongoClientSettings;
+        }
 
         private async Task CheckConnection()
         {

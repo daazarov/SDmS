@@ -261,7 +261,6 @@
     <Content Include="Content\img\logo.svg" />
     <Content Include="Content\img\ui-icons\ui-bg_highlight-soft_100_f6f6f6_1x100.png" />
     <Content Include="Content\img\ui-icons\ui-bg_highlight-soft_25_0073ea_1x100.png" />
-    <Content Include="Content\js\chartScripts.js" />
     <Content Include="Content\js\jquery-ui-slider-pips.js" />
     <Content Include="Content\js\jquery\jquery-ui.js" />
     <Content Include="Content\js\uikit\uikit-icons.js" />
@@ -295,8 +294,6 @@
     <Content Include="Content\js\jquery\jquery.validate.js" />
     <Content Include="Content\js\jquery\jquery.validate.unobtrusive.js" />
     <Content Include="Content\js\_references.js" />
-    <Content Include="Content\js\chart\Chart.js" />
-    <Content Include="Content\js\chart\Chart.min.js" />
     <None Include="Content\js\jquery\jquery-2.1.1.intellisense.js" />
     <Content Include="Content\js\jquery\jquery-2.1.1.js" />
     <Content Include="Web.config" />

@@ -16,7 +16,6 @@ namespace SDmS.DeviceEnactor.Host.Services
         private readonly SessionAndConfigurationHolder holder;
 
         private IEndpointInstance _instance;
-        private EndpointConfiguration _endpointConfiguration;
 
         public NServiceBusService(SessionAndConfigurationHolder holder)
         {

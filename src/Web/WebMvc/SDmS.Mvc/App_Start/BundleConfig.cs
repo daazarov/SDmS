@@ -18,8 +18,6 @@ namespace SDmS.Mvc
 
 
             bundles.Add(new ScriptBundle("~/Content/dashboard/js").Include(
-                      "~/Content/js/chartScripts.js",
-                      "~/Content/js/chart/Chart.min.js",
                       "~/Content/js/jquery-ui-slider-pips.js"));
 
             bundles.Add(new ScriptBundle("~/Content/uikit/js").Include(

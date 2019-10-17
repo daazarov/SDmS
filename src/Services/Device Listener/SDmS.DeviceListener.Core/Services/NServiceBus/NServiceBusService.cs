@@ -6,9 +6,8 @@ using NServiceBus.Logging;
 using NServiceBus;
 using System.Text;
 using System.Runtime.ExceptionServices;
-using SDmS.DeviceListener.Host.NServiceBus;
 
-namespace SDmS.DeviceListener.Host.Services
+namespace SDmS.DeviceListener.Core.Services
 {
     public class NServiceBusService : IHostedService
     {

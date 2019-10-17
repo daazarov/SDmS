@@ -22,6 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SDmS.DeviceListener.Core\SDmS.DeviceListener.Core.csproj" />
+    <ProjectReference Include="..\SDmS.DeviceListener.Infrastructure\SDmS.DeviceListener.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

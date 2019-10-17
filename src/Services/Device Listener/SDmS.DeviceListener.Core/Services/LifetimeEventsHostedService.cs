@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace SDmS.DeviceListener.Host.Services
+namespace SDmS.DeviceListener.Core.Services
 {
     #region snippet1
-    internal class LifetimeEventsHostedService : IHostedService
+    public class LifetimeEventsHostedService : IHostedService
     {
         private readonly ILogger _logger;
         private readonly IApplicationLifetime _appLifetime;

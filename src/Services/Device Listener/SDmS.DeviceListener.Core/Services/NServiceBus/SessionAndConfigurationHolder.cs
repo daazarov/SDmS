@@ -1,7 +1,7 @@
 ﻿using NServiceBus;
 using System.Runtime.ExceptionServices;
 
-namespace SDmS.DeviceListener.Host.NServiceBus
+namespace SDmS.DeviceListener.Core.Services
 {
     public class SessionAndConfigurationHolder
     {

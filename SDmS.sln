@@ -41,11 +41,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDmS.MqttBroker.Host", "src
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Device Enactor", "Device Enactor", "{14A00796-9A1F-4CE4-B297-DCAD95F10EA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDmS.DeviceEnactor.Host", "src\Services\Device Enactor\SDmS.DeviceEnactor.Host\SDmS.DeviceEnactor.Host.csproj", "{F23D9E2F-E460-4BAB-9FD1-825CB91A7848}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDmS.DeviceEnactor.Host", "src\Services\Device Enactor\SDmS.DeviceEnactor.Host\SDmS.DeviceEnactor.Host.csproj", "{F23D9E2F-E460-4BAB-9FD1-825CB91A7848}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Device Listener", "Device Listener", "{5A98E3AE-E5AE-4944-B4F3-F5BF4AA3787D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDmS.DeviceListener.Host", "src\Services\Device Listener\SDmS.DeviceListener.Host\SDmS.DeviceListener.Host.csproj", "{3F04F000-FC0B-4A3D-A98A-6122713BF445}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDmS.DeviceListener.Host", "src\Services\Device Listener\SDmS.DeviceListener.Host\SDmS.DeviceListener.Host.csproj", "{3F04F000-FC0B-4A3D-A98A-6122713BF445}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDmS.DeviceListener.Core", "src\Services\Device Listener\SDmS.DeviceListener.Core\SDmS.DeviceListener.Core.csproj", "{7B15D3C9-0F7E-4B32-88FE-D3653B622104}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDmS.DeviceListener.Infrastructure", "src\Services\Device Listener\SDmS.DeviceListener.Infrastructure\SDmS.DeviceListener.Infrastructure.csproj", "{1A93416A-A071-4493-B7F6-B8C84C3058E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +97,14 @@ Global
 		{3F04F000-FC0B-4A3D-A98A-6122713BF445}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F04F000-FC0B-4A3D-A98A-6122713BF445}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F04F000-FC0B-4A3D-A98A-6122713BF445}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B15D3C9-0F7E-4B32-88FE-D3653B622104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B15D3C9-0F7E-4B32-88FE-D3653B622104}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B15D3C9-0F7E-4B32-88FE-D3653B622104}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B15D3C9-0F7E-4B32-88FE-D3653B622104}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A93416A-A071-4493-B7F6-B8C84C3058E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A93416A-A071-4493-B7F6-B8C84C3058E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A93416A-A071-4493-B7F6-B8C84C3058E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A93416A-A071-4493-B7F6-B8C84C3058E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,6 +131,8 @@ Global
 		{F23D9E2F-E460-4BAB-9FD1-825CB91A7848} = {14A00796-9A1F-4CE4-B297-DCAD95F10EA2}
 		{5A98E3AE-E5AE-4944-B4F3-F5BF4AA3787D} = {A8726185-F677-4A44-A8D1-331C659AE624}
 		{3F04F000-FC0B-4A3D-A98A-6122713BF445} = {5A98E3AE-E5AE-4944-B4F3-F5BF4AA3787D}
+		{7B15D3C9-0F7E-4B32-88FE-D3653B622104} = {5A98E3AE-E5AE-4944-B4F3-F5BF4AA3787D}
+		{1A93416A-A071-4493-B7F6-B8C84C3058E7} = {5A98E3AE-E5AE-4944-B4F3-F5BF4AA3787D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0711B079-E477-4176-9FEF-FAFFB0FE0B13}

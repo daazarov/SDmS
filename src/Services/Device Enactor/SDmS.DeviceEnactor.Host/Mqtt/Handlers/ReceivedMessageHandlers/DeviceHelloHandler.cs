@@ -12,7 +12,7 @@ namespace SDmS.DeviceEnactor.Host.Mqtt.ReceivedMessageHandlers
     public class DeviceHelloHandler : MqttMessageHandler
     {
         public override string HandlerName => "BaseDeviceInitialiser";
-        public override string TopicPattern => "device/[0-9a-zA-Z]+/hello";
+        public override string TopicPattern => "devices/[0-9a-zA-Z]+/hello";
         public override MessageType Type => MessageType.Event;
 
         public override DeviceEvent ParseEvent(MqttApplicationMessageReceivedEventArgs eventArgs)

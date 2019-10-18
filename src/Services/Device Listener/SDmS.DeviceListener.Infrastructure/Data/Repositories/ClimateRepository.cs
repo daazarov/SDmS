@@ -6,6 +6,7 @@ using SDmS.DeviceListener.Infrastructure.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using SDmS.DeviceListener.Infrastructure.Extensions;
 
 namespace SDmS.DeviceListener.Infrastructure.Data.Repositories
 {
@@ -22,12 +23,16 @@ namespace SDmS.DeviceListener.Infrastructure.Data.Repositories
 
         public async Task CreateAsync(Climate device)
         {
+            if (!await _context.Database.CanConnectAsync()) throw new InvalidOperationException("Сonnection with MongoDB not established");
+
             await _context.ClimateDevices.InsertOneAsync(device);
             _logger.LogInformation($"Created device document: s/n {device.serial_number}");
         }
 
         public async Task<DeleteResult> DeleteAsync(string id)
         {
+            if (!await _context.Database.CanConnectAsync()) throw new InvalidOperationException("Сonnection with MongoDB not established");
+
             var result = await _context.ClimateDevices.DeleteOneAsync(x => x.id == id);
 
             if (result.IsAcknowledged) _logger.LogInformation($"Removed device document: _id {id}");
@@ -43,16 +48,22 @@ namespace SDmS.DeviceListener.Infrastructure.Data.Repositories
 
         public async Task<Climate> GetAsync(string Id)
         {
+            if (!await _context.Database.CanConnectAsync()) throw new InvalidOperationException("Сonnection with MongoDB not established");
+
             return await _context.ClimateDevices.FindAsync(x => x.id == Id).Result.FirstOrDefaultAsync();
         }
 
         public async Task<Climate> GetBySerialNumberAsync(string serial_number)
         {
+            if (!await _context.Database.CanConnectAsync()) throw new InvalidOperationException("Сonnection with MongoDB not established");
+
             return await _context.ClimateDevices.FindAsync(x => x.serial_number == serial_number).Result.FirstOrDefaultAsync();
         }
 
         public async Task<ReplaceOneResult> ReplaceAsync(Climate device)
         {
+            if (!await _context.Database.CanConnectAsync()) throw new InvalidOperationException("Сonnection with MongoDB not established");
+
             var result = await _context.ClimateDevices.ReplaceOneAsync(x => x.id == device.id, device);
 
             if (result.IsAcknowledged) _logger.LogInformation($"Replaced device document: _id {device.id}");
@@ -63,6 +74,8 @@ namespace SDmS.DeviceListener.Infrastructure.Data.Repositories
 
         public async Task<UpdateResult> UpdateAsync(Climate device, UpdateDefinition<Climate> update)
         {
+            if (!await _context.Database.CanConnectAsync()) throw new InvalidOperationException("Сonnection with MongoDB not established");
+
             var result = await _context.ClimateDevices.UpdateOneAsync(x => x.id == device.id, update);
 
             if (result.IsAcknowledged) _logger.LogInformation($"Updated device document: _id {device.id}");

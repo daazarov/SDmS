@@ -47,5 +47,10 @@
         /// Enables or disables the MQTTnet internal logging.
         /// </summary>
         public bool EnableDebugLogging { get; set; } = false;
+
+        /// <summary>
+        /// Adds sender client id to the payload
+        /// </summary>
+        public bool UseOriginalReseiverClientId { get; set; } = true;
     }
 }

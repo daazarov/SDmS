@@ -45,6 +45,7 @@ namespace SDmS.MqttBroker.Host
                     services.AddSingleton<MqttClientUnsubscribedTopicHandler>();
                     services.AddSingleton<MqttServerConnectionValidator>();
                     services.AddSingleton<MqttApplicationMessageReceivedHandler>();
+                    services.AddSingleton<MqttApplicationMessageInterceptor>();
 
                     services.AddHostedService<LifetimeEventsHostedService>();
                 })

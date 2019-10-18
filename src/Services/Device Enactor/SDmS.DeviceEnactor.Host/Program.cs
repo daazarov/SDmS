@@ -52,7 +52,7 @@ namespace SDmS.DeviceEnactor.Host
                     services.AddSingleton<MqttApplicationMessageReceivedHandler>();
                     services.AddSingleton<MqttClientConnectedHandler>();
 
-                    services.AddSingleton<Dictionary<string, IMqttMessageHandler>>(new Dictionary<string, IMqttMessageHandler>());
+                    services.AddSingleton<Dictionary<string, IMqttMessageHandler>>();
                     services.AddSingleton<MqttReceiverMessageFactory>();
                 })
                 .ConfigureLogging((hostContext, configLogging) =>

@@ -24,6 +24,8 @@ namespace SDmS.DeviceEnactor.Host.Mqtt.Handlers
 
         public async Task HandleApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs eventArgs)
         {
+            var session = _eventBusSession.Value;
+
             if (!_eventBusSession.IsValueCreated)
             {
                 _logger.LogError($"ClientId: {eventArgs.ClientId}. Message in topic: {eventArgs.ApplicationMessage.Topic}. ERROR: NServiceBus session is not initialized.");
@@ -42,11 +44,11 @@ namespace SDmS.DeviceEnactor.Host.Mqtt.Handlers
             {
                 case MessageType.Command:
                     var command = handler.ParseCommand(eventArgs);
-                    await _eventBusSession.Value.Send(command);
+                    await session.Send(command);
                     break;
                 case MessageType.Event:
                     var @event = handler.ParseEvent(eventArgs);
-                    await _eventBusSession.Value.Publish(@event);
+                    await session.Publish(@event);
                     break;
             }
         }

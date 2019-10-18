@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using SDmS.DeviceListener.Infrastructure.Data.Entities;
+using SDmS.DeviceListener.Infrastructure.Extensions;
 using SDmS.DeviceListener.Infrastructure.Interfaces.Data;
 using SDmS.DeviceListener.Infrastructure.Interfaces.Repositories;
 using System;
@@ -22,12 +23,16 @@ namespace SDmS.DeviceListener.Infrastructure.Data.Repositories
 
         public async Task CreateAsync(TempSensor device)
         {
+            if (!await _context.Database.CanConnectAsync()) throw new InvalidOperationException("Сonnection with MongoDB not established");
+
             await _context.TempSensors.InsertOneAsync(device);
             _logger.LogInformation($"Created device document: s/n {device.serial_number}");
         }
 
         public async Task<DeleteResult> DeleteAsync(string id)
         {
+            if (!await _context.Database.CanConnectAsync()) throw new InvalidOperationException("Сonnection with MongoDB not established");
+
             var result = await _context.TempSensors.DeleteOneAsync(x => x.id == id);
 
             if (result.IsAcknowledged) _logger.LogInformation($"Removed device document: _id {id}");
@@ -38,6 +43,8 @@ namespace SDmS.DeviceListener.Infrastructure.Data.Repositories
 
         public async Task<IEnumerable<TempSensor>> FindAsync(System.Linq.Expressions.Expression<Func<TempSensor, bool>> filter)
         {
+            if (!await _context.Database.CanConnectAsync()) throw new InvalidOperationException("Сonnection with MongoDB not established");
+
             return await _context.TempSensors.Find(filter).ToListAsync();
         }
 
@@ -48,11 +55,15 @@ namespace SDmS.DeviceListener.Infrastructure.Data.Repositories
 
         public async Task<TempSensor> GetBySerialNumberAsync(string serial_number)
         {
+            if (!await _context.Database.CanConnectAsync()) throw new InvalidOperationException("Сonnection with MongoDB not established");
+
             return await _context.TempSensors.FindAsync(x => x.serial_number == serial_number).Result.FirstOrDefaultAsync();
         }
 
         public async Task<ReplaceOneResult> ReplaceAsync(TempSensor device)
         {
+            if (!await _context.Database.CanConnectAsync()) throw new InvalidOperationException("Сonnection with MongoDB not established");
+
             var result = await _context.TempSensors.ReplaceOneAsync(x => x.id == device.id, device);
 
             if (result.IsAcknowledged) _logger.LogInformation($"Replaced device document: _id {device.id}");
@@ -63,6 +74,8 @@ namespace SDmS.DeviceListener.Infrastructure.Data.Repositories
 
         public async Task<UpdateResult> UpdateAsync(TempSensor device, UpdateDefinition<TempSensor> update)
         {
+            if (!await _context.Database.CanConnectAsync()) throw new InvalidOperationException("Сonnection with MongoDB not established");
+
             var result = await _context.TempSensors.UpdateOneAsync(x => x.id == device.id, update);
 
             if (result.IsAcknowledged) _logger.LogInformation($"Updated device document: _id {device.id}");

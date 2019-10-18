@@ -27,6 +27,7 @@ namespace SDmS.MqttBroker.Host.Services
         private readonly MqttClientUnsubscribedTopicHandler _mqttClientUnsubscribedTopicHandler;
         private readonly MqttServerConnectionValidator _mqttConnectionValidator;
         private readonly MqttApplicationMessageReceivedHandler _messageHandler;
+        private readonly MqttApplicationMessageInterceptor _messageInterceptor;
         private readonly IMqttServer _mqttServer;
 
         public MqttServerService(
@@ -38,6 +39,7 @@ namespace SDmS.MqttBroker.Host.Services
             MqttClientUnsubscribedTopicHandler mqttClientUnsubscribedTopicHandler,
             MqttServerConnectionValidator mqttConnectionValidator,
             MqttApplicationMessageReceivedHandler messageHandler,
+            MqttApplicationMessageInterceptor messageInterceptor,
             MqttServerStorage mqttServerStorage,
             ILogger<MqttServerService> logger
             )
@@ -49,6 +51,7 @@ namespace SDmS.MqttBroker.Host.Services
             this._mqttClientUnsubscribedTopicHandler = mqttClientUnsubscribedTopicHandler ?? throw new ArgumentNullException(nameof(mqttClientUnsubscribedTopicHandler));
             this._messageHandler = messageHandler ?? throw new ArgumentNullException(nameof(messageHandler));
             this._mqttConnectionValidator = mqttConnectionValidator ?? throw new ArgumentNullException(nameof(mqttConnectionValidator));
+            this._messageInterceptor = messageInterceptor ?? throw new ArgumentNullException(nameof(messageInterceptor));
             this._mqttServerStorage = mqttServerStorage ?? throw new ArgumentNullException(nameof(mqttServerStorage));
             this._logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
@@ -154,6 +157,11 @@ namespace SDmS.MqttBroker.Host.Services
             if (_settings.EnablePersistentSessions)
             {
                 options.WithPersistentSessions();
+            }
+
+            if (_settings.UseOriginalReseiverClientId)
+            {
+                options.WithApplicationMessageInterceptor(_messageInterceptor);
             }
 
             return options.Build();

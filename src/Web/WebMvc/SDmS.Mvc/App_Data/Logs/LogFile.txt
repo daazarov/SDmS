@@ -1,0 +1,1 @@
+24.10.2019 09:04:25 | SDmS.Mvc.dll | OnException | SDmS.Mvc.Areas.Dashboard.Controllers.LightsController | 101 | An error occurred while sending the request. INNER EXCEPTION: Unable to connect to the remote server INNER EXCEPTION: No connection could be made because the target machine actively refused it 127.0.0.1:25975

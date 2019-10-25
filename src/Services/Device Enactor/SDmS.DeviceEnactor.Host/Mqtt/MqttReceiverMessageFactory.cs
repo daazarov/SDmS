@@ -12,9 +12,9 @@ namespace SDmS.DeviceEnactor.Host.Mqtt
     public class MqttReceiverMessageFactory
     {
         private readonly ILogger _logger;
-        private readonly Dictionary<string, IMqttMessageHandler> _handlers;
+        private readonly Dictionary<string, IMqttMessageProcessor> _handlers;
 
-        public MqttReceiverMessageFactory(ILogger<MqttReceiverMessageFactory> logger, Dictionary<string, IMqttMessageHandler> handlers)
+        public MqttReceiverMessageFactory(ILogger<MqttReceiverMessageFactory> logger, Dictionary<string, IMqttMessageProcessor> handlers)
         {
             this._logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this._handlers = handlers ?? throw new ArgumentNullException(nameof(handlers));
@@ -33,16 +33,16 @@ namespace SDmS.DeviceEnactor.Host.Mqtt
                 // we want the non-abstract implementations of ICommand
                 if (type.IsClass && !type.IsAbstract)
                 {
-                    Type iHandler = type.GetInterface("SDmS.DeviceEnactor.Host.Interfaces.IMqttMessageHandler");
+                    Type iHandler = type.GetInterface("SDmS.DeviceEnactor.Host.Interfaces.IMqttMessageProcessor");
                     if (iHandler != null)
                     {
                         // create an instance
                         object inst = asm.CreateInstance(type.FullName, true, BindingFlags.CreateInstance, null, null, null, null);
                         if (inst != null)
                         {
-                            IMqttMessageHandler handler = (IMqttMessageHandler)inst;
+                            IMqttMessageProcessor handler = (IMqttMessageProcessor)inst;
                             // make it case insensitive
-                            IMqttMessageHandler tmp;
+                            IMqttMessageProcessor tmp;
                             string key = handler.HandlerName;
                             if (_handlers.TryGetValue(key, out tmp))
                             {
@@ -61,7 +61,7 @@ namespace SDmS.DeviceEnactor.Host.Mqtt
             }
         }
 
-        public IMqttMessageHandler GetHandler(string topic)
+        public IMqttMessageProcessor GetHandler(string topic)
         {
             foreach (var handler in _handlers)
             {
@@ -72,7 +72,7 @@ namespace SDmS.DeviceEnactor.Host.Mqtt
                 return handler.Value;
             }
 
-            _logger.LogError($"No handler found for this topic: {topic}");
+            _logger.LogError($"No message processor found for this topic: {topic}");
 
             return null;
         }

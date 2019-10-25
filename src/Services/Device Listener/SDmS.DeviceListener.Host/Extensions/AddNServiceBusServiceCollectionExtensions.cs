@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
+using NServiceBus.ObjectBuilder.MSDependencyInjection;
 using SDmS.DeviceListener.Core.Services;
 using SDmS.DeviceListener.Host.Configuration;
 using System;
@@ -63,8 +64,11 @@ namespace SDmS.DeviceListener.Host.Extensions
             });
             services.AddSingleton(provider => new Lazy<IMessageSession>(provider.GetService<IMessageSession>));
 			
-			configuration.UseContainer<ServicesBuilder>(c => c.ExistingServices(services));
-			
+			configuration.UseContainer<ServicesBuilder>(c => 
+            {
+                c.ExistingServices(services);
+            });
+
             return services;
         }
     }

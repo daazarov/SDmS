@@ -4,7 +4,7 @@ using SDmS.Messages.Common.Models.Enums;
 
 namespace SDmS.DeviceEnactor.Host.Interfaces
 {
-    public interface IMqttMessageHandler
+    public interface IMqttMessageProcessor
     {
         string HandlerName { get; }
         string TopicPattern { get; }

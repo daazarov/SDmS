@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
+using SDmS.Resource.Api.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,13 +24,16 @@ namespace SDmS.Resource.Api.Extensions
     {
         public static EndpointConfiguration AddNServiceBus(this IServiceCollection services, IConfiguration Configuration)
         {
+            var settings = new BusSettingsModel();
+            Configuration.Bind("NServiceBus", settings);
+
             IEndpointInstance endpointInstance = null;
             services.AddSingleton<IMessageSession>(_ => endpointInstance);
 
-            var endpointConfiguration = new EndpointConfiguration(Configuration["NServiceBus:EndPoint:Name"]);
+            var endpointConfiguration = new EndpointConfiguration(settings.RabbitEndPoint.Name);
             var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
 
-            transport.ConnectionString(Configuration["NServiceBus:ConnectionString"]);
+            transport.ConnectionString(Configuration[settings.ConnectionString]);
             transport.UsePublisherConfirms(true);
             transport.UseDirectRoutingTopology();
 
@@ -41,7 +45,7 @@ namespace SDmS.Resource.Api.Extensions
 
             endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
             endpointConfiguration.UsePersistence<InMemoryPersistence>();
-            endpointConfiguration.SendFailedMessagesTo(Configuration["NServiceBus:EndPoint:ErrorQueue"]);
+            endpointConfiguration.SendFailedMessagesTo(Configuration[settings.RabbitEndPoint.ErrorQueue]);
 
             return endpointConfiguration;
         }

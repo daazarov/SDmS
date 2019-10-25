@@ -47,7 +47,7 @@ namespace SDmS.DeviceListener.Host
             .UseConsoleLifetime()
             .Build();
 
-            //host.Services.GetRequiredService<Infrastructure.Interfaces.Data.IDeviceListenerContext>();
+            host.Services.GetRequiredService<Infrastructure.Interfaces.Data.IDeviceListenerContext>();
             await host.RunAsync();
         }
 

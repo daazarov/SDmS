@@ -68,6 +68,12 @@
     <Compile Include="Models\Account\ForgotPasswordModel.cs" />
     <Compile Include="Models\Account\TokenModel.cs" />
     <Compile Include="Models\CommandResults\BaseCommandResult.cs" />
+    <Compile Include="Models\Devices\Led\LedInfrastructureAddModel.cs" />
+    <Compile Include="Models\Devices\Led\LedInfrastructureChangeStateModel.cs" />
+    <Compile Include="Models\Devices\Led\LedInfrastructureModel.cs" />
+    <Compile Include="Models\Enums\ApiVersion.cs" />
+    <Compile Include="Models\ResponseInfrastructureModel.cs" />
+    <Compile Include="Models\ResponseInfrastructureCollectionModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CommandFactory.cs" />
   </ItemGroup>

@@ -13,6 +13,8 @@
     <link rel="icon" href="~/Content/img/favicon.svg">
     <!-- CSS FILES -->
     @Html.Partial("_DashboardStyle")
+    <!-- JS LIBRARIES FILES -->
+    @Html.Partial("_DashboardScripts")
 </head>
 <body>
     @Html.Partial("_GenericMessage")
@@ -36,7 +38,6 @@
     <!-- OFFCANVAS -->
     @Html.Partial("_OffCanvas")
     <!-- /OFFCANVAS -->
-    @Html.Partial("_DashboardScripts")
     @RenderSection("scripts", required: false)
 </body>
 </html>

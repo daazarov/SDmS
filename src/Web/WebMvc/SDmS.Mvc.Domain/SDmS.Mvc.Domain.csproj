@@ -43,8 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mappers\Account\AccountMappers.cs" />
+    <Compile Include="Mappers\Led\LedMappers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IdentityParser.cs" />
+    <Compile Include="Services\LedDeviceService.cs" />
     <Compile Include="Services\LoggingService.cs" />
     <Compile Include="Services\MembershipService.cs" />
   </ItemGroup>

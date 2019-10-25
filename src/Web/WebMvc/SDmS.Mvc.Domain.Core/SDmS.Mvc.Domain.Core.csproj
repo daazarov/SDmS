@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\AppConstants.cs" />
+    <Compile Include="Interfases\Services\ILedDeviceService.cs" />
     <Compile Include="Interfases\Services\IIdentityParser.cs" />
     <Compile Include="Interfases\Services\ILoggingService.cs" />
     <Compile Include="Interfases\Services\IMembershipService.cs" />
@@ -50,7 +51,13 @@
     <Compile Include="Models\Account\AccountResetPasswordModel.cs" />
     <Compile Include="Models\Account\JwtTokenModel.cs" />
     <Compile Include="Models\CommandResult.cs" />
+    <Compile Include="Models\Enums\LedState.cs" />
+    <Compile Include="Models\Led\LedAddToUserDomainModel.cs" />
+    <Compile Include="Models\Led\LedDomainModel.cs" />
+    <Compile Include="Models\Led\LedRequestDomainModel.cs" />
     <Compile Include="Models\LogEntry.cs" />
+    <Compile Include="Models\Response.cs" />
+    <Compile Include="Models\ResponseCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

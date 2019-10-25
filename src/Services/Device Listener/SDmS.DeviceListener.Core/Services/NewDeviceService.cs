@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using NServiceBus;
 using SDmS.DeviceListener.Core.Interfaces.Services;
 using SDmS.DeviceListener.Infrastructure.Interfaces.Data;
 using SDmS.Messages.Common.Models;
@@ -34,7 +35,7 @@ namespace SDmS.DeviceListener.Core.Services
             if (!_context.IsConnected)
             {
                 _logger.LogError($"Serial number {device.serial_number} - registration device error, mongodb connection was NOT successful");
-                return;
+                throw new InvalidOperationException("Сonnection with MongoDB not established");
             }
 
             var dbCollections = await GetCollections();

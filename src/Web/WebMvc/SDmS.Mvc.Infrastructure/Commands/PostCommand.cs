@@ -177,7 +177,12 @@ namespace SDmS.Infrastructure.Commands
 
             if (response.IsSuccessStatusCode)
             {
-                entity = await response.Content.ReadAsAsync<T>();
+                try
+                {
+                    entity = await response.Content.ReadAsAsync<T>();
+                }
+                catch { }
+                
                 var result = new BaseCommandResult<T>(response, entity);
                 return result;
             }
@@ -185,7 +190,7 @@ namespace SDmS.Infrastructure.Commands
             {
                 string error = string.Empty;
 
-                using (var stream = new StreamReader(response.Content.ReadAsStreamAsync().Result))
+                using (var stream = new StreamReader(await response.Content.ReadAsStreamAsync()))
                 {
                     stream.BaseStream.Position = 0;
                     error = stream.ReadToEnd();

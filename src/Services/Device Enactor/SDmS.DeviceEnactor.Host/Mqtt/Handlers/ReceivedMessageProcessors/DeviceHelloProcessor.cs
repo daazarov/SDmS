@@ -7,9 +7,9 @@ using SDmS.Messages.Common.Models.Enums;
 using System;
 using System.Text;
 
-namespace SDmS.DeviceEnactor.Host.Mqtt.ReceivedMessageHandlers
+namespace SDmS.DeviceEnactor.Host.Mqtt.ReceivedMessageProcessors
 {
-    public class DeviceHelloHandler : MqttMessageHandler
+    public class DeviceHelloProcessor : MqttMessageProcessor
     {
         public override string HandlerName => "BaseDeviceInitialiser";
         public override string TopicPattern => "devices/[0-9a-zA-Z]+/hello";

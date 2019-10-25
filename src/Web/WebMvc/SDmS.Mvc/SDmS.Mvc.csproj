@@ -203,14 +203,16 @@
     <Compile Include="Areas\Dashboard\Controllers\ClimateController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\LightsController.cs" />
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
-    <Compile Include="Areas\Dashboard\Models\Climate\ClimateSensorCreateViewModel.cs" />
-    <Compile Include="Areas\Dashboard\Models\Climate\TemperatureClimateViewModel.cs" />
-    <Compile Include="Areas\Dashboard\Models\Climate\TemperatureViewModel.cs" />
+    <Compile Include="Areas\Dashboard\Mappers\Led\LedMappers.cs" />
+    <Compile Include="Areas\Dashboard\Models\Devices\Climate\TempControlSensorViewModel.cs" />
+    <Compile Include="Areas\Dashboard\Models\Devices\Climate\TempSensorViewModel.cs" />
     <Compile Include="Areas\Dashboard\Models\DeviceViewModel.cs" />
-    <Compile Include="Areas\Dashboard\Models\Led\LedChangeStateRequestModel.cs" />
-    <Compile Include="Areas\Dashboard\Models\Led\LedCreateViewModel.cs" />
-    <Compile Include="Areas\Dashboard\Models\Led\LedModifyViewModel.cs" />
-    <Compile Include="Areas\Dashboard\Models\Led\LedViewModel.cs" />
+    <Compile Include="Areas\Dashboard\Models\Devices\Led\LedChangeStateRequestModel.cs" />
+    <Compile Include="Areas\Dashboard\Models\Devices\AddDeviceViewModel.cs" />
+    <Compile Include="Areas\Dashboard\Models\Devices\Led\LedModifyViewModel.cs" />
+    <Compile Include="Areas\Dashboard\Models\Devices\Led\LedViewModel.cs" />
+    <Compile Include="Areas\Dashboard\Models\Pages\ClimatePageViewModel.cs" />
+    <Compile Include="Areas\Dashboard\Models\Pages\LightPageViewModel.cs" />
     <Compile Include="Attributes\Filters\DashboardAuthorizationAttribute.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Mappers\AccountMappers.cs" />
@@ -332,6 +334,10 @@
     <ProjectReference Include="..\SDmS.Mvc.DI\SDmS.Mvc.DI.csproj">
       <Project>{A9366A2F-459A-4A66-A62A-D5C105F538AF}</Project>
       <Name>SDmS.Mvc.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SDmS.Mvc.Domain.Common\SDmS.Mvc.Domain.Common.csproj">
+      <Project>{4FC5CC4E-8E2B-4847-93CE-A3B5BABB8EA6}</Project>
+      <Name>SDmS.Mvc.Domain.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\SDmS.Mvc.Domain.Core\SDmS.Mvc.Domain.Core.csproj">
       <Project>{1bcf3729-dadd-4cf7-b13c-0739233a90a7}</Project>

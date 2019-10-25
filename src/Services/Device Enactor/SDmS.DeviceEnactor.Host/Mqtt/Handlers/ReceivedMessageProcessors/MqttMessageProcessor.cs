@@ -10,7 +10,7 @@ using System.Text;
 
 namespace SDmS.DeviceEnactor.Host.Mqtt.Handlers
 {
-    public abstract class MqttMessageHandler : IMqttMessageHandler
+    public abstract class MqttMessageProcessor : IMqttMessageProcessor
     {
         public abstract string HandlerName { get; }
         public abstract string TopicPattern { get; }

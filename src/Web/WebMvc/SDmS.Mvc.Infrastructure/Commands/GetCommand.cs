@@ -196,7 +196,7 @@ namespace SDmS.Infrastructure.Commands
             {
                 string error = string.Empty;
 
-                using (var stream = new StreamReader(response.Content.ReadAsStreamAsync().Result))
+                using (var stream = new StreamReader(await response.Content.ReadAsStreamAsync()))
                 {
                     stream.BaseStream.Position = 0;
                     error = stream.ReadToEnd();

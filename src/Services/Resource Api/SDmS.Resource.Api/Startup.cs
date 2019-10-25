@@ -40,8 +40,6 @@ namespace SDmS.Resource.Api
 
             services.AddTransport();
 
-            services.AddDbContext
-
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                     {

@@ -61,9 +61,35 @@ namespace SDmS.DeviceListener.Core.Services
             _logger.LogInformation($"Device (serial number: {device.serial_number}) is successfully registered in the system");
         }
 
-        public Task AssignToUserAsync<T>(T device, string collectionName, string userId) where T : DeviceCommand
+        public async Task<bool> AssignToUserAsync<T>(T device, string collectionName) where T : DeviceCommand
         {
-            return Task.CompletedTask;
+            if (!_context.IsConnected)
+            {
+                _logger.LogError($"Serial number {device.serial_number} - device assignment error, mongodb connection was NOT successful");
+                throw new InvalidOperationException("Сonnection with MongoDB not established");
+            }
+
+            var filter = Builders<BsonDocument>.Filter.Eq("serial_number", device.serial_number);
+            var result = await _context.NewDevices.FindAsync(filter).Result.FirstOrDefaultAsync();
+
+            if (result == null)
+            {
+                _logger.LogError($"Serial number {device.serial_number} - device assignment error, device not found in MongoDb collection ({_context.NewDevices.CollectionNamespace})");
+                return false;
+            }
+
+            var deleteResult = await _context.NewDevices.DeleteOneAsync(filter);
+
+            if (deleteResult.IsAcknowledged)
+            {
+                var collection = _context.Database.GetCollection<T>(collectionName);
+                await collection.InsertOneAsync(device);
+
+                return true;
+            }
+
+            _logger.LogError($"Serial number {device.serial_number} - device assignment error, failed to remove device from collection ({_context.NewDevices.CollectionNamespace})");
+            return false;
         }
 
         private async Task<List<string>> GetCollections()

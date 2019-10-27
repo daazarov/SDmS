@@ -14,6 +14,9 @@ using NServiceBus;
 using NServiceBus.ObjectBuilder.MSDependencyInjection;
 using SDmS.Resource.Api.Extensions;
 using SDmS.Resource.Api.OAuth;
+using SDmS.Resource.Common;
+using SDmS.Resource.DI;
+using SDmS.Resource.DI.Modules;
 
 namespace SDmS.Resource.Api
 {
@@ -39,6 +42,8 @@ namespace SDmS.Resource.Api
             services.AddScoped<ReusedComponent>();
 
             services.AddTransport();
+
+            RegisterComponent<DataModule>(services, Configuration);
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
@@ -92,6 +97,11 @@ namespace SDmS.Resource.Api
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseMvc();
+        }
+
+        private void RegisterComponent<T>(IServiceCollection services, IConfiguration configuration) where T : IModule, new()
+        {
+            new T().Register(services, configuration);
         }
     }
 }

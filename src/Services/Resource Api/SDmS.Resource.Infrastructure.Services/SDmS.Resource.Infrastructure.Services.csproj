@@ -10,7 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\EntityMapping\" />
+    <ProjectReference Include="..\SDmS.Resource.Common\SDmS.Resource.Common.csproj" />
+    <ProjectReference Include="..\SDmS.Resource.Infrastructure\SDmS.Resource.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

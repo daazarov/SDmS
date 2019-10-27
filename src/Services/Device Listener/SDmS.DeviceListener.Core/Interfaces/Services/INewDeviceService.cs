@@ -9,6 +9,6 @@ namespace SDmS.DeviceListener.Core.Interfaces.Services
     public interface INewDeviceService
     {
         Task RegisterDeviceAsync<T>(T device) where T : DeviceEvent;
-        Task AssignToUserAsync<T>(T device, string collectionName, string userId) where T : DeviceCommand;
+        Task<bool> AssignToUserAsync<T>(T device, string collectionName) where T : DeviceCommand;
     }
 }

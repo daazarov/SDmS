@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace SDmS.Resource.DI.Modules
 {
-    public class DomainServicesModule : IModule
+    public class ModelMapperModule : IModule
     {
         public void Register(IServiceCollection services, IConfiguration configuration)
         {

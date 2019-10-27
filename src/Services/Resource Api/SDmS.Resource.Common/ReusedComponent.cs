@@ -2,7 +2,7 @@
 using NServiceBus.UniformSession;
 using System.Threading.Tasks;
 
-namespace SDmS.Resource.Api
+namespace SDmS.Resource.Common
 {
     public class ReusedComponent
     {

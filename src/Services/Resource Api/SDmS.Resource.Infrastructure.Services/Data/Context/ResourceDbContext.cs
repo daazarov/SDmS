@@ -37,8 +37,8 @@ namespace SDmS.Resource.Infrastructure.Services.Data.Context
                 dynamic configurationInstance = Activator.CreateInstance(type);
                 modelBuilder.ApplyConfiguration(configurationInstance);
             }
-            base.OnModelCreating(modelBuilder);
 
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

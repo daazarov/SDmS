@@ -38,8 +38,8 @@ namespace SDmS.Identity.Core.Services
 
             AppException row = new AppException
             {
-                Action = action.ActionName,
-                Controller = action.ControllerName,
+                Action = (action != null) ? action.ActionName : "",
+                Controller = (action != null) ? action.ControllerName : "",
                 Message = message.ToString(),
                 StackTrace = exception.StackTrace
             };

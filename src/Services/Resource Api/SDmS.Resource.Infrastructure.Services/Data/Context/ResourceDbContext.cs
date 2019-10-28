@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace SDmS.Resource.Infrastructure.Services.Data.Context
 {
@@ -11,7 +9,7 @@ namespace SDmS.Resource.Infrastructure.Services.Data.Context
     {
         public ResourceDbContext(DbContextOptions<ResourceDbContext> options) : base(options)
         {
-
+            Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

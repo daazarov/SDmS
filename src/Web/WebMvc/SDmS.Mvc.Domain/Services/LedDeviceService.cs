@@ -15,6 +15,8 @@ using SDmS.Mvc.Infrastructure.Services;
 using SDmS.Infrastructure.Models.Devices.Led;
 using SDmS.Infrastructure.Models;
 using SDmS.Domain.Mappers.Led;
+using SDmS.Infrastructure.Models.Devices;
+using SDmS.Mvc.Domain.Core.Constants;
 
 namespace SDmS.Domain.Services
 {
@@ -31,17 +33,17 @@ namespace SDmS.Domain.Services
             this._user = this._identityParser.Parse(HttpContext.Current.User);
         }
 
-        public async Task<Response<bool>> AssignToUserAsync(LedAddToUserDomainModel model)
+        public async Task<Response<bool>> AssignToUserAsync(DeviceAddToUserDomainModel model)
         {
             return await AssignToUserAsync(model.serial_number, model.user_id, model.name);
         }
 
-        public async Task<Response<bool>> AssignToUserAsync(string serialNumber, string userId, string deviceName)
+        public async Task<Response<bool>> AssignToUserAsync(string serialNumber, string userId, string deviceName, string type = null)
         {
             string uri = API.Devices.AssignToUser(_baseResourceApiAddress, ApiVersion.v1, userId);
 
             var result = await CommandFactory.Instance.GetCommand("BASE_POST_COMMAND")
-                .RunAsync<ResponseInfrastructureModel<bool>>(uri, new LedInfrastructureAddModel
+                .RunAsync<ResponseInfrastructureModel<bool>>(uri, new DeviceInfrastructureAddModel
                 {
                     name = deviceName,
                     serial_number = serialNumber,
@@ -59,7 +61,7 @@ namespace SDmS.Domain.Services
 
                 response.Value = result.HasValue ? result.Value.Value : false;
                 response.Error = result.HasValue ? result.Value.Error : result.Error;
-                response.ErrorCode = result.HasValue ? result.Value.ErrorCode : (int)result.Code;
+                response.ErrorCode = result.HasValue ? result.Value.ErrorCode : (int)result.ResponseCode;
 
                 return response;
             }
@@ -71,16 +73,23 @@ namespace SDmS.Domain.Services
         {
             string uri = API.Led.ChangeLedState(_baseResourceApiAddress, ApiVersion.v1, serialNumber, _user.id);
 
-            await CommandFactory.Instance.GetCommand("BASE_POST_COMMAND")
-                .RunAsync(uri, new LedInfrastructureChangeStateModel { parameter = "intensity", value = value });
+            DeviceInfracstructureActionModel actionModel = new DeviceInfracstructureActionModel(DeviceCommands.SetLedIntensity, "led");
+
+            actionModel.AddParameter("intensity", value);
+
+            await CommandFactory.Instance.GetCommand("BASE_POST_COMMAND").RunAsync(uri, actionModel);
         }
 
         public async Task<Response<bool>> ChangeStateAsync(LedState state, string serialNumber)
         {
             string uri = API.Led.ChangeLedState(_baseResourceApiAddress, ApiVersion.v1, serialNumber, _user.id);
 
+            DeviceInfracstructureActionModel actionModel = new DeviceInfracstructureActionModel(DeviceCommands.SwitchLed, "led");
+
+            actionModel.AddParameter("state", (int)state);
+
             var result = await CommandFactory.Instance.GetCommand("BASE_POST_COMMAND")
-                .RunAsync<ResponseInfrastructureModel<bool>>(uri, new LedInfrastructureChangeStateModel { parameter = "switch", value = (int)state });
+                .RunAsync<ResponseInfrastructureModel<bool>>(uri, actionModel);
 
             if (result != null)
             {
@@ -88,7 +97,7 @@ namespace SDmS.Domain.Services
 
                 response.Value = result.HasValue ? result.Value.Value : false;
                 response.Error = result.HasValue ? result.Value.Error : result.Error;
-                response.ErrorCode = result.HasValue ? result.Value.ErrorCode : (int)result.Code;
+                response.ErrorCode = result.HasValue ? result.Value.ErrorCode : (int)result.ResponseCode;
 
                 return response;
             }
@@ -108,7 +117,7 @@ namespace SDmS.Domain.Services
 
                 response.Value = result.HasValue ? result.Value.Value.InfrastructureToDomain() : null;
                 response.Error = result.HasValue ? result.Value.Error : result.Error;
-                response.ErrorCode = result.HasValue ? result.Value.ErrorCode : (int)result.Code;
+                response.ErrorCode = result.HasValue ? result.Value.ErrorCode : (int)result.ResponseCode;
 
                 return response;
             }
@@ -116,7 +125,7 @@ namespace SDmS.Domain.Services
             return new Response<LedDomainModel> { ErrorCode = -999, Error = "Unidentified error" };
         }
 
-        public async Task<ResponseCollection<LedDomainModel>> GetLedDevicesAsync(LedRequestDomainModel request)
+        public async Task<ResponseCollection<LedDomainModel>> GetLedDevicesAsync(DeviceRequestDomainModel request)
         {
             string uri = API.Devices.GetDevices(_baseResourceApiAddress, ApiVersion.v1, request.limit, request.offset, _user.id, "led");
 
@@ -146,7 +155,7 @@ namespace SDmS.Domain.Services
                 else
                 {
                     response.Error = result.Error;
-                    response.ErrorCode = (int)result.Code;
+                    response.ErrorCode = (int)result.ResponseCode;
                     response.Collection = new List<LedDomainModel>();
                 }
 
@@ -164,7 +173,7 @@ namespace SDmS.Domain.Services
 
             if (result != null)
             {
-                if (result.Code == System.Net.HttpStatusCode.NoContent)
+                if (result.ResponseCode == System.Net.HttpStatusCode.NoContent)
                 {
                     return new Response<bool> { Value = true };
                 }
@@ -173,7 +182,7 @@ namespace SDmS.Domain.Services
 
                 response.Value = result.HasValue ? result.Value.Value : false;
                 response.Error = result.HasValue ? result.Value.Error : result.Error;
-                response.ErrorCode = result.HasValue ? result.Value.ErrorCode : (int)result.Code;
+                response.ErrorCode = result.HasValue ? result.Value.ErrorCode : (int)result.ResponseCode;
 
                 return response;
             }

@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SDmS.Resource.Common\SDmS.Resource.Common.csproj" />
     <ProjectReference Include="..\SDmS.Resource.Domain\SDmS.Resource.Domain.csproj" />
   </ItemGroup>
 

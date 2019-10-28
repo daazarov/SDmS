@@ -15,7 +15,7 @@ namespace SDmS.Resource.Infrastructure.Services.Data.EntityMapping
 
             builder.HasKey(x => x.device_id);
 
-            builder.Property(x => x.creation_date).IsRequired();
+            builder.Property(x => x.creation_date).HasDefaultValueSql("getdate()");
             builder.Property(x => x.device_type_id).IsRequired();
             builder.Property(x => x.is_online).IsRequired();
             builder.Property(x => x.mqtt_client_id).IsRequired();

@@ -1,6 +1,9 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SDmS.Resource.Common;
+using SDmS.Resource.Domain.Interfaces.Services;
+using SDmS.Resource.Domain.Services.Services;
 
 namespace SDmS.Resource.DI.Modules
 {
@@ -8,7 +11,8 @@ namespace SDmS.Resource.DI.Modules
     {
         public void Register(IServiceCollection services, IConfiguration configuration)
         {
-            throw new NotImplementedException();
+            services.AddScoped<IErrorInformatorService, ErrorInformatorService>();
+            services.AddScoped<IIdentityParser<ApplicationUser>, IdentityParser>();
         }
     }
 }

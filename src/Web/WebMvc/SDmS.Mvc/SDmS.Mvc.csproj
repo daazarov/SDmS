@@ -203,8 +203,10 @@
     <Compile Include="Areas\Dashboard\Controllers\ClimateController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\LightsController.cs" />
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
+    <Compile Include="Areas\Dashboard\Mappers\Climate\TempControleMapper.cs" />
+    <Compile Include="Areas\Dashboard\Mappers\Climate\TempSensorMapper.cs" />
     <Compile Include="Areas\Dashboard\Mappers\Led\LedMappers.cs" />
-    <Compile Include="Areas\Dashboard\Models\Devices\Climate\TempControlSensorViewModel.cs" />
+    <Compile Include="Areas\Dashboard\Models\Devices\Climate\TempControlViewModel.cs" />
     <Compile Include="Areas\Dashboard\Models\Devices\Climate\TempSensorViewModel.cs" />
     <Compile Include="Areas\Dashboard\Models\DeviceViewModel.cs" />
     <Compile Include="Areas\Dashboard\Models\Devices\Led\LedChangeStateRequestModel.cs" />

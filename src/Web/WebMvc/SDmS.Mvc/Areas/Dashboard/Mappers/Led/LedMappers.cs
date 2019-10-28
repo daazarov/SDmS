@@ -1,4 +1,5 @@
-﻿using SDmS.Domain.Core.Models.Led;
+﻿using SDmS.Domain.Core.Models;
+using SDmS.Domain.Core.Models.Led;
 using SDmS.Mvc.Areas.Dashboard.Models;
 using SDmS.Mvc.Areas.Dashboard.Models.Led;
 
@@ -6,9 +7,9 @@ namespace SDmS.Mvc.Areas.Dashboard.Mappers.Led
 {
     public static class LedMappers
     {
-        public static LedAddToUserDomainModel ViewToDomain(this AddDeviceViewModel @this)
+        public static DeviceAddToUserDomainModel ViewToDomain(this AddDeviceViewModel @this)
         {
-            return new LedAddToUserDomainModel
+            return new DeviceAddToUserDomainModel
             {
                 name = @this.Name,
                 serial_number = @this.SerialNumber,

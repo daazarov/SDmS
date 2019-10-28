@@ -13,6 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SDmS.Resource.Domain.Services\SDmS.Resource.Domain.Services.csproj" />
+    <ProjectReference Include="..\SDmS.Resource.Domain\SDmS.Resource.Domain.csproj" />
     <ProjectReference Include="..\SDmS.Resource.Infrastructure.Services\SDmS.Resource.Infrastructure.Services.csproj" />
   </ItemGroup>
 

@@ -48,14 +48,24 @@ namespace SDmS.Mvc.Infrastructure
             {
                 return string.Format("{0}/api/v{1}/users/{2}/devices?type={5}&limit={3}&offset={4}", baseUrl, (int)version, userId, limit, offset, type);
             }
+
+            public static string ExecuteCommand(string baseUrl, ApiVersion version, string serialNumber, string userId)
+            {
+                return string.Format("{0}/api/v{1}/users/{2}/devices/{3}/commands", baseUrl, (int)version, userId, serialNumber);
+            }
         }
 
         public static class Led
         {
             public static string ChangeLedState(string baseUrl, ApiVersion version, string serialNumber, string userId)
             {
-                return string.Format("{0}/api/v{1}/users/{2}/leds/{3}/state", baseUrl, (int)version, userId, serialNumber);
+                return string.Format("{0}/api/v{1}/users/{2}/devices/{3}/state", baseUrl, (int)version, userId, serialNumber);
             }
+        }
+
+        public static class Climate
+        {
+
         }
     }
 }

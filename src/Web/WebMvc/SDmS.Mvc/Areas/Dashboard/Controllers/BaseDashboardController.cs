@@ -21,7 +21,13 @@ namespace SDmS.Mvc.Areas.Dashboard.Controllers
 
         protected void ShowMessage(GenericMessageViewModel messageViewModel)
         {
-            TempData[AppConstants.MessageViewBagName] = messageViewModel;
+            if (TempData[AppConstants.MessageViewBagName] == null)
+            {
+                TempData[AppConstants.MessageViewBagName] = new List<GenericMessageViewModel>();
+            }
+
+            ((List<GenericMessageViewModel>)TempData[AppConstants.MessageViewBagName]).Add(messageViewModel);
+
         }
     }
 }

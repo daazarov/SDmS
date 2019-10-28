@@ -30,7 +30,7 @@ namespace SDmS.Domain.Services
             if (result != null)
             {
                 CommandResult<string> commandResult = new CommandResult<string>();
-                commandResult.Code = (int)result.Code;
+                commandResult.Code = (int)result.ResponseCode;
                 commandResult.Value = result.Value;
                 commandResult.Error = result.Error;
                 commandResult.Response = result.Response;
@@ -57,7 +57,7 @@ namespace SDmS.Domain.Services
             if (result != null)
             {
                 CommandResult<AccountCreatedResponseModel> commandResult = new CommandResult<AccountCreatedResponseModel>();
-                commandResult.Code = (int)result.Code;
+                commandResult.Code = (int)result.ResponseCode;
                 commandResult.Value = result.Value?.InfrastructureToDomain();
                 commandResult.Error = result.Error;
                 commandResult.Response = result.Response;
@@ -77,7 +77,7 @@ namespace SDmS.Domain.Services
             if (result != null)
             {
                 CommandResult<string> commandResult = new CommandResult<string>();
-                commandResult.Code = (int)result.Code;
+                commandResult.Code = (int)result.ResponseCode;
                 commandResult.Value = result.Value;
                 commandResult.Error = result.Error;
                 commandResult.Response = result.Response;
@@ -95,7 +95,7 @@ namespace SDmS.Domain.Services
             if (result != null)
             {
                 CommandResult<JwtTokenModel> commandResult = new CommandResult<JwtTokenModel>();
-                commandResult.Code = (int)result.Code;
+                commandResult.Code = (int)result.ResponseCode;
                 commandResult.Value = result.Value?.InfrastructureToDomain();
                 commandResult.Error = result.Error;
                 commandResult.Response = result.Response;

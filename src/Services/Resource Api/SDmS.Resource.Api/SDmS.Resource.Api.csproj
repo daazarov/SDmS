@@ -9,6 +9,7 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="NServiceBus" Version="7.1.10" />
     <PackageReference Include="NServiceBus.MSDependencyInjection" Version="0.1.4" />
     <PackageReference Include="NServiceBus.Newtonsoft.Json" Version="2.2.0" />
@@ -29,8 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\v1\" />
-    <Folder Include="Models\Devices\" />
+    <Folder Include="ModelBinders\" />
   </ItemGroup>
 
 </Project>

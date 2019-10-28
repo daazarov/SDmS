@@ -7,7 +7,7 @@ namespace SDmS.Infrastructure.Interfaces
     {
         bool HasValue { get; }
         HttpResponseMessage Response { get; }
-        HttpStatusCode Code { get; }
+        HttpStatusCode ResponseCode { get; }
         string Error { get; }
         T Value { get; }
     }

@@ -14,6 +14,7 @@ namespace SDmS.Mvc.DI.Modules
             Bind<IMembershipService>().To<MembershipService>().InRequestScope();
             Bind<ILoggingService>().To<LoggingService>().InRequestScope();
             Bind<ILedDeviceService>().To<LedDeviceService>().InRequestScope();
+            Bind<IClimateDeviceService>().To<ClimateDeviceService>().InRequestScope();
         }
     }
 }

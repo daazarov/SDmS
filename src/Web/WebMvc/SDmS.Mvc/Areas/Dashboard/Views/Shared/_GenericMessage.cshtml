@@ -3,33 +3,36 @@
 @using SDmS.Mvc.Domain.Core.Constants
 
 @{
-    var genericMessage = new GenericMessageViewModel();
+    var genericMessage = new List<GenericMessageViewModel>();
     if (TempData[AppConstants.MessageViewBagName] != null)
     {
-        genericMessage = (GenericMessageViewModel)TempData[AppConstants.MessageViewBagName];
+        genericMessage = (List<GenericMessageViewModel>)TempData[AppConstants.MessageViewBagName];
     }
     else if (ViewBag.Message != null)
     {
-        genericMessage = (GenericMessageViewModel)ViewBag.Message;
+        genericMessage = (List<GenericMessageViewModel>)ViewBag.Message;
     }
 }
 
-@if (!string.IsNullOrEmpty(genericMessage.Message))
+@foreach (var message in genericMessage)
 {
-    switch (genericMessage.Type)
+    if (!string.IsNullOrEmpty(message.Message))
     {
-        case MessageTypes.danger:
-            <script>UIkit.notification({ message: "<span uk-icon=\'icon: ban\'></span>&#8195" + "@genericMessage.Message", status: 'danger', timeout: 7000 })</script>
-            <script>danger_message(@genericMessage.Message);</script>
-            break;
-        case MessageTypes.info:
-            <script> UIkit.notification({ message: "<span uk-icon=\'icon: info\'></span>&#8195" + "@genericMessage.Message", status: 'primary', timeout: 7000 })</script>
-            break;
-        case MessageTypes.success:
-            <script>UIkit.notification({message: "<span uk-icon=\'icon: check\'></span> &#8195" + "@genericMessage.Message", status: 'success', timeout: 7000 });</script>
-            break;
-        case MessageTypes.warning:
-            <script>UIkit.notification({ message: "<span uk-icon=\'icon: warning\'></span>&#8195" + "@genericMessage.Message", status: 'warning', timeout: 7000 });</script>
-            break;
+        switch (message.Type)
+        {
+            case MessageTypes.danger:
+                <script>UIkit.notification({ message: "<span uk-icon=\'icon: ban\'></span>&#8195" + "@message.Message", status: 'danger', timeout: 7000 })</script>
+                <script>danger_message(@message);</script>
+                break;
+            case MessageTypes.info:
+                <script> UIkit.notification({ message: "<span uk-icon=\'icon: info\'></span>&#8195" + "@message.Message", status: 'primary', timeout: 7000 })</script>
+                break;
+            case MessageTypes.success:
+                <script>UIkit.notification({message: "<span uk-icon=\'icon: check\'></span> &#8195" + "@message.Message", status: 'success', timeout: 7000 });</script>
+                break;
+            case MessageTypes.warning:
+                <script>UIkit.notification({ message: "<span uk-icon=\'icon: warning\'></span>&#8195" + "@message.Message", status: 'warning', timeout: 7000 });</script>
+                break;
+        }
     }
 }

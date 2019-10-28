@@ -1,6 +1,6 @@
-﻿namespace SDmS.Domain.Core.Models.Led
+﻿namespace SDmS.Domain.Core.Models
 {
-    public class LedAddToUserDomainModel
+    public class DeviceAddToUserDomainModel
     {
         public string serial_number { get; set; }
         public string name { get; set; }

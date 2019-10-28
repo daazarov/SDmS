@@ -52,7 +52,7 @@ namespace SDmS.Identity.Api.Controllers
 
             return null;
         }
-
+        
         protected ResponseCollectionModel<T> GetCollectionResult<T>(Func<IEnumerable<T>> getItems, Func<int> getCount, ModelStateDictionary modelState)
         {
             ResponseCollectionModel<T> result = new ResponseCollectionModel<T>();

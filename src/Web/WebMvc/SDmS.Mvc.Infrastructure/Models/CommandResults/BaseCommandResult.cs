@@ -20,7 +20,7 @@ namespace SDmS.Infrastructure.Models
                 this._code = code.Value;
         }
 
-        public HttpStatusCode Code
+        public HttpStatusCode ResponseCode
         {
             get
             {

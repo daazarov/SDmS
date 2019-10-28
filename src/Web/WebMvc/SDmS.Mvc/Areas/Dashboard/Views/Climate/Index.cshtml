@@ -113,73 +113,81 @@
         <div class="uk-modal-header">
             <h2 class="uk-modal-title">Add new device</h2>
         </div>
-        @using (Html.BeginForm("AddTermometr", "Climate", new { area = "Dashboard" }, FormMethod.Post, new { @class = "uk-form-stacked" }))
-    {
-    <div class="uk-modal-body">
-        <div class="uk-margin">
-            <label class="uk-form-label" for="form-stacked-text">Name</label>
-            <div class="uk-form-controls">
-                <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text...">
-            </div>
-        </div>
+        @using (Html.BeginForm("AddDevice", "Climate", new { area = "Dashboard" }, FormMethod.Post, new { @class = "uk-form-stacked" }))
+        {
+            <div class="uk-modal-body">
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-stacked-text">Name</label>
+                    <div class="uk-form-controls">
+                        @Html.TextBox("Name", "", new { @class = "uk-input", @id = "form-stacked-text", @placeholder = "Device Name...", @required = "" })
+                        @Html.ValidationMessageFor(model => model.DeviceAdd.Name)
+                    </div>
+                </div>
 
-        <div class="uk-margin">
-            <label class="uk-form-label" for="form-stacked-text">Serial number</label>
-            <div class="uk-form-controls">
-                <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text...">
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-stacked-text">Serial number</label>
+                    <div class="uk-form-controls">
+                        @Html.TextBox("SerialNumber", "", new { @class = "uk-input", @id = "form-stacked-text", @placeholder = "Serial Number...", @required = "" })
+                        @Html.ValidationMessageFor(model => model.DeviceAdd.SerialNumber)
+                    </div>
+                </div>
+                
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-stacked-text">Device type</label>
+                    <div class="uk-form-controls">
+                        @Html.DropDownList("Type", new SelectList(new string[] { "temperature", "control" }), "Select type")
+                    </div>
+                </div>
             </div>
-        </div>
-
-    </div>
-    <div class="uk-modal-footer uk-text-right">
-        <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-        <button class="uk-button uk-button-primary" type="submit">Add</button>
-    </div>
-    }
+            <div class="uk-modal-footer uk-text-right">
+                <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                <button class="uk-button uk-button-primary" type="submit">Add</button>
+            </div>
+        }
     </div>
 </div>
 <!--/New device section-->
 
 @section Scripts {
-    <script>
-UIkit.util.on('#js-modal-confirm', 'click', function (e) {
-e.preventDefault();
-e.target.blur();
+<script>
+    UIkit.util.on('#js-modal-confirm', 'click', function (e) {
+    e.preventDefault();
+    e.target.blur();
 
-var url = e["currentTarget"];
+    var url = e["currentTarget"];
 
-UIkit.modal.confirm('Are you sure?').then(function () { OnConfirmDelete(url)}, function () { });
+    UIkit.modal.confirm('Are you sure?').then(function () { OnConfirmDelete(url)}, function () { });
 
-function OnConfirmDelete(ulr) {
+    function OnConfirmDelete(ulr) {
 
-    $.ajax({
-        url: url,
-        type: 'DELETE',
-        dataType: 'json',
-        success: function (data) {
-            window.location.href = location.href;
-        },
-        error: function (xhr, textStatus, errorThrown) {
-            UIkit.notification({ message: "<span uk-icon=\'icon: warning\'></span>&#8195" + "Error! Please, try again later", status: 'warning', timeout: 7000 });
-        }
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            dataType: 'json',
+            success: function (data) {
+                window.location.href = location.href;
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                UIkit.notification({ message: "<span uk-icon=\'icon: warning\'></span>&#8195" + "Error! Please, try again later", status: 'warning', timeout: 7000 });
+            }
+        });
+        };
     });
-    };
-});
 
-    </script>
-    <script>
-$("#flat-slider-vertical-1, #flat-slider-vertical-2, #flat-slider-vertical-3")
-    .slider({
-        max: 27,
-        min: 19,
-        range: "min",
-        value: 23,
-        orientation: "vertical"
-    })
-    .slider("pips", {
-        first: "pip",
-        last: "pip"
-    })
-    .slider("float");
-    </script>
+</script>
+<script>
+    $("#flat-slider-vertical-1, #flat-slider-vertical-2, #flat-slider-vertical-3")
+        .slider({
+            max: 27,
+            min: 19,
+            range: "min",
+            value: 23,
+            orientation: "vertical"
+        })
+        .slider("pips", {
+            first: "pip",
+            last: "pip"
+        })
+        .slider("float");
+</script>
 }

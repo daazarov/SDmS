@@ -68,8 +68,10 @@
     <Compile Include="Models\Account\ForgotPasswordModel.cs" />
     <Compile Include="Models\Account\TokenModel.cs" />
     <Compile Include="Models\CommandResults\BaseCommandResult.cs" />
-    <Compile Include="Models\Devices\Led\LedInfrastructureAddModel.cs" />
-    <Compile Include="Models\Devices\Led\LedInfrastructureChangeStateModel.cs" />
+    <Compile Include="Models\Devices\Climate\TempControlInfrastructureModel.cs" />
+    <Compile Include="Models\Devices\Climate\TempSensorInfrastructureModel.cs" />
+    <Compile Include="Models\Devices\DeviceInfracstructureActionModel.cs" />
+    <Compile Include="Models\Devices\DeviceInfrastructureAddModel.cs" />
     <Compile Include="Models\Devices\Led\LedInfrastructureModel.cs" />
     <Compile Include="Models\Enums\ApiVersion.cs" />
     <Compile Include="Models\ResponseInfrastructureModel.cs" />

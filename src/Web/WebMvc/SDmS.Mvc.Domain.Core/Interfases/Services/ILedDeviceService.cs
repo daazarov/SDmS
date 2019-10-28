@@ -5,14 +5,11 @@ using System.Threading.Tasks;
 
 namespace SDmS.Domain.Core.Interfases.Services
 {
-    public interface ILedDeviceService
+    public interface ILedDeviceService : IDeviceService
     {
-        Task<ResponseCollection<LedDomainModel>> GetLedDevicesAsync(LedRequestDomainModel request);
+        Task<ResponseCollection<LedDomainModel>> GetLedDevicesAsync(DeviceRequestDomainModel request);
         Task<Response<LedDomainModel>> GetLedDeviceBySerialNumberAsync(string serialNumber);
-        Task<Response<bool>> AssignToUserAsync(LedAddToUserDomainModel model);
-        Task<Response<bool>> AssignToUserAsync(string serialNumber, string userId, string deviceName);
         Task ChangeIntensityAsync(int value, string serialNumber);
         Task<Response<bool>> ChangeStateAsync(LedState state, string serialNumber);
-        Task<Response<bool>> DeleteDeviceAsync(string serialNumber);
     }
 }

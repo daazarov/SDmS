@@ -13,12 +13,15 @@ using SDmS.Mvc.Areas.Dashboard.Mappers.Led;
 using SDmS.Mvc.Models;
 using SDmS.Mvc.Models.Enums;
 using SDmS.Mvc.Areas.Dashboard.Models;
+using SDmS.Domain.Core.Models;
 
 namespace SDmS.Mvc.Areas.Dashboard.Controllers
 {
     [DashboardAuthorization]
 	public class LightsController : BaseDashboardController
     {
+        private bool _useFakeData = true;
+
         private readonly IIdentityParser<ApplicationUser> _identityParser;
         private readonly ILedDeviceService _ledDeviceService;
 
@@ -40,11 +43,27 @@ namespace SDmS.Mvc.Areas.Dashboard.Controllers
 
         public async Task<ActionResult> Index()
         {
-            //var response = await this._ledDeviceService.GetLedDevicesAsync(new LedRequestDomainModel { limit = 0, offset = 0 });
+            if (_useFakeData)
+            {
+                LightPageViewModel fakeViewModel = new LightPageViewModel
+                {
+                    Leds = fakeModels,
+                    LedAdd = new AddDeviceViewModel()
+                };
+
+                return View(fakeViewModel);
+            }
+
+            var response = await this._ledDeviceService.GetLedDevicesAsync(new DeviceRequestDomainModel { limit = 0, offset = 0 });
+
+            if (response.ErrorCode != null)
+            {
+                ShowMessage(new GenericMessageViewModel { Type = MessageTypes.warning, Message = response.Error });
+            }
 
             LightPageViewModel model = new LightPageViewModel
             {
-                Leds = fakeModels,
+                Leds = response.Collection.Select(x => x.DomainToView()),
                 LedAdd = new AddDeviceViewModel()
             };
 
@@ -60,20 +79,62 @@ namespace SDmS.Mvc.Areas.Dashboard.Controllers
                 model.UserId = user.id;
             }
 
+            if (_useFakeData)
+            {
+                fakeModels.Add(new LedViewModel
+                {
+                    Name = model.Name,
+                    SerialNumber = model.SerialNumber,
+                    Power = new Random().Next(10, 120),
+                    Intensity = new Random().Next(10, 100),
+                    IsEnable = new Random().Next(0, 1) == 1 ? true : false,
+                    IsOnline = new Random().Next(0, 1) == 1 ? true : false,
+                    VoltageRange = "100-220V"
+                });
+
+                ShowMessage(new GenericMessageViewModel { Type = MessageTypes.success, Message = "Device has been added" });
+
+                return RedirectToAction(nameof(Index));
+            }
+
             var response = await this._ledDeviceService.AssignToUserAsync(model.ViewToDomain());
 
-            if (!response.Value)
+            if (!response.Value && response.ErrorCode != null)
             {
                 ShowMessage(new GenericMessageViewModel { Type = MessageTypes.warning, Message = response.Error });
+            }
+            else
+            {
+                ShowMessage(new GenericMessageViewModel { Type = MessageTypes.success, Message = "Device has been added" });
             }
 
             return RedirectToAction(nameof(Index));
         }
 
         [HttpDelete]
-        public JsonResult DeleteLed(string serial_number)
+        public async Task<JsonResult> DeleteLed(string serial_number)
         {
-            fakeModels.Remove(fakeModels.First(_ => _.SerialNumber == serial_number));
+            if (_useFakeData)
+            {
+                var device = fakeModels.FirstOrDefault(_ => _.SerialNumber == serial_number);
+
+                if (device != null)
+                {
+                    fakeModels.Remove(fakeModels.First(_ => _.SerialNumber == serial_number));
+                }
+            }
+
+            var response = await _ledDeviceService.DeleteDeviceAsync(serial_number);
+
+            if (!response.Value && response.ErrorCode != null)
+            {
+                ShowMessage(new GenericMessageViewModel { Type = MessageTypes.warning, Message = response.Error });
+            }
+            else
+            {
+                ShowMessage(new GenericMessageViewModel { Type = MessageTypes.success, Message = "Device has been deleted" });
+            }
+
             return Json("1");
         }
 

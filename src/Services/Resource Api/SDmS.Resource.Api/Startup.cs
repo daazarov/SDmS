@@ -44,6 +44,7 @@ namespace SDmS.Resource.Api
             services.AddTransport();
 
             RegisterComponent<DataModule>(services, Configuration);
+            RegisterComponent<DomainServicesModule>(services, Configuration);
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>

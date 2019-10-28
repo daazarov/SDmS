@@ -1,6 +1,6 @@
-﻿namespace SDmS.Infrastructure.Models.Devices.Led
+﻿namespace SDmS.Infrastructure.Models.Devices
 {
-    public class LedInfrastructureAddModel
+    public class DeviceInfrastructureAddModel
     {
         public string user_id { get; set; }
         public string name { get; set; }

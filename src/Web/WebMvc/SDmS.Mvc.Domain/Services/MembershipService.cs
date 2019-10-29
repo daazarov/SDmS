@@ -18,7 +18,7 @@ namespace SDmS.Domain.Services
 
         public MembershipService()
         {
-            _baseAccountUrl = ConfigurationManager.AppSettings["as:IdentityUrl"];
+            _baseAccountUrl = ConfigurationManager.AppSettings["as:IdentityUri"];
         }
 
         public async Task<CommandResult<string>> ConfirmEmailAddresssAsync(string userId, string code)

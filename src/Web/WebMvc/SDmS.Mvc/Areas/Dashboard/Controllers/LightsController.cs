@@ -14,10 +14,12 @@ using SDmS.Mvc.Models;
 using SDmS.Mvc.Models.Enums;
 using SDmS.Mvc.Areas.Dashboard.Models;
 using SDmS.Domain.Core.Models;
+using SDmS.Mvc.Areas.Dashboard.Mappers.Devices;
+using SDmS.Domain.Core.Models.Enums;
 
 namespace SDmS.Mvc.Areas.Dashboard.Controllers
 {
-    [DashboardAuthorization]
+    //[DashboardAuthorization]
 	public class LightsController : BaseDashboardController
     {
         private bool _useFakeData = true;
@@ -54,18 +56,26 @@ namespace SDmS.Mvc.Areas.Dashboard.Controllers
                 return View(fakeViewModel);
             }
 
-            var response = await this._ledDeviceService.GetLedDevicesAsync(new DeviceRequestDomainModel { limit = 0, offset = 0 });
-
-            if (response.ErrorCode != null)
-            {
-                ShowMessage(new GenericMessageViewModel { Type = MessageTypes.warning, Message = response.Error });
-            }
-
             LightPageViewModel model = new LightPageViewModel
             {
-                Leds = response.Collection.Select(x => x.DomainToView()),
                 LedAdd = new AddDeviceViewModel()
             };
+
+            var response = await this._ledDeviceService.GetLedDevicesAsync(new DeviceRequestDomainModel { limit = 0, offset = 0, type = 3 });
+
+            if (response.ErrorCode != null || response.HttpResponseCode != 200)
+            {
+                ShowMessage(new GenericMessageViewModel { Type = MessageTypes.warning, Message = response.Error });
+
+                if (response.Collection == null)
+                {
+                    model.Leds = new List<LedViewModel>();
+                }
+            }
+            else
+            {
+                model.Leds = response.Collection.Select(x => x.DomainToView());
+            }
 
             return View(model);
         }
@@ -122,6 +132,8 @@ namespace SDmS.Mvc.Areas.Dashboard.Controllers
                 {
                     fakeModels.Remove(fakeModels.First(_ => _.SerialNumber == serial_number));
                 }
+
+                return Json(new Response<bool> { Value = true, HttpResponseCode = 204 });
             }
 
             var response = await _ledDeviceService.DeleteDeviceAsync(serial_number);
@@ -135,27 +147,35 @@ namespace SDmS.Mvc.Areas.Dashboard.Controllers
                 ShowMessage(new GenericMessageViewModel { Type = MessageTypes.success, Message = "Device has been deleted" });
             }
 
-            return Json("1");
-        }
-
-        [HttpGet]
-        public ActionResult Configure(string serial_number)
-        {
-            return RedirectToAction(nameof(Index));
+            return Json(response);
         }
 
         [HttpPost]
-        public JsonResult ChangeProperty(string serial_number, LedChangeStateRequestModel model)
+        public async Task<JsonResult> ChangeProperty(string serial_number, LedChangeStateRequestModel model)
         {
-            return Json("1");
+            if (model.Intensity != null)
+            {
+                await this._ledDeviceService.ChangeIntensityAsync(model.Intensity.Value, model.Type, serial_number);
+            }
+            else if (model.IsEnable != null)
+            {
+                var response = await this._ledDeviceService.ChangeStateAsync((!model.IsEnable.Value) ? LedState.Disabled : LedState.Enabled, model.Type, serial_number);
+
+                return Json(response);
+            }
+
+            throw new InvalidOperationException();
         }
 
         protected override void OnException(ExceptionContext filterContext)
         {
-            ShowMessage(new GenericMessageViewModel { Type = MessageTypes.warning, Message = " 500 Internal Server Error. Please try again later" });
+            if (!Request.IsAjaxRequest())
+            {
+                ShowMessage(new GenericMessageViewModel { Type = MessageTypes.warning, Message = " 500 Internal Server Error. Please try again later" });
 
-            filterContext.Result = this.RedirectToAction("Index", "General");
-            filterContext.ExceptionHandled = true;
+                filterContext.Result = this.RedirectToAction("Index", "General");
+                filterContext.ExceptionHandled = true;
+            }
 
             try
             {

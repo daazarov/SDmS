@@ -9,7 +9,7 @@ namespace SDmS.Domain.Core.Interfases.Services
     {
         Task<ResponseCollection<LedDomainModel>> GetLedDevicesAsync(DeviceRequestDomainModel request);
         Task<Response<LedDomainModel>> GetLedDeviceBySerialNumberAsync(string serialNumber);
-        Task ChangeIntensityAsync(int value, string serialNumber);
-        Task<Response<bool>> ChangeStateAsync(LedState state, string serialNumber);
+        Task ChangeIntensityAsync(int value, int deviceType, string serialNumber);
+        Task<Response<bool>> ChangeStateAsync(LedState state, int deviceType, string serialNumber);
     }
 }

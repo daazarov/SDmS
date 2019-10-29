@@ -205,7 +205,9 @@
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
     <Compile Include="Areas\Dashboard\Mappers\Climate\TempControleMapper.cs" />
     <Compile Include="Areas\Dashboard\Mappers\Climate\TempSensorMapper.cs" />
-    <Compile Include="Areas\Dashboard\Mappers\Led\LedMappers.cs" />
+    <Compile Include="Areas\Dashboard\Mappers\Devices\DeviceMappers.cs" />
+    <Compile Include="Areas\Dashboard\Mappers\Devices\Led\LedMappers.cs" />
+    <Compile Include="Areas\Dashboard\Models\Devices\Climate\TempControlChangeStateModel.cs" />
     <Compile Include="Areas\Dashboard\Models\Devices\Climate\TempControlViewModel.cs" />
     <Compile Include="Areas\Dashboard\Models\Devices\Climate\TempSensorViewModel.cs" />
     <Compile Include="Areas\Dashboard\Models\DeviceViewModel.cs" />

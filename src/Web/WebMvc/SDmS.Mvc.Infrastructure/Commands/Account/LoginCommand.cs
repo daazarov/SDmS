@@ -13,7 +13,7 @@ namespace SDmS.Infrastructure.Command.Account
     public class LoginCommand : PostCommand
     {
         private const string NAME = "LOGIN";
-        private static string URI = $"{ConfigurationManager.AppSettings["as:IdentityUrl"]}/oauth/token";
+        private static string URI = $"{ConfigurationManager.AppSettings["as:IdentityUri"]}/oauth/token";
 
         public LoginCommand() : base(NAME, URI)
         {

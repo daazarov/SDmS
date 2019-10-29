@@ -9,16 +9,16 @@ namespace SDmS.Domain.Mappers.Led
         {
             return new LedDomainModel
             {
-                id = @this.id,
-                is_enabled = @this.is_enabled,
+                device_id = @this.device_id,
+                is_enabled = @this.parameters.is_enabled,
                 is_online = @this.is_online,
                 name = @this.name,
-                power = @this.power,
+                power = @this.parameters.power,
                 serial_number = @this.serial_number,
                 user_id = @this.user_id,
-                intensity = @this.intensity,
-                min_voltage = @this.min_voltage,
-                max_voltage = @this.max_voltage
+                intensity = @this.parameters.intensity,
+                min_voltage = @this.parameters.min_voltage,
+                max_voltage = @this.parameters.max_voltage
             };
         }
     }

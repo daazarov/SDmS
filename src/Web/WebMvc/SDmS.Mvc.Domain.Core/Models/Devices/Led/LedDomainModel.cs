@@ -2,7 +2,7 @@
 {
     public class LedDomainModel
     {
-        public string id { get; set; }
+        public string device_id { get; set; }
         public string name { get; set; }
         public string serial_number { get; set; }
         public bool is_enabled { get; set; }

@@ -69,10 +69,14 @@
     <Compile Include="Models\Account\TokenModel.cs" />
     <Compile Include="Models\CommandResults\BaseCommandResult.cs" />
     <Compile Include="Models\Devices\Climate\TempControlInfrastructureModel.cs" />
+    <Compile Include="Models\Devices\Climate\TempControlParametersModel.cs" />
     <Compile Include="Models\Devices\Climate\TempSensorInfrastructureModel.cs" />
+    <Compile Include="Models\Devices\Climate\TempSensorParametersModel.cs" />
     <Compile Include="Models\Devices\DeviceInfracstructureActionModel.cs" />
     <Compile Include="Models\Devices\DeviceInfrastructureAddModel.cs" />
+    <Compile Include="Models\Devices\DeviceInfrastructureModel.cs" />
     <Compile Include="Models\Devices\Led\LedInfrastructureModel.cs" />
+    <Compile Include="Models\Devices\Led\LedParametersModel.cs" />
     <Compile Include="Models\Enums\ApiVersion.cs" />
     <Compile Include="Models\ResponseInfrastructureModel.cs" />
     <Compile Include="Models\ResponseInfrastructureCollectionModel.cs" />

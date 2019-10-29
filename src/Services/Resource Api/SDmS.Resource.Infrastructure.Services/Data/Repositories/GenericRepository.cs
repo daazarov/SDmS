@@ -90,14 +90,14 @@ namespace SDmS.Resource.Infrastructure.Services.Data.Repositories
             return await this.Entities.Skip(offset).Take(limit).ToListAsync();
         }
 
-        public IEnumerable<T> GetbyFilter(Expression<Func<T, bool>> filter)
+        public IEnumerable<T> GetbyFilter(Expression<Func<T, bool>> filter, int limit, int offset)
         {
-            return this.Entities.Where(filter).ToList();
+            return this.Entities.Where(filter).Skip(offset).Take(limit).ToList();
         }
 
-        public async Task<IEnumerable<T>> GetbyFilterAsync(Expression<Func<T, bool>> filter)
+        public async Task<IEnumerable<T>> GetbyFilterAsync(Expression<Func<T, bool>> filter, int limit, int offset)
         {
-            return await this.Entities.Where(filter).ToListAsync();
+            return await this.Entities.Where(filter).Skip(offset).Take(limit).ToListAsync();
         }
 
         public void Insert(T entity)

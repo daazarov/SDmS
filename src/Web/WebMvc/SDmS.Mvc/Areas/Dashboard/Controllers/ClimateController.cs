@@ -14,10 +14,14 @@ using SDmS.Mvc.Models;
 using SDmS.Mvc.Models.Enums;
 using SDmS.Domain.Core.Models;
 using SDmS.Mvc.Areas.Dashboard.Mappers.Climate;
+using SDmS.Domain.Core.Models.ComboBoxes;
+using SDmS.Mvc.Areas.Dashboard.Mappers.Devices;
+using SDmS.Mvc.Areas.Dashboard.Models.Devices.Climate;
+using SDmS.Domain.Core.Models.Enums;
 
 namespace SDmS.Mvc.Areas.Dashboard.Controllers
 {
-    [DashboardAuthorization]
+    //[DashboardAuthorization]
 	public class ClimateController : BaseDashboardController
     {
         private readonly IIdentityParser<ApplicationUser> _identityParser;
@@ -52,26 +56,34 @@ namespace SDmS.Mvc.Areas.Dashboard.Controllers
         [HttpGet]
         public async Task<ActionResult> Index()
         {
+            List<DeviceType> types = new List<DeviceType>
+            {
+                new DeviceType {type = 1, description = "Temperature"},
+                new DeviceType {type = 2, description = "Climate controle"}
+            };
+            var deviceTypes = new SelectList(types, "type", "description");
+
             if (_useFakeData)
             {
                 ClimatePageViewModel fakeModel = new ClimatePageViewModel
                 {
                     DeviceAdd = new AddDeviceViewModel(),
                     TempSensors = fakeModels1,
-                    TempControlSensors = fakeModels2
+                    TempControlSensors = fakeModels2,
+                    DeviceTypes = deviceTypes
                 };
 
                 return View(fakeModel);
             }
 
-            var controlResponse = await _climateDeviceService.GetTempControlDevicesAsync(new DeviceRequestDomainModel { limit = 0, offset = 0, type = "control" });
+            var controlResponse = await _climateDeviceService.GetTempControlDevicesAsync(new DeviceRequestDomainModel { limit = 0, offset = 0, type = 2 });
 
             if (controlResponse.ErrorCode != null)
             {
                 ShowMessage(new GenericMessageViewModel { Type = MessageTypes.warning, Message = controlResponse.Error });
             }
 
-            var tempSensorResponse = await _climateDeviceService.GetTempSensorDevicesAsync(new DeviceRequestDomainModel { limit = 0, offset = 0, type = "temperature" });
+            var tempSensorResponse = await _climateDeviceService.GetTempSensorDevicesAsync(new DeviceRequestDomainModel { limit = 0, offset = 0, type = 1 });
 
             if (tempSensorResponse.ErrorCode != null)
             {
@@ -82,7 +94,8 @@ namespace SDmS.Mvc.Areas.Dashboard.Controllers
             {
                 DeviceAdd = new AddDeviceViewModel(),
                 TempSensors = tempSensorResponse.Collection.Select(x => x.DomainToView()),
-                TempControlSensors = controlResponse.Collection.Select(x => x.DomainToView())
+                TempControlSensors = controlResponse.Collection.Select(x => x.DomainToView()),
+                DeviceTypes = deviceTypes
             };
 
             return View(model);
@@ -97,34 +110,89 @@ namespace SDmS.Mvc.Areas.Dashboard.Controllers
                 model.UserId = user.id;
             }
 
-            /*var response = await this._ledDeviceService.AssignToUserAsync(model.ViewToDomain());
+            var response = await this._climateDeviceService.AssignToUserAsync(model.ViewToDomain());
 
-            if (!response.Value)
+            if (!response.Value && response.ErrorCode != null)
             {
                 ShowMessage(new GenericMessageViewModel { Type = MessageTypes.warning, Message = response.Error });
-            }*/
+            }
+            else
+            {
+                ShowMessage(new GenericMessageViewModel { Type = MessageTypes.success, Message = "Device has been added" });
+            }
 
             return RedirectToAction(nameof(Index));
         }
 
         [HttpDelete]
-        public ActionResult DeleteDevice(string serial_number)
+        public async Task<JsonResult> DeleteDevice(string serial_number)
         {
-            var model1 = fakeModels1.FirstOrDefault(x => x.SerialNumber == serial_number);
-
-            if (model1 != null)
+            if (_useFakeData)
             {
-                fakeModels1.Remove(model1);
+                var model1 = fakeModels1.FirstOrDefault(x => x.SerialNumber == serial_number);
+
+                if (model1 != null)
+                {
+                    fakeModels1.Remove(model1);
+                }
+
+                var model2 = fakeModels2.FirstOrDefault(x => x.SerialNumber == serial_number);
+
+                if (model2 != null)
+                {
+                    fakeModels2.Remove(model2);
+                }
+
+                return Json(new Response<bool> { Value = true, HttpResponseCode = 204 });
             }
 
-            var model2 = fakeModels2.FirstOrDefault(x => x.SerialNumber == serial_number);
+            var response = await this._climateDeviceService.DeleteDeviceAsync(serial_number);
 
-            if (model2 != null)
+            if (!response.Value && response.ErrorCode != null)
             {
-                fakeModels2.Remove(model2);
+                ShowMessage(new GenericMessageViewModel { Type = MessageTypes.warning, Message = response.Error });
+            }
+            else
+            {
+                ShowMessage(new GenericMessageViewModel { Type = MessageTypes.success, Message = "Device has been deleted" });
             }
 
-            return RedirectToAction(nameof(Index));
+            return Json(response);
+
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> ChangeProperty(string serial_number, TempControlChangeStateModel model)
+        {
+            if (model.IsControlEnabled != null)
+            {
+                var response = await this._climateDeviceService.SwitchTempControlAsync(serial_number, model.Type, (!model.IsControlEnabled.Value) ? TempControlState.Disabled : TempControlState.Enabled);
+
+                return Json(response);
+            }
+            else if (model.DesiredTemperature != null)
+            {
+                await this._climateDeviceService.ChangeDesiredTemperatureAsync(serial_number, model.Type, model.DesiredTemperature.Value);
+            }
+
+            throw new InvalidOperationException();
+        }
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            if (!Request.IsAjaxRequest())
+            {
+                ShowMessage(new GenericMessageViewModel { Type = MessageTypes.warning, Message = " 500 Internal Server Error. Please try again later" });
+
+                filterContext.Result = this.RedirectToAction("Index", "General");
+                filterContext.ExceptionHandled = true;
+            }
+
+            try
+            {
+                this._loggingService.Error(filterContext.Exception);
+            }
+            catch { }
         }
     }
 }

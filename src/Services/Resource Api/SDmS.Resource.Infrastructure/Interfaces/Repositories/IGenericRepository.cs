@@ -21,8 +21,8 @@ namespace SDmS.Resource.Infrastructure.Interfaces.Repositories
         Task<T> FindByIdAsync(object id);
         IEnumerable<T> GetAll(int limit, int offset);
         Task<IEnumerable<T>> GetAllAsync(int limit, int offset);
-        IEnumerable<T> GetbyFilter(Expression<Func<T, bool>> filter);
-        Task<IEnumerable<T>> GetbyFilterAsync(Expression<Func<T, bool>> filter);
+        IEnumerable<T> GetbyFilter(Expression<Func<T, bool>> filter, int limit, int offset);
+        Task<IEnumerable<T>> GetbyFilterAsync(Expression<Func<T, bool>> filter, int limit, int offset);
         void Insert(T entity);
         Task InsertAsync(T entity);
         void InsertRange(IEnumerable<T> entities);

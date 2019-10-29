@@ -11,7 +11,7 @@ namespace SDmS.Domain.Core.Interfases.Services
         Task<ResponseCollection<TempControlDomainModel>> GetTempControlDevicesAsync(DeviceRequestDomainModel request);
         Task<Response<TempSensorDomainModel>> GetTempSensorDeviceBySerialNumberAsync(string serialNumber);
         Task<Response<TempControlDomainModel>> GetTempControlDeviceBySerialNumberAsync(string serialNumber);
-        Task<Response<bool>> SwitchTempControlAsync(string serialNumber, TempControlState state);
-        Task ChangeDesiredTemperatureAsync(string serialNumber, int value);
+        Task<Response<bool>> SwitchTempControlAsync(string serialNumber, int deviceType, TempControlState state);
+        Task ChangeDesiredTemperatureAsync(string serialNumber, int deviceType, int value);
     }
 }

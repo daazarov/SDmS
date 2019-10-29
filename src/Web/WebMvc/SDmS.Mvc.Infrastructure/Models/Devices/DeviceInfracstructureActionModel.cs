@@ -6,9 +6,9 @@ namespace SDmS.Infrastructure.Models.Devices
     {
         private Dictionary<string, dynamic> _parameters;
         private readonly string _actionName;
-        private readonly string _type;
+        private readonly int _type;
 
-        public DeviceInfracstructureActionModel(string actionName, string deviceType)
+        public DeviceInfracstructureActionModel(string actionName, int deviceType)
         {
             this._parameters = new Dictionary<string, dynamic>();
             this._actionName = actionName;
@@ -16,7 +16,7 @@ namespace SDmS.Infrastructure.Models.Devices
         }
 
         public string ActionName { get { return _actionName; } }
-        public string Type { get { return _type; } }
+        public int Type { get { return _type; } }
         public Dictionary<string, dynamic> Parameters { get { return _parameters; } }
 
         public void AddParameter(string name, dynamic value)

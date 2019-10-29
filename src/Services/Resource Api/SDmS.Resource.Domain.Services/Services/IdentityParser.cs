@@ -4,7 +4,7 @@ using System;
 using System.Security.Claims;
 using System.Security.Principal;
 
-namespace SDmS.Resource.Domain.Services.Services
+namespace SDmS.Resource.Domain.Services
 {
     public class IdentityParser : IIdentityParser<ApplicationUser>
     {

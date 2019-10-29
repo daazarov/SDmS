@@ -86,17 +86,17 @@ namespace SDmS.Infrastructure.Commands
             return result;
         }
 
-
-        #endregion
-
-        #region Not implimented
-        public Task<ICommandResult<T>> RunAsync<T>(string uri, object properties)
+        public async Task<ICommandResult<T>> RunAsync<T>(string uri, object properties)
         {
-            throw new NotImplementedException(nameof(RunAsync));
+            _baseUri = uri;
+
+            return await ExecuteAsync<T>(properties);
         }
-        public Task RunAsync(string uri, object properties)
+        public async Task RunAsync(string uri, object properties)
         {
-            throw new NotImplementedException(nameof(RunAsync));
+            _baseUri = uri;
+
+            await ExecuteAsync(properties);
         }
         #endregion
 

@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace SDmS.Resource.Domain.Services.Services
+namespace SDmS.Resource.Domain.Services
 {
     public class ErrorInformatorService : IErrorInformatorService
     {

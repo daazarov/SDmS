@@ -24,6 +24,7 @@
                             },
                             htmlAttributes: new { id = "LedSwitchForm_" + item.SerialNumber, @style = "float: left" }))
                             {
+                                <input name="Type" type="hidden" value="3"/>
                                 @Html.CheckBox("isEnable", item.IsEnable,
                                     htmlAttributes: new
                                     {
@@ -77,8 +78,9 @@
                     {
                         HttpMethod = "POST",
                     },
-                    htmlAttributes: new { id = "LedIntensityForm_" + item.SerialNumber }))
+                htmlAttributes: new { id = "LedIntensityForm_" + item.SerialNumber }))
                     {
+                        <input name="Type" type="hidden" value="3" />
                         <input id="@item.SerialNumber" name="Intensity" type="range" class="sd-slider" value="@item.Intensity" min="10" max="100" step="5" oninput="UpdateDim(this);@(String.Format("OnInputChange('#LedIntensityForm_{0}')", item.SerialNumber))">
                     }
                 </div>
@@ -103,7 +105,7 @@
         </div>
         @using (Html.BeginForm("AddDevice", "Lights", new { area = "Dashboard" }, FormMethod.Post, new { @class = "uk-form-stacked" }))
         {
-            <input name="Type" type="hidden" value="led" />
+            <input name="Type" type="hidden" value="3" />
             <div class="uk-modal-body">
                 <div class="uk-margin">
                     <label class="uk-form-label" for="form-stacked-text">Name</label>

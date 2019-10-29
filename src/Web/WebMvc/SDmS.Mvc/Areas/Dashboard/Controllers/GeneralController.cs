@@ -8,7 +8,7 @@ using SDmS.Mvc.Attributes.Filters;
 
 namespace SDmS.Mvc.Areas.Dashboard.Controllers
 {
-    [DashboardAuthorization]
+    //[DashboardAuthorization]
     public class GeneralController : BaseDashboardController
     {
         public GeneralController(ILoggingService loggingService) : base(loggingService)

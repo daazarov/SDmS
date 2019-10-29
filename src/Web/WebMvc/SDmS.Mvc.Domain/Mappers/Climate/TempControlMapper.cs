@@ -9,12 +9,14 @@ namespace SDmS.Domain.Mappers.Climate
         {
             return new TempControlDomainModel
             {
+                device_id = @this.device_id,
+                user_id = @this.user_id,
                 serial_number = @this.serial_number,
                 name = @this.name,
-                desired_temp = @this.desired_temp,
-                is_control_enable = @this.is_control_enable,
+                desired_temp = @this.parameters.desired_temp,
+                is_control_enable = @this.parameters.is_control_enable,
                 is_online = @this.is_online,
-                temp_c = @this.temp_c
+                temp_c = @this.parameters.temp_c
             };
         }
     }

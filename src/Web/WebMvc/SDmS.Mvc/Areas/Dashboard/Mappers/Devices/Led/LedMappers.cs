@@ -7,17 +7,6 @@ namespace SDmS.Mvc.Areas.Dashboard.Mappers.Led
 {
     public static class LedMappers
     {
-        public static DeviceAddToUserDomainModel ViewToDomain(this AddDeviceViewModel @this)
-        {
-            return new DeviceAddToUserDomainModel
-            {
-                name = @this.Name,
-                serial_number = @this.SerialNumber,
-                user_id = @this.UserId,
-                type = @this.Type
-            };
-        }
-
         public static LedViewModel DomainToView(this LedDomainModel @this)
         {
             var model = new LedViewModel();

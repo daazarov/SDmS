@@ -1,5 +1,4 @@
 ﻿using SDmS.Domain.Core.Interfases.Services;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,17 +27,17 @@ namespace SDmS.Domain.Services
 
         public LedDeviceService(IIdentityParser<ApplicationUser> identityParser)
         {
-            this._baseResourceApiAddress = ConfigurationManager.AppSettings["as:ResourceApiUrl"];
+            this._baseResourceApiAddress = ConfigurationManager.AppSettings["as:ResourceApiUri"];
             this._identityParser = identityParser;
             this._user = this._identityParser.Parse(HttpContext.Current.User);
         }
 
         public async Task<Response<bool>> AssignToUserAsync(DeviceAddToUserDomainModel model)
         {
-            return await AssignToUserAsync(model.serial_number, model.user_id, model.name);
+            return await AssignToUserAsync(model.serial_number, model.user_id, model.name, model.type);
         }
 
-        public async Task<Response<bool>> AssignToUserAsync(string serialNumber, string userId, string deviceName, string type = null)
+        public async Task<Response<bool>> AssignToUserAsync(string serialNumber, string userId, string deviceName, int type)
         {
             string uri = API.Devices.AssignToUser(_baseResourceApiAddress, ApiVersion.v1, userId);
 
@@ -48,43 +47,44 @@ namespace SDmS.Domain.Services
                     name = deviceName,
                     serial_number = serialNumber,
                     user_id = userId,
-                    type = "led"});
+                    type = type});
 
             if (result != null)
             {
                 if (!result.HasValue && result.Response.IsSuccessStatusCode)
                 {
-                    return new Response<bool> { Value = true };
+                    return new Response<bool> { Value = true, HttpResponseCode = (int)result.ResponseCode };
                 }
 
                 var response = new Response<bool>();
 
                 response.Value = result.HasValue ? result.Value.Value : false;
                 response.Error = result.HasValue ? result.Value.Error : result.Error;
-                response.ErrorCode = result.HasValue ? result.Value.ErrorCode : (int)result.ResponseCode;
+                response.ErrorCode = result.HasValue ? result.Value.ErrorCode : null;
+                response.HttpResponseCode = (int)result.ResponseCode;
 
                 return response;
             }
 
-            return new Response<bool> { Error = "Unidentified error", ErrorCode = -999, Value = false };
+            return new Response<bool> { Error = "Unidentified error", ErrorCode = -999, Value = false, HttpResponseCode = 500 };
         }
 
-        public async Task ChangeIntensityAsync(int value, string serialNumber)
+        public async Task ChangeIntensityAsync(int value, int deviceType, string serialNumber)
         {
-            string uri = API.Led.ChangeLedState(_baseResourceApiAddress, ApiVersion.v1, serialNumber, _user.id);
+            string uri = API.Devices.ExecuteCommand(_baseResourceApiAddress, ApiVersion.v1, serialNumber, _user.id);
 
-            DeviceInfracstructureActionModel actionModel = new DeviceInfracstructureActionModel(DeviceCommands.SetLedIntensity, "led");
+            DeviceInfracstructureActionModel actionModel = new DeviceInfracstructureActionModel(DeviceCommands.SetLedIntensity, deviceType);
 
             actionModel.AddParameter("intensity", value);
 
             await CommandFactory.Instance.GetCommand("BASE_POST_COMMAND").RunAsync(uri, actionModel);
         }
 
-        public async Task<Response<bool>> ChangeStateAsync(LedState state, string serialNumber)
+        public async Task<Response<bool>> ChangeStateAsync(LedState state, int deviceType, string serialNumber)
         {
-            string uri = API.Led.ChangeLedState(_baseResourceApiAddress, ApiVersion.v1, serialNumber, _user.id);
+            string uri = API.Devices.ExecuteCommand(_baseResourceApiAddress, ApiVersion.v1, serialNumber, _user.id);
 
-            DeviceInfracstructureActionModel actionModel = new DeviceInfracstructureActionModel(DeviceCommands.SwitchLed, "led");
+            DeviceInfracstructureActionModel actionModel = new DeviceInfracstructureActionModel(DeviceCommands.SwitchLed, deviceType);
 
             actionModel.AddParameter("state", (int)state);
 
@@ -97,12 +97,13 @@ namespace SDmS.Domain.Services
 
                 response.Value = result.HasValue ? result.Value.Value : false;
                 response.Error = result.HasValue ? result.Value.Error : result.Error;
-                response.ErrorCode = result.HasValue ? result.Value.ErrorCode : (int)result.ResponseCode;
+                response.ErrorCode = result.HasValue ? result.Value.ErrorCode : null;
+                response.HttpResponseCode = (int)result.ResponseCode;
 
                 return response;
             }
 
-            return new Response<bool> { Error = "Unidentified error", ErrorCode = -999, Value = false };
+            return new Response<bool> { Error = "Unidentified error", ErrorCode = -999, Value = false, HttpResponseCode = 500 };
         }
 
         public async Task<Response<LedDomainModel>> GetLedDeviceBySerialNumberAsync(string serialNumber)
@@ -117,17 +118,18 @@ namespace SDmS.Domain.Services
 
                 response.Value = result.HasValue ? result.Value.Value.InfrastructureToDomain() : null;
                 response.Error = result.HasValue ? result.Value.Error : result.Error;
-                response.ErrorCode = result.HasValue ? result.Value.ErrorCode : (int)result.ResponseCode;
+                response.ErrorCode = result.HasValue ? result.Value.ErrorCode : null;
+                response.HttpResponseCode = (int)result.ResponseCode;
 
                 return response;
             }
 
-            return new Response<LedDomainModel> { ErrorCode = -999, Error = "Unidentified error" };
+            return new Response<LedDomainModel> { ErrorCode = -999, Error = "Unidentified error", HttpResponseCode = 500 };
         }
 
         public async Task<ResponseCollection<LedDomainModel>> GetLedDevicesAsync(DeviceRequestDomainModel request)
         {
-            string uri = API.Devices.GetDevices(_baseResourceApiAddress, ApiVersion.v1, request.limit, request.offset, _user.id, "led");
+            string uri = API.Devices.GetDevices(_baseResourceApiAddress, ApiVersion.v1, request.limit, request.offset, _user.id, request.type);
 
             var result = await CommandFactory.Instance.GetCommand("BASE_GET_COMMAND").RunAsync<ResponseInfrastructureCollectionModel<LedInfrastructureModel>>(uri);
 
@@ -155,14 +157,15 @@ namespace SDmS.Domain.Services
                 else
                 {
                     response.Error = result.Error;
-                    response.ErrorCode = (int)result.ResponseCode;
+                    response.ErrorCode = null;
+                    response.HttpResponseCode = (int)result.ResponseCode;
                     response.Collection = new List<LedDomainModel>();
                 }
 
                 return response;
             }
 
-            return new ResponseCollection<LedDomainModel> { ErrorCode = -999, Error = "Unidentified error" };
+            return new ResponseCollection<LedDomainModel> { ErrorCode = -999, Error = "Unidentified error", HttpResponseCode = 500 };
         }
 
         public async Task<Response<bool>> DeleteDeviceAsync(string serialNumber)
@@ -175,19 +178,20 @@ namespace SDmS.Domain.Services
             {
                 if (result.ResponseCode == System.Net.HttpStatusCode.NoContent)
                 {
-                    return new Response<bool> { Value = true };
+                    return new Response<bool> { Value = true, HttpResponseCode = (int)result.ResponseCode };
                 }
 
                 var response = new Response<bool>();
 
                 response.Value = result.HasValue ? result.Value.Value : false;
                 response.Error = result.HasValue ? result.Value.Error : result.Error;
-                response.ErrorCode = result.HasValue ? result.Value.ErrorCode : (int)result.ResponseCode;
+                response.ErrorCode = result.HasValue ? result.Value.ErrorCode : null;
+                response.HttpResponseCode = (int)result.ResponseCode;
 
                 return response;
             }
 
-            return new Response<bool> { Error = "Unidentified error", ErrorCode = -999, Value = false };
+            return new Response<bool> { Error = "Unidentified error", ErrorCode = -999, Value = false, HttpResponseCode = 500 };
         }
     }
 }

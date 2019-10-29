@@ -1,13 +1,9 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Web;
 
 namespace SDmS.Mvc.Validators.Extensions
 {
-    public static class RuleBuilderExtensions1
+    public static class RuleBuilderExtensions
     {
         public static IRuleBuilder<T, string> Password<T>(this IRuleBuilder<T, string> ruleBuilder, int minimumLength = 6)
         {

@@ -25,7 +25,7 @@
                 </div>
                 <div class="uk-card-body @((!item.IsOnline) ? "uk-disabled" : "")">
                     <div class="uk-grid uk-grid-small">
-                        <div class="uk-width-2-5" style="margin-top: 10px;">
+                        <div class="uk-width-1-4" style="margin-top: 10px;">
                             <div class="uk-text-center">
                                 <img src="~/Content/img/dashboard/temperature.png">
                             </div>
@@ -42,9 +42,32 @@
                             </p>
                         </div>
                         <div class="uk-width-expand uk-text-center">
-                            <label>@Html.CheckBox("IsControlEnable", item.IsControlEnable, new { @class = "uk-checkbox" }) Desired</label>
+                            @using (Ajax.BeginForm("ChangeProperty", new { area = "Dashboard", serial_number = item.SerialNumber }, new AjaxOptions
+                            {
+                                HttpMethod = "POST",
+                            },
+                            htmlAttributes: new { id = "TempControlSwitchForm_" + item.SerialNumber}))
+                            {
+                                <input name="Type" type="hidden" value="3" />
+                                <label>
+                                    @Html.CheckBox("IsControlEnabled", item.IsControlEnable,
+                                      new {
+                                          @class = "uk-checkbox",
+                                          @oninput = String.Format("OnInputChange('#TempControlSwitchForm_{0}')", item.SerialNumber)
+                                          }) 
+                                    Desired
+                                </label>
+                            }
                             <div class="vertical" style="margin-top: 15px;">
-                                <div id="flat-slider-vertical-3"></div>
+                                @using (Ajax.BeginForm("ChangeProperty", new { area = "Dashboard", serial_number = item.SerialNumber }, new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                },
+                                htmlAttributes: new { id = "ChangeTepmForm_" + item.SerialNumber }))
+                                {
+                                    <input name="DesiredTemperature" type="hidden" value="" />
+                                }
+                                <div id="flat-slider-vertical-3" sn="@item.SerialNumber"></div>
                             </div>
                         </div>
                     </div>
@@ -135,7 +158,7 @@
                 <div class="uk-margin">
                     <label class="uk-form-label" for="form-stacked-text">Device type</label>
                     <div class="uk-form-controls">
-                        @Html.DropDownList("Type", new SelectList(new string[] { "temperature", "control" }), "Select type")
+                        @Html.DropDownList("Type", Model.DeviceTypes as SelectList, "Select type", new { @class = "uk-select" })
                     </div>
                 </div>
             </div>
@@ -188,6 +211,16 @@
             first: "pip",
             last: "pip"
         })
-        .slider("float");
+        .slider("float")
+        .on("slidechange", function (e, ui) {
+
+            alert(ui.value);
+
+        });
+</script>
+<script>
+    function OnInputChange(form_id) {
+        $(form_id).submit();
+    };
 </script>
 }

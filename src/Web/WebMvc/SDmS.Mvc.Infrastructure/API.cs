@@ -44,7 +44,7 @@ namespace SDmS.Mvc.Infrastructure
                 return string.Format("{0}/api/v{1}/users/{2}/devices/{3}", baseUrl, (int)version, userId, serialNumber);
             }
 
-            public static string GetDevices(string baseUrl, ApiVersion version, int limit, int offset, string userId, string type)
+            public static string GetDevices(string baseUrl, ApiVersion version, int limit, int offset, string userId, int type)
             {
                 return string.Format("{0}/api/v{1}/users/{2}/devices?type={5}&limit={3}&offset={4}", baseUrl, (int)version, userId, limit, offset, type);
             }

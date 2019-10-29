@@ -5,7 +5,7 @@ namespace SDmS.Resource.Common.Entities.Devices
 {
     public class Device
     {
-        public int device_id { get; set; }
+        public string device_id { get; set; }
         public string name { get; set; }
         public string serial_number { get; set; }
         public int device_type_id { get; set; }

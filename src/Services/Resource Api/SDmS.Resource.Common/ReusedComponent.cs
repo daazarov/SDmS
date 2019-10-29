@@ -6,16 +6,21 @@ namespace SDmS.Resource.Common
 {
     public class ReusedComponent
     {
-        IUniformSession session;
+        IUniformSession _session;
 
         public ReusedComponent(IUniformSession session)
         {
-            this.session = session;
+            this._session = session;
         }
 
         public async Task SendCommand(ICommand command)
         {
-            await session.Send(command).ConfigureAwait(false);
+            await _session.Send(command).ConfigureAwait(false);
+        }
+
+        public async Task PublicEvent(IEvent @event)
+        {
+            await _session.Publish(@event).ConfigureAwait(false);
         }
     }
 }

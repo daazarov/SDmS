@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using NServiceBus;
@@ -43,8 +45,11 @@ namespace SDmS.Resource.Api
 
             services.AddTransport();
 
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             RegisterComponent<DataModule>(services, Configuration);
             RegisterComponent<DomainServicesModule>(services, Configuration);
+            RegisterComponent<InfrastructureServicesModule>(services, Configuration);
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
@@ -77,7 +82,9 @@ namespace SDmS.Resource.Api
             });
             #endregion
 
-            NServiceBus.Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
+            var endpoint = NServiceBus.Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
+
+            services.AddScoped(typeof(IEndpointInstance), x => endpoint);
 
             return container;
         }

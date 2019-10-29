@@ -4,5 +4,6 @@
     {
         public int? Intensity { get; set; }
         public bool? IsEnable { get; set; }
+        public int Type { get; set; }
     }
 }

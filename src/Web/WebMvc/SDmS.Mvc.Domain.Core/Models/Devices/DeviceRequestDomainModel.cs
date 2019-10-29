@@ -4,6 +4,6 @@
     {
         public int limit { get; set; }
         public int offset { get; set; }
-        public string type { get; set; }
+        public int type { get; set; }
     }
 }

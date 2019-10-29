@@ -41,7 +41,8 @@ namespace SDmS.Resource.Api.Extensions
 
             endpointConfiguration.EnableInstallers();
 
-            endpointConfiguration.EnableUniformSession();
+            //endpointConfiguration.EnableUniformSession();
+            endpointConfiguration.EnableCallbacks();
 
             endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
             endpointConfiguration.UsePersistence<InMemoryPersistence>();

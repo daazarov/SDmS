@@ -16,12 +16,12 @@ namespace SDmS.Resource.Infrastructure.Services.Data.EntityMapping
             builder.HasKey(x => new { x.device_id, x.parameter_id});
 
             builder
-                .HasOne(x => x.Parameters)
+                .HasOne(x => x.Parameter)
                 .WithMany(x => x.Values)
                 .HasForeignKey(x => x.parameter_id);
 
             builder
-                .HasOne(x => x.Devices)
+                .HasOne(x => x.Device)
                 .WithMany(x => x.DeviceParameters)
                 .HasForeignKey(x => x.device_id);
         }

@@ -24,10 +24,8 @@ namespace SDmS.DeviceListener.Host
     {
         public void Register(IServiceCollection services)
         {
-            //services.AddTransient<IClimateService, ClimateService>();
-            //services.AddTransient<ILedService, LedService>();
-            //services.AddTransient<ITempSensorService, TempSensorService>();
             services.AddTransient<INewDeviceService, NewDeviceService>();
+            services.AddTransient<IMqttClientManager, MqttClientManager>();
         }
     }
 }

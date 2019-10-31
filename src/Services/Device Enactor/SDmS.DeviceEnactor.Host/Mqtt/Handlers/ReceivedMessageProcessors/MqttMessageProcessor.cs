@@ -12,13 +12,16 @@ namespace SDmS.DeviceEnactor.Host.Mqtt.Handlers
 {
     public abstract class MqttMessageProcessor : IMqttMessageProcessor
     {
-        public abstract string HandlerName { get; }
+        public abstract string MessageProcessorName { get; }
         public abstract string TopicPattern { get; }
         public abstract MessageType Type { get; }
 
-        public virtual DeviceCommand ParseCommand(MqttApplicationMessageReceivedEventArgs eventArgs) => null;
 
-        public virtual DeviceEvent ParseEvent(MqttApplicationMessageReceivedEventArgs eventArgs) => null;
+        public virtual DeviceEvent ParseDeviceEvent(MqttApplicationMessageReceivedEventArgs eventArgs) => null;
+
+        public virtual DeviceMessage ParseDeviceMessage(MqttApplicationMessageReceivedEventArgs eventArgs) => null;
+
+        public virtual MqttClientEvent ParseClientEvent(MqttApplicationMessageReceivedEventArgs eventArgs) => null;
 
         protected bool IsValidJson(string strInput)
         {

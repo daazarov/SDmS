@@ -9,6 +9,8 @@ namespace SDmS.Resource.Common.Entities.Devices
         public int device_category_id { get; set; }
 
         public virtual DeviceCategory Category { get; set; }
+		public virtual ICollection<Device> Devices { get; set; }
         public virtual ICollection<DeviceParameterBinding> Bindings { get; set; }
+		public virtual ICollection<Action> Actions { get; set; }
     }
 }

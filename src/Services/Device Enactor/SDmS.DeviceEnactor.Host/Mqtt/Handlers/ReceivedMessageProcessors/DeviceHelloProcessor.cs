@@ -11,11 +11,11 @@ namespace SDmS.DeviceEnactor.Host.Mqtt.ReceivedMessageProcessors
 {
     public class DeviceHelloProcessor : MqttMessageProcessor
     {
-        public override string HandlerName => "BaseDeviceInitialiser";
+        public override string MessageProcessorName => "BaseDeviceInitialiser";
         public override string TopicPattern => "devices/[0-9a-zA-Z]+/hello";
-        public override MessageType Type => MessageType.Event;
+        public override MessageType Type => MessageType.DeviceEvent;
 
-        public override DeviceEvent ParseEvent(MqttApplicationMessageReceivedEventArgs eventArgs)
+        public override DeviceEvent ParseDeviceEvent(MqttApplicationMessageReceivedEventArgs eventArgs)
         {
             var payload = eventArgs.ApplicationMessage.Payload;
             if (payload == null || payload.Length == 0)
@@ -26,9 +26,10 @@ namespace SDmS.DeviceEnactor.Host.Mqtt.ReceivedMessageProcessors
             var payloadStr = Encoding.UTF8.GetString(eventArgs.ApplicationMessage.Payload);
             if (this.IsValidJson(payloadStr))
             {
-                DeviceHelloMessage message = JsonConvert.DeserializeObject<DeviceHelloMessage>(payloadStr);
+                DeviceHelloEvent message = JsonConvert.DeserializeObject<DeviceHelloEvent>(payloadStr);
+                message.is_online = true;
 
-                if (string.IsNullOrEmpty(message.client_id)) message.client_id = eventArgs.ClientId;
+                if (string.IsNullOrEmpty(message.mqtt_client_id)) message.mqtt_client_id = eventArgs.ClientId;
 
                 return message;
             }

@@ -1,7 +1,8 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using NServiceBus;
+using SDmS.Messages.Common.Commands;
+using SDmS.Messages.Common.Messages;
 using SDmS.Resource.Common;
 using SDmS.Resource.Common.Entities.Devices;
 using SDmS.Resource.Common.Exceptions;
@@ -13,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SDmS.Resource.Domain.Services
@@ -51,7 +53,97 @@ namespace SDmS.Resource.Domain.Services
 
         public bool AddDevice(string userId, DeviceAddDomainModel model)
         {
-            throw new NotImplementedException();
+            var cancellationTokenSource = new CancellationTokenSource();
+			cancellationTokenSource.CancelAfter(TimeSpan.FromSeconds(5));
+
+            DeviceExistenceResponseMessage deviceIsExist;
+
+            try
+			{
+                var message = new DeviceVerificationMessage { serial_number = model.serial_number, CheckType = "EXISTENCE_IN_NEW" };
+
+                deviceIsExist = this._serviceBusSender.SendCallbackMessage<DeviceExistenceResponseMessage, DeviceVerificationMessage>(message, cancellationTokenSource.Token);
+			}
+			catch (OperationCanceledException)
+			{
+			    _logger.LogError($"Failed to add a new device. DETAILS: Not received response about the existence of a registered device\n\t" +
+                    $"UserId: {userId}, deviceType: {model.type}, serial number: {model.serial_number}, device name: {model.name}");
+                throw new ResourceException(-203, 404);
+			}
+
+            if (!deviceIsExist.is_exist)
+            {
+                _logger.LogError($"Failed to add a new device. DETAILS: Not Found in mongo db\n\t" +
+                    $"UserId: {userId}, deviceType: {model.type}, serial number: {model.serial_number}, device name: {model.name}");
+                throw new ResourceException(-201, 404);
+            }
+
+            var unitOfWork = _unitOfWorkManager.GetUnitOfWork();
+
+            var deviceRepository = unitOfWork.Repository<IGenericRepository<Device>, Device>();
+            var deviceParameterBindingsRepository = unitOfWork.Repository<IGenericRepository<DeviceParameterBinding>, DeviceParameterBinding>();
+            var deviceParametersRepository = unitOfWork.Repository<IGenericRepository<DeviceParameter>, DeviceParameter>();
+
+            var requiredParameter = deviceParametersRepository.GetbyFilter(x => x.description.ToLower() == deviceIsExist.device.type_text.ToLower(), 0, 0).FirstOrDefault();
+
+            if (requiredParameter == null)
+            {
+                _logger.LogError($"Failed to add a new device. DETAILS: Unknown device type\n\t" +
+                    $"UserId: {userId}, deviceType: {model.type}, serial number: {model.serial_number}, device name: {model.name}");
+                throw new ResourceException(-204, 400);
+            }
+            if (requiredParameter.parameter_id != model.type)
+            {
+                throw new ResourceException(-205, 400); // the type of device being added does not match the real device
+            }
+
+            Device device = new Device
+            {
+                device_id = deviceIsExist.device.device_id,
+                serial_number = model.serial_number,
+                name = model.name,
+                device_type_id = model.type,
+                user_id = userId,
+                is_online = deviceIsExist.device.is_online,
+                is_enable = false,
+                mqtt_client_id = deviceIsExist.device.mqtt_client_id
+            };
+
+            deviceRepository.Insert(device);
+
+            var parameters = deviceParameterBindingsRepository.GetbyFilter(x => x.device_type_id == model.type, 0, 0).Select(x => x.Parameter);
+
+            List<DeviceParameterValue> parameterValues = new List<DeviceParameterValue>();
+
+            foreach (var parameter in parameters)
+            {
+                parameterValues.Add(new DeviceParameterValue
+                {
+                    date_on = DateTime.UtcNow,
+                    device_id = device.device_id,
+                    parameter_id = parameter.parameter_id,
+                    value = deviceIsExist.parameters.TryGetValue(parameter.description, out dynamic val) ? val : parameter.default_value
+                });
+            }
+
+            var deviceParameterValuesRepository = unitOfWork.Repository<IGenericRepository<DeviceParameterValue>, DeviceParameterValue>();
+
+            deviceParameterValuesRepository.InsertRange(parameterValues);
+
+            var command = new DeviceAssignCommand
+            {
+                device_id = device.device_id,
+                serial_number = device.serial_number,
+                mqtt_client_id = device.mqtt_client_id,
+                type_text = device.Type.description,
+                parameters = device.DeviceParameters
+                    .Where(param => !String.IsNullOrEmpty(param.Parameter.processing_flag))
+                    .ToDictionary(x => x.Parameter.description, x => (dynamic)x.value)
+            };
+
+            this._serviceBusSender.SendCommand(command);
+
+            return true;
         }
 
         public async Task<bool> AddDeviceAsync(DeviceAddDomainModel model)
@@ -59,9 +151,101 @@ namespace SDmS.Resource.Domain.Services
             return await AddDeviceAsync(GetCurrentUserId(), model);
         }
 
-        public Task<bool> AddDeviceAsync(string user_id, DeviceAddDomainModel model)
+        public async Task<bool> AddDeviceAsync(string userId, DeviceAddDomainModel model)
         {
-            throw new NotImplementedException();
+            var cancellationTokenSource = new CancellationTokenSource();
+            cancellationTokenSource.CancelAfter(TimeSpan.FromSeconds(5));
+
+            DeviceExistenceResponseMessage deviceIsExist;
+
+            try
+            {
+                var message = new DeviceVerificationMessage { serial_number = model.serial_number, CheckType = "EXISTENCE_IN_NEW" };
+
+                deviceIsExist = await this._serviceBusSender.SendCallbackMessageAsync<DeviceExistenceResponseMessage, DeviceVerificationMessage>(message, cancellationTokenSource.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                _logger.LogError($"Failed to add a new device. DETAILS: Not received response about the existence of a registered device\n\t" +
+                    $"UserId: {userId}, deviceType: {model.type}, serial number: {model.serial_number}, device name: {model.name}");
+                throw new ResourceException(-203, 404);
+            }
+
+            if (!deviceIsExist.is_exist)
+            {
+                _logger.LogError($"Failed to add a new device. DETAILS: Not Found in mongo db\n\t" +
+                    $"UserId: {userId}, deviceType: {model.type}, serial number: {model.serial_number}, device name: {model.name}");
+                throw new ResourceException(-201, 404);
+            }
+
+            var unitOfWork = _unitOfWorkManager.GetUnitOfWork();
+
+            var deviceRepository = unitOfWork.Repository<IGenericRepository<Device>, Device>();
+            var deviceParameterBindingsRepository = unitOfWork.Repository<IGenericRepository<DeviceParameterBinding>, DeviceParameterBinding>();
+            var deviceParametersRepository = unitOfWork.Repository<IGenericRepository<DeviceParameter>, DeviceParameter>();
+
+            var requiredParameters = await deviceParametersRepository.GetbyFilterAsync(x => x.description.ToLower() == deviceIsExist.device.type_text.ToLower(), 0, 0);
+            var requiredParameter = requiredParameters.FirstOrDefault();
+
+            if (requiredParameter == null)
+            {
+                _logger.LogError($"Failed to add a new device. DETAILS: Unknown device type\n\t" +
+                    $"UserId: {userId}, deviceType: {model.type}, serial number: {model.serial_number}, device name: {model.name}");
+                throw new ResourceException(-204, 400);
+            }
+            if (requiredParameter.parameter_id != model.type)
+            {
+                throw new ResourceException(-205, 400); // the type of device being added does not match the real device
+            }
+
+            Device device = new Device
+            {
+                device_id = deviceIsExist.device.device_id,
+                serial_number = model.serial_number,
+                name = model.name,
+                device_type_id = model.type,
+                user_id = userId,
+                is_online = deviceIsExist.device.is_online,
+                is_enable = false,
+                mqtt_client_id = deviceIsExist.device.mqtt_client_id
+            };
+
+            await deviceRepository.InsertAsync(device);
+
+            var bindings = await deviceParameterBindingsRepository.GetbyFilterAsync(x => x.device_type_id == model.type, 0, 0);
+            var parameters = bindings.Select(x => x.Parameter);
+
+            List<DeviceParameterValue> parameterValues = new List<DeviceParameterValue>();
+
+            foreach (var parameter in parameters)
+            {
+                parameterValues.Add(new DeviceParameterValue
+                {
+                    date_on = DateTime.UtcNow,
+                    device_id = device.device_id,
+                    parameter_id = parameter.parameter_id,
+                    value = deviceIsExist.parameters.TryGetValue(parameter.description, out dynamic val) ? val : parameter.default_value
+                });
+            }
+
+            var deviceParameterValuesRepository = unitOfWork.Repository<IGenericRepository<DeviceParameterValue>, DeviceParameterValue>();
+
+            await deviceParameterValuesRepository.InsertRangeAsync(parameterValues);
+
+            var command = new DeviceAssignCommand
+            {
+                device_id = device.device_id,
+                serial_number = device.serial_number,
+                mqtt_client_id = device.mqtt_client_id,
+                type_text = device.Type.description,
+                parameters = device.DeviceParameters
+                    .Where(param => !String.IsNullOrEmpty(param.Parameter.processing_flag))
+                    .ToDictionary(x => x.Parameter.description, x => (dynamic)x.value)
+            };
+
+            await this._serviceBusSender.SendCommandAsync(command);
+
+            return true;
         }
 
         public bool DeleteDevice(string serialNumber)
@@ -71,7 +255,31 @@ namespace SDmS.Resource.Domain.Services
 
         public bool DeleteDevice(string userId, string serialNumber)
         {
-            throw new NotImplementedException();
+            var unitOfWork = _unitOfWorkManager.GetUnitOfWork();
+
+            var deviceRepository = unitOfWork.Repository<IGenericRepository<Device>, Device>();
+
+            var device = deviceRepository.GetbyFilter(x => x.serial_number == serialNumber && x.user_id == userId, 0, 0).FirstOrDefault();
+
+            if (device != null)
+            {
+                var deviceParametersRepository = unitOfWork.Repository<IGenericRepository<DeviceParameterValue>, DeviceParameterValue>();
+                var parameters = deviceParametersRepository.GetbyFilter(x => x.device_id == device.device_id, 0, 0);
+                deviceParametersRepository.DeleteRange(parameters);
+
+                deviceRepository.Delete(device);
+
+                var command = new DeviceDeleteCommand
+                {
+                    serial_number = serialNumber,
+                    mqtt_client_id = device.mqtt_client_id,
+                    type_text = device.Type.description
+                };
+
+                this._serviceBusSender.SendCommand(command);
+            }
+
+            return true;
         }
 
         public async Task<bool> DeleteDeviceAsync(string serialNumber)
@@ -79,9 +287,33 @@ namespace SDmS.Resource.Domain.Services
             return await DeleteDeviceAsync(GetCurrentUserId(), serialNumber);
         }
 
-        public Task<bool> DeleteDeviceAsync(string userId, string serialNumber)
+        public async Task<bool> DeleteDeviceAsync(string userId, string serialNumber)
         {
-            throw new NotImplementedException();
+            var unitOfWork = _unitOfWorkManager.GetUnitOfWork();
+
+            var deviceRepository = unitOfWork.Repository<IGenericRepository<Device>, Device>();
+
+            var device = await deviceRepository.GetbyFilterAsync(x => x.serial_number == serialNumber && x.user_id == userId, 0, 0);
+
+            if (device.FirstOrDefault() != null)
+            {
+                var deviceParametersRepository = unitOfWork.Repository<IGenericRepository<DeviceParameterValue>, DeviceParameterValue>();
+                var parameters = await deviceParametersRepository.GetbyFilterAsync(x => x.device_id == device.FirstOrDefault().device_id, 0, 0);
+                deviceParametersRepository.DeleteRange(parameters);
+
+                var command = new DeviceDeleteCommand
+                {
+                    serial_number = serialNumber,
+                    mqtt_client_id = device.FirstOrDefault().mqtt_client_id,
+                    type_text = device.FirstOrDefault().Type.description
+                };
+
+                deviceRepository.Delete(device.FirstOrDefault());
+
+                await this._serviceBusSender.SendCommandAsync(command);
+            }
+
+            return true;
         }
 
         public int DeviceAllCount(string userId)

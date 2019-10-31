@@ -42,14 +42,40 @@ namespace SDmS.DeviceEnactor.Host.Mqtt.Handlers
 
             switch (handler.Type)
             {
-                case MessageType.Command:
-                    var command = handler.ParseCommand(eventArgs);
-                    await session.Send(command);
-                    break;
-                case MessageType.Event:
-                    var @event = handler.ParseEvent(eventArgs);
-                    await session.Publish(@event);
-                    break;
+                case MessageType.DeviceEvent:
+                    {
+                        var @event = handler.ParseDeviceEvent(eventArgs);
+                        if (@event == null)
+                        {
+                            _logger.LogError($"ClientId: {eventArgs.ClientId}. Message in topic: {eventArgs.ApplicationMessage.Topic}. ERROR: Message parsing error.");
+                            return;
+                        }
+                        await session.Publish(@event);
+                        break;
+                    }
+                    
+                case MessageType.DeviceMessage:
+                    {
+                        var message = handler.ParseDeviceEvent(eventArgs);
+                        if (message == null)
+                        {
+                            _logger.LogError($"ClientId: {eventArgs.ClientId}. Message in topic: {eventArgs.ApplicationMessage.Topic}. ERROR: Message parsing error.");
+                            return;
+                        }
+                        await session.Send(message);
+                        break;
+                    }
+                case MessageType.ClientEvent:
+                    {
+                        var @event = handler.ParseClientEvent(eventArgs);
+                        if (@event == null)
+                        {
+                            _logger.LogError($"ClientId: {eventArgs.ClientId}. Message in topic: {eventArgs.ApplicationMessage.Topic}. ERROR: Message parsing error.");
+                            return;
+                        }
+                        await session.Publish(@event);
+                        break;
+                    }
             }
         }
     }

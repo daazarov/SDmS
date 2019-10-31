@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SDmS.Resource.Api.Attributes.Filters;
 using SDmS.Resource.Api.Models.Devices;
 using SDmS.Resource.Domain.Interfaces.Services;
 
@@ -13,6 +14,7 @@ namespace SDmS.Resource.Api.Controllers.v1
 {
     [ApiController]
     [Authorize]
+    [TypeFilter(typeof(ExceptionFilterAttribute))]
     public class DevicesController : BaseApiController
     {
         private readonly IDeviceService _deviceService;

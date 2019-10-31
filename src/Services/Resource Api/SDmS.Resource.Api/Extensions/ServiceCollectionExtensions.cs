@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
+using SDmS.Messages.Common.Commands;
 using SDmS.Resource.Api.Configuration;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,8 @@ namespace SDmS.Resource.Api.Extensions
             Configuration.Bind("NServiceBus", settings);
 
             IEndpointInstance endpointInstance = null;
-            services.AddSingleton<IMessageSession>(_ => endpointInstance);
+            //services.AddSingleton<IMessageSession>(_ => endpointInstance);
+            services.AddSingleton<IEndpointInstance>(_ => endpointInstance);
 
             var endpointConfiguration = new EndpointConfiguration(settings.RabbitEndPoint.Name);
             var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
@@ -38,17 +40,25 @@ namespace SDmS.Resource.Api.Extensions
             transport.UseDirectRoutingTopology();
 
             var routing = transport.Routing();
+            ConfigureRouting(routing);
 
             endpointConfiguration.EnableInstallers();
 
             //endpointConfiguration.EnableUniformSession();
             endpointConfiguration.EnableCallbacks();
+			endpointConfiguration.MakeInstanceUniquelyAddressable("uniqueId");
 
             endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
             endpointConfiguration.UsePersistence<InMemoryPersistence>();
             endpointConfiguration.SendFailedMessagesTo(Configuration[settings.RabbitEndPoint.ErrorQueue]);
 
             return endpointConfiguration;
+        }
+
+        private static void ConfigureRouting(RoutingSettings<RabbitMQTransport> routing)
+        {
+            routing.RouteToEndpoint(typeof(DeviceDeleteCommand), "sdms.device-listener.host");
+            routing.RouteToEndpoint(typeof(DeviceAssignCommand), "sdms.device-listener.host");
         }
     }
 }

@@ -6,5 +6,6 @@ namespace SDmS.Resource.Domain.Models.Devices
 {
     public class ExecutionResult
     {
+		public bool IsSuccessfully { get; set; }
     }
 }

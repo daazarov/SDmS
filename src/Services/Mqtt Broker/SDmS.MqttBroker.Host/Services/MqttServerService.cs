@@ -62,6 +62,9 @@ namespace SDmS.MqttBroker.Host.Services
         {
             _mqttServerStorage.Configure();
 
+            _mqttClientDisconnectedHandler.MqttServer = this;
+            _mqttClientConnectedHandler.MqttServer = this;
+
             _mqttServer.ClientConnectedHandler = _mqttClientConnectedHandler;
             _mqttServer.ClientDisconnectedHandler = _mqttClientDisconnectedHandler;
             _mqttServer.ClientSubscribedTopicHandler = _mqttClientSubscribedTopicHandler;

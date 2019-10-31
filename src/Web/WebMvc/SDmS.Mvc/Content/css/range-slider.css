@@ -1,6 +1,4 @@
-﻿
-
-input.sd-slider[type="range"] {
+﻿input.sd-slider[type="range"] {
     outline: 0;
     border: 0;
     border-radius: 500px;
@@ -152,9 +150,8 @@ input.sd-slider[type="range"]::-ms-fill-upper {
   background-color: #25daa5; }
                     
                     
-#flat-slider-vertical-3 .ui-slider-handle,
-#flat-slider-vertical-3 .ui-slider-range,
-#flat-slider-vertical-3 .ui-slider-pip[class*=ui-slider-pip-selected] .ui-slider-line,
-#flat-slider-vertical-3 .ui-slider-pip.ui-slider-pip-inrange .ui-slider-line {
+[id*=flat-slider-vertical] .ui-slider-handle,
+[id*=flat-slider-vertical] .ui-slider-range,
+[id*=flat-slider-vertical] .ui-slider-pip[class*=ui-slider-pip-selected] .ui-slider-line,
+[id*=flat-slider-vertical] .ui-slider-pip.ui-slider-pip-inrange .ui-slider-line {
   background-color: #1e87f0; }
-

@@ -1,5 +1,6 @@
 ﻿using NServiceBus;
 using SDmS.Resource.Infrastructure.Interfaces;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SDmS.Resource.Infrastructure.Services
@@ -33,18 +34,24 @@ namespace SDmS.Resource.Infrastructure.Services
             await _endpointInstance.Send(command).ConfigureAwait(false);
         }
 
-        public TResponse SentCallbackMessage<TResponse, UMessage>(UMessage message)
-            where TResponse : IMessage
-            where UMessage : ICommand
+        public TResponse SendCallbackMessage<TResponse, UMessage>(UMessage message) where UMessage : IMessage
         {
             return _endpointInstance.Request<TResponse>(message).GetAwaiter().GetResult();
         }
 
-        public async Task<TResponse> SentCallbackMessageAsync<TResponse, UMessage>(UMessage message)
-            where TResponse : IMessage
-            where UMessage : ICommand
+        public TResponse SendCallbackMessage<TResponse, UMessage>(UMessage message, CancellationToken token) where UMessage : IMessage
+        {
+            return _endpointInstance.Request<TResponse>(message, token).GetAwaiter().GetResult();
+        }
+
+        public async Task<TResponse> SendCallbackMessageAsync<TResponse, UMessage>(UMessage message) where UMessage : IMessage
         {
             return await _endpointInstance.Request<TResponse>(message).ConfigureAwait(false);
+        }
+
+        public async Task<TResponse> SendCallbackMessageAsync<TResponse, UMessage>(UMessage message, CancellationToken token) where UMessage : IMessage
+        {
+            return await _endpointInstance.Request<TResponse>(message, token).ConfigureAwait(false);
         }
     }
 }

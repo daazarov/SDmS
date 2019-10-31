@@ -6,11 +6,12 @@ namespace SDmS.DeviceEnactor.Host.Interfaces
 {
     public interface IMqttMessageProcessor
     {
-        string HandlerName { get; }
+        string MessageProcessorName { get; }
         string TopicPattern { get; }
         MessageType Type { get; }
 
-        DeviceEvent ParseEvent(MqttApplicationMessageReceivedEventArgs eventArgs);
-        DeviceCommand ParseCommand(MqttApplicationMessageReceivedEventArgs eventArgs);
+        DeviceEvent ParseDeviceEvent(MqttApplicationMessageReceivedEventArgs eventArgs);
+        DeviceMessage ParseDeviceMessage(MqttApplicationMessageReceivedEventArgs eventArgs);
+        MqttClientEvent ParseClientEvent(MqttApplicationMessageReceivedEventArgs eventArgs);
     }
 }

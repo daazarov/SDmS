@@ -188,7 +188,12 @@ namespace SDmS.Infrastructure.Commands
 
             if (response.IsSuccessStatusCode)
             {
-                entity = await response.Content.ReadAsAsync<T>();
+                try
+                {
+                    entity = await response.Content.ReadAsAsync<T>();
+                }
+                catch { }
+
                 var result = new BaseCommandResult<T>(response, entity);
                 return result;
             }

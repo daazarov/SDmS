@@ -11,6 +11,12 @@ namespace SDmS.MqttBroker.Host.Mqtt.Handlers
     {
         public Task InterceptApplicationMessagePublishAsync(MqttApplicationMessageInterceptorContext context)
         {
+            // we do not process messages from ourselves
+            if (string.IsNullOrEmpty(context.ClientId))
+            {
+                return Task.CompletedTask;
+            }
+
             try
             {
                 string payload = (context.ApplicationMessage.Payload.Length > 0) ? Encoding.UTF8.GetString(context.ApplicationMessage.Payload) : "";
@@ -22,7 +28,7 @@ namespace SDmS.MqttBroker.Host.Mqtt.Handlers
                     if (!messageElements.TryGetValue("client_id", out var value))
                     {
                         string clientId = context.ClientId;
-                        messageElements.Add("client_id", clientId);
+                        messageElements.Add("mqtt_client_id", clientId);
 
                         string json = JsonConvert.SerializeObject(messageElements);
 

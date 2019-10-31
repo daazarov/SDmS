@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SDmS.DeviceListener.Core.Services.NServiceBus.Handlers
 {
-    public class BaseHelloMessageHandler : IHandleMessages<DeviceHelloMessage>
+    public class BaseHelloMessageHandler : IHandleMessages<DeviceHelloEvent>
     {
         private readonly INewDeviceService _newDeviceService;
         private readonly ILog _logger;
@@ -18,20 +18,9 @@ namespace SDmS.DeviceListener.Core.Services.NServiceBus.Handlers
             _logger = LogManager.GetLogger<BaseHelloMessageHandler>();
         }
 
-        public async Task Handle(DeviceHelloMessage message, IMessageHandlerContext context)
+        public async Task Handle(DeviceHelloEvent message, IMessageHandlerContext context)
         {
-            await _newDeviceService.RegisterDeviceAsync<DeviceHelloMessage>(message);
-            try
-            {
-                
-            }
-            catch (InvalidOperationException ex)
-            {
-                _logger.Error(ex.Message, ex);
-
-                // return message in eventBus
-                await context.Publish(message).ConfigureAwait(false);
-            }
+            await _newDeviceService.RegisterDeviceAsync<DeviceHelloEvent>(message);
         }
     }
 }

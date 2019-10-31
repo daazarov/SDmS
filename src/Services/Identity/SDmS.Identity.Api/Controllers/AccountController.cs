@@ -29,8 +29,6 @@ namespace SDmS.Identity.Api.Controllers
         [Route("forgot_password"), HttpPost]
         public async Task<IHttpActionResult> ForgotPassword([FromBody]AccountEmailModel model)
         {
-            throw new System.Exception("Test Exception");
-
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);

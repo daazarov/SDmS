@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Messages\SDmS.Messages.Common\SDmS.Messages.Common.csproj" />
     <ProjectReference Include="..\SDmS.Resource.Common\SDmS.Resource.Common.csproj" />
     <ProjectReference Include="..\SDmS.Resource.Domain\SDmS.Resource.Domain.csproj" />
     <ProjectReference Include="..\SDmS.Resource.Infrastructure\SDmS.Resource.Infrastructure.csproj" />

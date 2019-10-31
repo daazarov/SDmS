@@ -4,8 +4,9 @@ using System.Text;
 
 namespace SDmS.Messages.Common.Models
 {
-    public class DeviceReceivedEventMessage : DeviceEvent
+    public class DevicePublishedEvent : DeviceEvent
     {
+        public string mqtt_client_id { get; set; }
         public string type { get; set; }
     }
 }

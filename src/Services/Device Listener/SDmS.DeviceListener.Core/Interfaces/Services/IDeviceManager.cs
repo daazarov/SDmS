@@ -4,7 +4,8 @@ using System.Text;
 
 namespace SDmS.DeviceListener.Core.Interfaces.Services
 {
-    public interface IClimateService : ITempSensorService
+    public interface IDeviceManager
     {
+        
     }
 }

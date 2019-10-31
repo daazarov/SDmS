@@ -10,7 +10,6 @@ namespace SDmS.Resource.Domain.Models.Devices
         public string serial_number { get; set; }
         public int device_type_id { get; set; }
         public string user_id { get; set; }
-        public string mqtt_client_id { get; set; }
         public bool is_online { get; set; }
         public bool? is_enable { get; set; }
         public DateTime creation_date { get; set; }

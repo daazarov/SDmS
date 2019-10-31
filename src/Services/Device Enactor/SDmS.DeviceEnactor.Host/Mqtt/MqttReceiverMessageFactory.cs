@@ -43,7 +43,7 @@ namespace SDmS.DeviceEnactor.Host.Mqtt
                             IMqttMessageProcessor handler = (IMqttMessageProcessor)inst;
                             // make it case insensitive
                             IMqttMessageProcessor tmp;
-                            string key = handler.HandlerName;
+                            string key = handler.MessageProcessorName;
                             if (_handlers.TryGetValue(key, out tmp))
                             {
                                 _logger.LogError($"MQTT message handler with name {key} is alredy initialese in handler factory");

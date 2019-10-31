@@ -2,7 +2,7 @@
 
 namespace SDmS.Messages.Common.Events
 {
-    public class DeviceHelloMessage : DeviceReceivedEventMessage
+    public class MqttClientDisconnectedEvent : MqttClientEvent
     {
     }
 }

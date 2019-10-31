@@ -173,7 +173,12 @@ namespace SDmS.Infrastructure.Commands
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                entity = await response.Content.ReadAsAsync<T>();
+                try
+                {
+                    entity = await response.Content.ReadAsAsync<T>();
+                }
+                catch { }
+                
                 var result = new BaseCommandResult<T>(response, entity);
                 return result;
             }

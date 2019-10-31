@@ -24,14 +24,6 @@ namespace SDmS.DeviceListener.Core.Services
 
         public async Task RegisterDeviceAsync<T>(T device) where T : DeviceEvent
         {
-            /*if (!(device is T))
-            {
-                var type = typeof(T);
-                _logger.LogError(new InvalidCastException(nameof(device)), $"Registration device error \nInvalid cast to type {type.FullName}");
-            }
-
-            var castDevice = device as T;*/
-
             if (!_context.IsConnected)
             {
                 _logger.LogError($"Serial number {device.serial_number} - registration device error, mongodb connection was NOT successful");
@@ -82,8 +74,12 @@ namespace SDmS.DeviceListener.Core.Services
 
             if (deleteResult.IsAcknowledged)
             {
-                var collection = _context.Database.GetCollection<T>(collectionName);
-                await collection.InsertOneAsync(device);
+                var collection = _context.Database.GetCollection<BsonDocument>(collectionName);
+				
+				var jsonDoc = Newtonsoft.Json.JsonConvert.SerializeObject(device);
+				var bsonDoc = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(jsonDoc);
+				
+                await collection.InsertOneAsync(bsonDoc);
 
                 return true;
             }

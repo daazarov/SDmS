@@ -61,7 +61,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDmS.Resource.Infrastructur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDmS.Resource.Infrastructure.Services", "src\Services\Resource Api\SDmS.Resource.Infrastructure.Services\SDmS.Resource.Infrastructure.Services.csproj", "{60A51FBD-31C5-4EC3-B7C4-D6000351A311}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDmS.Resource.DI", "src\Services\Resource Api\SDmS.Resource.DI\SDmS.Resource.DI.csproj", "{A227FAFD-085F-4DB3-9F3A-DDA66723AB12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDmS.Resource.DI", "src\Services\Resource Api\SDmS.Resource.DI\SDmS.Resource.DI.csproj", "{A227FAFD-085F-4DB3-9F3A-DDA66723AB12}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{F8A18F92-A24B-4209-B67B-9A5574DD672A}"
+	ProjectSection(SolutionItems) = preProject
+		src\Services\Resource Api\SQL\dbo.device_categories.data.sql = src\Services\Resource Api\SQL\dbo.device_categories.data.sql
+		src\Services\Resource Api\SQL\dbo.device_parameter_bindings.data.sql = src\Services\Resource Api\SQL\dbo.device_parameter_bindings.data.sql
+		src\Services\Resource Api\SQL\dbo.device_parameters.data.sql = src\Services\Resource Api\SQL\dbo.device_parameters.data.sql
+		src\Services\Resource Api\SQL\dbo.device_types.data.sql = src\Services\Resource Api\SQL\dbo.device_types.data.sql
+		src\Services\Resource Api\SQL\dbo.error_descriptions.data.sql = src\Services\Resource Api\SQL\dbo.error_descriptions.data.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -175,6 +184,7 @@ Global
 		{FDF4C7CC-045B-46EA-BCAA-C23A45484027} = {6A0A6D4B-E338-4F0F-AE33-B15A90BA1E0E}
 		{60A51FBD-31C5-4EC3-B7C4-D6000351A311} = {6A0A6D4B-E338-4F0F-AE33-B15A90BA1E0E}
 		{A227FAFD-085F-4DB3-9F3A-DDA66723AB12} = {549E6E49-04AA-4DBE-9C7D-527BE1BCD2DC}
+		{F8A18F92-A24B-4209-B67B-9A5574DD672A} = {6A0A6D4B-E338-4F0F-AE33-B15A90BA1E0E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0711B079-E477-4176-9FEF-FAFFB0FE0B13}

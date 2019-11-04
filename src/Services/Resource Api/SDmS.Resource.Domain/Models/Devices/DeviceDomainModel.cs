@@ -5,7 +5,7 @@ namespace SDmS.Resource.Domain.Models.Devices
 {
     public class DeviceDomainModel
     {
-        public int device_id { get; set; }
+        public string device_id { get; set; }
         public string name { get; set; }
         public string serial_number { get; set; }
         public int device_type_id { get; set; }
@@ -15,6 +15,6 @@ namespace SDmS.Resource.Domain.Models.Devices
         public DateTime creation_date { get; set; }
         public DateTime? last_receive_data_time { get; set; }
 
-        //public virtual ICollection<DeviceParameterValue> DeviceParameters { get; set; }
+        public virtual ICollection<DeviceParameterValueDomain> DeviceParameters { get; set; }
     }
 }

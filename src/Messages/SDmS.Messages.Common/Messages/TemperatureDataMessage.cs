@@ -1,11 +1,11 @@
 ﻿using SDmS.Messages.Common.Models;
 using System.Text;
 
-namespace SDmS.Messages.Common.Events
+namespace SDmS.Messages.Common.Messages
 {
-    public class DeviceHelloEvent : DevicePublishedEvent
+    public class TemperatureDataMessage : DevicePublishedMessage
     {
-        public bool is_online { get; set; }
+        public string temperature_data { get; set; }
 
         public override string ToString()
         {
@@ -14,7 +14,7 @@ namespace SDmS.Messages.Common.Events
             StringBuilder builder = new StringBuilder();
             builder.AppendLine($"Command name: {type.FullName}");
             builder.AppendLine($"Serial Number: {serial_number}");
-            builder.AppendLine($"Device Type: {type}");
+            builder.AppendLine($"Temperature Data: {temperature_data}");
 
             return builder.ToString();
         }

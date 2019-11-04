@@ -27,7 +27,7 @@
 #define MQTT_LED_STATUS_RESPONSE_TOPIC (String("devices/6519515/led/status/response").c_str())
 #define MQTT_LED_SWITCH_RESPONSE_TOPIC (String("devices/6519515/led/switch/response").c_str())
 #define MQTT_ERROR_TOPIC (String("devices/6519515/errors").c_str())
-#define MQTT_TEMP_RESPONSE_TOPIC (String("devices/6519515/temperature").c_str())
+#define MQTT_TEMP_RESPONSE_TOPIC (String("devices/6519515/temperature/data").c_str())
 
 const char *chip_id = "6519515";
 
@@ -481,7 +481,7 @@ void DS18B20_CELSIUS_1(DallasTemperature sensor, DeviceAddress deviceAddress, ch
     return;
   }
 
-  String data = String("{ \n\t\"type\": \"temperature\", \n\t\"serial_number\": \"") + serial_number + "\", \n\t\"data\": \"" + String(tempC) + "\"\n}";
+  String data = String("{ \n\t\"type\": \"temperature\", \n\t\"serial_number\": \"") + serial_number + "\", \n\t\"temperature_data\": \"" + String(tempC) + "\"\n}";
   client.publish(MQTT_TEMP_RESPONSE_TOPIC, data);
 
   Serial.print(serial_number);

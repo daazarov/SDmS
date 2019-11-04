@@ -84,7 +84,7 @@ namespace SDmS.Resource.Domain.Services
             var deviceParameterBindingsRepository = unitOfWork.Repository<IGenericRepository<DeviceParameterBinding>, DeviceParameterBinding>();
             var deviceParametersRepository = unitOfWork.Repository<IGenericRepository<DeviceParameter>, DeviceParameter>();
 
-            var requiredParameter = deviceParametersRepository.GetbyFilter(x => x.description.ToLower() == deviceIsExist.device.type_text.ToLower(), 0, 0).FirstOrDefault();
+            var requiredParameter = deviceParametersRepository.GetbyFilter(x => x.description.ToLower() == deviceIsExist.device_info.type_text.ToLower(), 0, 0).FirstOrDefault();
 
             if (requiredParameter == null)
             {
@@ -99,14 +99,13 @@ namespace SDmS.Resource.Domain.Services
 
             Device device = new Device
             {
-                device_id = deviceIsExist.device.device_id,
                 serial_number = model.serial_number,
                 name = model.name,
                 device_type_id = model.type,
                 user_id = userId,
-                is_online = deviceIsExist.device.is_online,
+                is_online = deviceIsExist.device_info.is_online,
                 is_enable = false,
-                mqtt_client_id = deviceIsExist.device.mqtt_client_id
+                mqtt_client_id = deviceIsExist.device_info.mqtt_client_id
             };
 
             deviceRepository.Insert(device);
@@ -184,7 +183,7 @@ namespace SDmS.Resource.Domain.Services
             var deviceParameterBindingsRepository = unitOfWork.Repository<IGenericRepository<DeviceParameterBinding>, DeviceParameterBinding>();
             var deviceParametersRepository = unitOfWork.Repository<IGenericRepository<DeviceParameter>, DeviceParameter>();
 
-            var requiredParameters = await deviceParametersRepository.GetbyFilterAsync(x => x.description.ToLower() == deviceIsExist.device.type_text.ToLower(), 0, 0);
+            var requiredParameters = await deviceParametersRepository.GetbyFilterAsync(x => x.description.ToLower() == deviceIsExist.device_info.type_text.ToLower(), 0, 0);
             var requiredParameter = requiredParameters.FirstOrDefault();
 
             if (requiredParameter == null)
@@ -200,14 +199,13 @@ namespace SDmS.Resource.Domain.Services
 
             Device device = new Device
             {
-                device_id = deviceIsExist.device.device_id,
                 serial_number = model.serial_number,
                 name = model.name,
                 device_type_id = model.type,
                 user_id = userId,
-                is_online = deviceIsExist.device.is_online,
+                is_online = deviceIsExist.device_info.is_online,
                 is_enable = false,
-                mqtt_client_id = deviceIsExist.device.mqtt_client_id
+                mqtt_client_id = deviceIsExist.device_info.mqtt_client_id
             };
 
             await deviceRepository.InsertAsync(device);

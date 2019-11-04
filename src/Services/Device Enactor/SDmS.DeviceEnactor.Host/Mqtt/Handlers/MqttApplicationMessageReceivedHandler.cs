@@ -62,7 +62,7 @@ namespace SDmS.DeviceEnactor.Host.Mqtt.Handlers
                             _logger.LogError($"ClientId: {eventArgs.ClientId}. Message in topic: {eventArgs.ApplicationMessage.Topic}. ERROR: Message parsing error.");
                             return;
                         }
-                        await session.Send(message);
+                        await session.Publish(message);
                         break;
                     }
                 case MessageType.ClientEvent:

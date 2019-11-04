@@ -4,6 +4,7 @@ using MongoDB.Driver;
 using NServiceBus;
 using SDmS.DeviceListener.Core.Interfaces.Services;
 using SDmS.DeviceListener.Infrastructure.Interfaces.Data;
+using SDmS.Messages.Common.Messages;
 using SDmS.Messages.Common.Models;
 using System;
 using System.Collections.Generic;
@@ -36,9 +37,9 @@ namespace SDmS.DeviceListener.Core.Services
             {
                 var collection = _context.Database.GetCollection<BsonDocument>(collectionName);
                 var filter = Builders<BsonDocument>.Filter.Eq("serial_number", device.serial_number);
-                var result = await collection.FindAsync(filter).Result.FirstOrDefaultAsync();
+                var result = await collection.FindAsync(filter);
 
-                if (result == null)
+                if (result.FirstOrDefault()== null)
                 {
                     continue;
                 }
@@ -62,9 +63,10 @@ namespace SDmS.DeviceListener.Core.Services
             }
 
             var filter = Builders<BsonDocument>.Filter.Eq("serial_number", device.serial_number);
-            var result = await _context.NewDevices.FindAsync(filter).Result.FirstOrDefaultAsync();
+            var result = await _context.NewDevices.FindAsync(filter);
+            var deviceDoc = await result.FirstOrDefaultAsync();
 
-            if (result == null)
+            if (deviceDoc == null)
             {
                 _logger.LogError($"Serial number {device.serial_number} - device assignment error, device not found in MongoDb collection ({_context.NewDevices.CollectionNamespace})");
                 return false;
@@ -86,6 +88,49 @@ namespace SDmS.DeviceListener.Core.Services
 
             _logger.LogError($"Serial number {device.serial_number} - device assignment error, failed to remove device from collection ({_context.NewDevices.CollectionNamespace})");
             return false;
+        }
+
+        public async Task<DeviceExistenceResponseMessage> CheckDeviceExistenceInNewAsync(string serialNumber)
+        {
+            if (!_context.IsConnected)
+            {
+                _logger.LogError($"Serial number {serialNumber} - error check the existence of the device, mongodb connection was NOT successful");
+                throw new InvalidOperationException("Сonnection with MongoDB not established");
+            }
+
+            var filter = Builders<BsonDocument>.Filter.Eq("serial_number", serialNumber);
+            var result = await _context.NewDevices.FindAsync(filter);
+            var deviceDoc = await result.FirstOrDefaultAsync();
+
+            if (deviceDoc != null)
+            {
+                DeviceExistenceResponseMessage device = new DeviceExistenceResponseMessage
+                {
+                    is_exist = true,
+                    parameters = new Dictionary<string, dynamic>()
+                };
+
+                device.device_info = new DeviceInfo();
+
+                if (deviceDoc.Contains("mqtt_client_id"))
+                {
+                    device.device_info.mqtt_client_id = deviceDoc["mqtt_client_id"].AsString;
+                }
+                if (deviceDoc.Contains("is_online"))
+                {
+                    device.device_info.is_online = deviceDoc["is_online"].AsBoolean;
+                }
+                if (deviceDoc.Contains("type"))
+                {
+                    device.device_info.type_text = deviceDoc["type"].AsString;
+                }
+
+                return device;
+            }
+            else
+            {
+                return new DeviceExistenceResponseMessage { is_exist = false };
+            }
         }
 
         private async Task<List<string>> GetCollections()

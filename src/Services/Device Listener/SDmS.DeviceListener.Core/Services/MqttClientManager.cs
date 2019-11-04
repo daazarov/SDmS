@@ -36,7 +36,7 @@ namespace SDmS.DeviceListener.Core.Services
                 var collection = _context.Database.GetCollection<BsonDocument>(collectionName);
                 var filter = Builders<BsonDocument>.Filter.Eq("mqtt_client_id", mqtt_client_id);
 
-                var update = Builders<BsonDocument>.Update.Set("is_online", status).CurrentDate("lastModified");
+                var update = Builders<BsonDocument>.Update.Set("is_online", status).CurrentDate("last_modified");
                 var result = collection.UpdateMany(filter, update);
             }
         }

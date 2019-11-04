@@ -35,7 +35,7 @@ namespace SDmS.Resource.Api.Extensions
             var endpointConfiguration = new EndpointConfiguration(settings.RabbitEndPoint.Name);
             var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
 
-            transport.ConnectionString(Configuration[settings.ConnectionString]);
+            transport.ConnectionString(settings.ConnectionString);
             transport.UsePublisherConfirms(true);
             transport.UseDirectRoutingTopology();
 
@@ -46,11 +46,11 @@ namespace SDmS.Resource.Api.Extensions
 
             //endpointConfiguration.EnableUniformSession();
             endpointConfiguration.EnableCallbacks();
-			endpointConfiguration.MakeInstanceUniquelyAddressable("uniqueId");
+			endpointConfiguration.MakeInstanceUniquelyAddressable("response-queue");
 
             endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
             endpointConfiguration.UsePersistence<InMemoryPersistence>();
-            endpointConfiguration.SendFailedMessagesTo(Configuration[settings.RabbitEndPoint.ErrorQueue]);
+            endpointConfiguration.SendFailedMessagesTo(settings.RabbitEndPoint.ErrorQueue);
 
             return endpointConfiguration;
         }

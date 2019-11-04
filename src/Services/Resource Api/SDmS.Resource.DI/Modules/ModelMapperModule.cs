@@ -2,6 +2,7 @@
 using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SDmS.Resource.Common.Entities.Devices;
 using SDmS.Resource.Domain.Models.Devices;
 
 namespace SDmS.Resource.DI.Modules
@@ -19,7 +20,10 @@ namespace SDmS.Resource.DI.Modules
     {
         public MappingProfile()
         {
-            //CreateMap<DeviceAddModel, DeviceAddDomainModel>();
+            CreateMap<DeviceParameterValue, DeviceParameterValueDomain>()
+                .ForMember("parameter_name", opt => opt.MapFrom(c => c.Parameter.description));
+
+            CreateMap<Device, DeviceDomainModel>();
         }
     }
 }

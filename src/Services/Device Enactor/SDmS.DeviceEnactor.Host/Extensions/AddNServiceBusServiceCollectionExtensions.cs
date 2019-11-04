@@ -3,6 +3,7 @@ using NServiceBus;
 using SDmS.DeviceEnactor.Host.Configuration;
 using SDmS.DeviceEnactor.Host.NServiceBus;
 using SDmS.DeviceEnactor.Host.Services;
+using SDmS.Messages.Common.Messages;
 using System;
 using System.Threading;
 
@@ -22,7 +23,11 @@ namespace SDmS.DeviceEnactor.Host.Extensions
 
             transport.ConnectionString(connectionString);
             transport.UsePublisherConfirms(true);
+
             transport.UseDirectRoutingTopology();
+            var routing = transport.Routing();
+            ConfigureRouting(routing);
+
             endpointConfiguration.EnableInstallers();
 
             endpointConfiguration.UseSerialization<NewtonsoftSerializer>();
@@ -60,6 +65,11 @@ namespace SDmS.DeviceEnactor.Host.Extensions
             });
             services.AddSingleton(provider => new Lazy<IMessageSession>(provider.GetService<IMessageSession>));
             return services;
+        }
+
+        private static void ConfigureRouting(RoutingSettings<RabbitMQTransport> routing)
+        {
+            //routing.RouteToEndpoint(typeof(TemperatureDataMessage), "sdms.device-listener.host");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using SDmS.Messages.Common.Models;
+﻿using SDmS.Messages.Common.Messages;
+using SDmS.Messages.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,5 +11,6 @@ namespace SDmS.DeviceListener.Core.Interfaces.Services
     {
         Task RegisterDeviceAsync<T>(T device) where T : DeviceEvent;
         Task<bool> AssignToUserAsync<T>(T device, string collectionName) where T : DeviceCommand;
+        Task<DeviceExistenceResponseMessage> CheckDeviceExistenceInNewAsync(string serialNumber);
     }
 }

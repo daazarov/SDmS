@@ -20,6 +20,8 @@ namespace SDmS.DeviceListener.Core.Services.NServiceBus.Handlers
 
         public async Task Handle(DeviceHelloEvent message, IMessageHandlerContext context)
         {
+            _logger.Info($"DeviceHelloEvent recived. DETAILS:\n{message.ToString()}");
+
             await _newDeviceService.RegisterDeviceAsync<DeviceHelloEvent>(message);
         }
     }

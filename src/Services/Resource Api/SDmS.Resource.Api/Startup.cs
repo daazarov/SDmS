@@ -50,6 +50,7 @@ namespace SDmS.Resource.Api
             RegisterComponent<DataModule>(services, Configuration);
             RegisterComponent<DomainServicesModule>(services, Configuration);
             RegisterComponent<InfrastructureServicesModule>(services, Configuration);
+            RegisterComponent<ModelMapperModule>(services, Configuration);
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
@@ -101,6 +102,9 @@ namespace SDmS.Resource.Api
             }
 
             app.UseHttpsRedirection();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseAuthentication();
             app.UseMvc();
 

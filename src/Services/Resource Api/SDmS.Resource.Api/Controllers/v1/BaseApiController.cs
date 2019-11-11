@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,7 @@ namespace SDmS.Resource.Api.Controllers.v1
             this._errorInformatorService = errorInformatorService;
         }
 
-        protected ResponseCollectionModel<T> GetCollectionResult<T>(Func<IEnumerable<T>> getItems, Func<int> getCount, ModelStateDictionary modelState)
+        protected ResponseCollectionModel<T> GetCollectionResult<T>(Func<IEnumerable<T>> getItems, Func<int> getCount, ModelStateDictionary modelState, int httpStatusCode = 200)
         {
             ResponseCollectionModel<T> result = new ResponseCollectionModel<T>();
 
@@ -43,6 +44,8 @@ namespace SDmS.Resource.Api.Controllers.v1
                 {
                     result.Collection.Add(user);
                 }
+
+                result.HttpResponseCode = httpStatusCode;
             }
             catch (ResourceException ex)
             {
@@ -61,7 +64,7 @@ namespace SDmS.Resource.Api.Controllers.v1
             return result;
         }
 
-        protected async Task<ResponseCollectionModel<T>> GetCollectionResultAsync<T>(Func<Task<IEnumerable<T>>> getItems, Func<int> getCount, ModelStateDictionary modelState)
+        protected async Task<ResponseCollectionModel<T>> GetCollectionResultAsync<T>(Func<Task<IEnumerable<T>>> getItems, Func<int> getCount, ModelStateDictionary modelState, int httpStatusCode = 200)
         {
             ResponseCollectionModel<T> result = new ResponseCollectionModel<T>();
 
@@ -83,6 +86,8 @@ namespace SDmS.Resource.Api.Controllers.v1
                 {
                     result.Collection.Add(user);
                 }
+
+                result.HttpResponseCode = httpStatusCode;
             }
             catch (ResourceException ex)
             {
@@ -101,7 +106,7 @@ namespace SDmS.Resource.Api.Controllers.v1
             return result;
         }
 
-        protected ResponseModel<T> GetResult<T>(Func<T> getItem, ModelStateDictionary modelState)
+        protected ResponseModel<T> GetResult<T>(Func<T> getItem, ModelStateDictionary modelState, int httpStatusCode = 200)
         {
             ResponseModel<T> result = new ResponseModel<T>();
 
@@ -116,6 +121,8 @@ namespace SDmS.Resource.Api.Controllers.v1
             try
             {
                 result.Value = getItem();
+
+                result.HttpResponseCode = httpStatusCode;
             }
             catch (ResourceException ex)
             {
@@ -134,7 +141,7 @@ namespace SDmS.Resource.Api.Controllers.v1
             return result;
         }
 
-        protected async Task<ResponseModel<T>> GetResultAsync<T>(Func<Task<T>> getItem, ModelStateDictionary modelState)
+        protected async Task<ResponseModel<T>> GetResultAsync<T>(Func<Task<T>> getItem, ModelStateDictionary modelState, int httpStatusCode = 200)
         {
             ResponseModel<T> result = new ResponseModel<T>();
 
@@ -149,6 +156,8 @@ namespace SDmS.Resource.Api.Controllers.v1
             try
             {
                 result.Value = await getItem();
+
+                result.HttpResponseCode = httpStatusCode;
             }
             catch (ResourceException ex)
             {
@@ -167,10 +176,87 @@ namespace SDmS.Resource.Api.Controllers.v1
             return result;
         }
 
-        /*protected IActionResult Result(ResponseModel response)
+        protected ResponseModel GetResult(Action action, ModelStateDictionary modelState, int httpStatusCode = 200)
         {
-            
-        }*/
+            ResponseModel result = new ResponseModel();
+
+            if (!modelState.IsValid)
+            {
+                result.Error = GetValidationErrors(modelState);
+                result.HttpResponseCode = 400;
+
+                return result;
+            }
+
+            try
+            {
+                action();
+                result.HttpResponseCode = httpStatusCode;
+            }
+            catch (ResourceException ex)
+            {
+                var error = this._errorInformatorService.GetDescription(ex.ErrorCode);
+                result.Error = error;
+                result.ErrorCode = ex.ErrorCode;
+                result.HttpResponseCode = ex.HttpResponseCode;
+            }
+            catch (Exception ex)
+            {
+                result.Error = "Unidentified error";
+                result.ErrorCode = -999;
+                result.HttpResponseCode = 500;
+            }
+
+            return result;
+        }
+
+        protected async Task<ResponseModel> GetResultAsync(Func<Task> action, ModelStateDictionary modelState, int httpStatusCode = 200)
+        {
+            ResponseModel result = new ResponseModel();
+
+            if (!modelState.IsValid)
+            {
+                result.Error = GetValidationErrors(modelState);
+                result.HttpResponseCode = 400;
+
+                return result;
+            }
+
+            try
+            {
+                await action();
+                result.HttpResponseCode = httpStatusCode;
+            }
+            catch (ResourceException ex)
+            {
+                var error = this._errorInformatorService.GetDescription(ex.ErrorCode);
+                result.Error = error;
+                result.ErrorCode = ex.ErrorCode;
+                result.HttpResponseCode = ex.HttpResponseCode;
+            }
+            catch (Exception ex)
+            {
+                result.Error = "Unidentified error";
+                result.ErrorCode = -999;
+                result.HttpResponseCode = 500;
+            }
+
+            return result;
+        }
+
+        protected IActionResult Result(ResponseModel response)
+        {
+            switch (response.HttpResponseCode)
+            {
+                case 204: return NoContent();
+                case 200: return Ok(response);
+                case 400: return BadRequest(response);
+                case 404: return NotFound(response);
+                case 500: return StatusCode(response.HttpResponseCode, response);
+
+                default: return StatusCode(response.HttpResponseCode, response);
+            }
+        }
 
         private string GetValidationErrors(ModelStateDictionary modelState)
         {

@@ -12,9 +12,9 @@ namespace SDmS.Messages.Common.Events
             var type = GetType();
 
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine($"Command name: {type.FullName}");
+            builder.AppendLine($"Event name: {type.FullName}");
             builder.AppendLine($"Serial Number: {serial_number}");
-            builder.AppendLine($"Device Type: {type}");
+            builder.AppendLine($"Device Type: {this.type_text}");
 
             return builder.ToString();
         }

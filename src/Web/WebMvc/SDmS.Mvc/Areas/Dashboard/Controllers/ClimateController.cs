@@ -21,13 +21,13 @@ using SDmS.Domain.Core.Models.Enums;
 
 namespace SDmS.Mvc.Areas.Dashboard.Controllers
 {
-    //[DashboardAuthorization]
+    [DashboardAuthorization]
 	public class ClimateController : BaseDashboardController
     {
         private readonly IIdentityParser<ApplicationUser> _identityParser;
         private readonly IClimateDeviceService _climateDeviceService;
 
-        private bool _useFakeData = true;
+        private bool _useFakeData = false;
 
         private static List<TempSensorViewModel> fakeModels1 = new List<TempSensorViewModel>
         {

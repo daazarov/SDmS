@@ -5,125 +5,132 @@
     Layout = "~/Areas/Dashboard/Views/Shared/_DashboardLayout.cshtml";
 }
 
-<h4>Climate Control</h4>
-<div class="uk-grid uk-grid-medium uk-child-width-1-2@s uk-child-width-1-3@l uk-grid-match js-filter" data-uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div > .uk-card; delay: 200" data-uk-grid>
+@if (Model.TempControlSensors.Count() > 0)
+{
+    <h4>Climate Control</h4>
+    <div class="uk-grid uk-grid-medium uk-child-width-1-2@s uk-child-width-1-3@l uk-grid-match js-filter" data-uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div > .uk-card; delay: 200" data-uk-grid>
 
-    @foreach (var item in Model.TempControlSensors)
-    {
-        <!-- climate control -->
-        <div>
-            <div class="uk-card uk-card-default uk-card-hover uk-card-small">
-                <div class="uk-card-header">
-                    <div class="uk-grid uk-grid-small">
-                        <div class="uk-width-auto"><h4>@item.Name</h4></div>
-                        <div class="uk-text-left"><span class="uk-text-@(item.IsOnline ? "success" : "danger")">@(item.IsOnline ? "Online" : "Offline")</span></div>
-                        <div class="uk-width-expand uk-text-right panel-icons">
-                            <a id="js-modal-confirm" href="@Url.Action("DeleteDevice", "climate", new { area = "Dashboard", serial_number = item.SerialNumber}, null)" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
-                            <a href="#" class="uk-icon-link" title="Configuration" data-uk-tooltip data-uk-icon="icon: cog; ratio: 1.2"></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="uk-card-body @((!item.IsOnline) ? "uk-disabled" : "")">
-                    <div class="uk-grid uk-grid-small">
-                        <div class="uk-width-1-4" style="margin-top: 10px;">
-                            <div class="uk-text-center">
-                                <img src="~/Content/img/dashboard/temperature.png">
+        @foreach (var item in Model.TempControlSensors)
+        {
+            <!-- climate control -->
+            <div>
+                <div class="uk-card uk-card-default uk-card-hover uk-card-small">
+                    <div class="uk-card-header">
+                        <div class="uk-grid uk-grid-small">
+                            <div class="uk-width-auto"><h4>@item.Name</h4></div>
+                            <div class="uk-text-left"><span class="uk-text-@(item.IsOnline ? "success" : "danger")">@(item.IsOnline ? "Online" : "Offline")</span></div>
+                            <div class="uk-width-expand uk-text-right panel-icons">
+                                <a id="js-modal-confirm" href="@Url.Action("DeleteDevice", "climate", new { area = "Dashboard", serial_number = item.SerialNumber}, null)" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
+                                <a href="#" class="uk-icon-link" title="Configuration" data-uk-tooltip data-uk-icon="icon: cog; ratio: 1.2"></a>
                             </div>
                         </div>
-                        <div class="uk-width-2-5">
-                            <p>Temperature</p>
-                            <p class="mb-0 mt-2 display-5">
-                                <span>@(item.IsOnline ? item.TempC.ToString() : "-")</span>
-                                <sup>°C</sup>
-                            </p>
-                            <p class="mb-0 mt-2 lead">
-                                <span>@(item.IsOnline ? item.TempF.ToString() : "-")</span>
-                                <sup>°F</sup>
-                            </p>
-                        </div>
-                        <div class="uk-width-expand uk-text-center">
-                            @using (Ajax.BeginForm("ChangeProperty", new { area = "Dashboard", serial_number = item.SerialNumber }, new AjaxOptions
-                            {
-                                HttpMethod = "POST",
-                            },
-                htmlAttributes: new { id = "TempControlSwitchForm_" + item.SerialNumber }))
-                            {
-                                <input name="Type" type="hidden" value="2" />
-                                <label>
-                                    @Html.CheckBox("IsControlEnabled", item.IsControlEnable,
-                                      new
-                                      {
-                                          @class = "uk-checkbox",
-                                          @oninput = String.Format("OnInputChange('#TempControlSwitchForm_{0}')", item.SerialNumber)
-                                      })
-                                    Desired
-                                </label>
-                            }
-                            <div class="vertical" style="margin-top: 15px;">
+                    </div>
+                    <div class="uk-card-body @((!item.IsOnline) ? "uk-disabled" : "")">
+                        <div class="uk-grid uk-grid-small">
+                            <div class="uk-width-1-4" style="margin-top: 10px;">
+                                <div class="uk-text-center">
+                                    <img src="~/Content/img/dashboard/temperature.png">
+                                </div>
+                            </div>
+                            <div class="uk-width-2-5">
+                                <p>Temperature</p>
+                                <p class="mb-0 mt-2 display-5">
+                                    <span>@((item.IsOnline && item.TempC != -127) ? item.TempC.ToString() : "-")</span>
+                                    <sup>°C</sup>
+                                </p>
+                                <p class="mb-0 mt-2 lead">
+                                    <span>@((item.IsOnline && item.TempC != -127) ? item.TempF.ToString() : "-")</span>
+                                    <sup>°F</sup>
+                                </p>
+                            </div>
+                            <div class="uk-width-expand uk-text-center">
                                 @using (Ajax.BeginForm("ChangeProperty", new { area = "Dashboard", serial_number = item.SerialNumber }, new AjaxOptions
                                 {
                                     HttpMethod = "POST",
                                 },
-htmlAttributes: new { id = "ChangeTepmForm_" + item.SerialNumber }))
+                    htmlAttributes: new { id = "TempControlSwitchForm_" + item.SerialNumber }))
                                 {
                                     <input name="Type" type="hidden" value="2" />
-                                    <input name="DesiredTemperature" type="hidden" value="" onchange="OnInputChange('#ChangeTepmForm_@item.SerialNumber')" />
+                                    <label>
+                                        @Html.CheckBox("IsControlEnabled", item.IsControlEnable,
+                                          new
+                                          {
+                                              @class = "uk-checkbox",
+                                              @oninput = String.Format("OnInputChange('#TempControlSwitchForm_{0}')", item.SerialNumber)
+                                          })
+                                        Desired
+                                    </label>
                                 }
-                                <div id="flat-slider-vertical-@item.SerialNumber"></div>
+                                <div class="vertical" style="margin-top: 15px;">
+                                    @using (Ajax.BeginForm("ChangeProperty", new { area = "Dashboard", serial_number = item.SerialNumber }, new AjaxOptions
+                                    {
+                                        HttpMethod = "POST",
+                                    },
+htmlAttributes: new { id = "ChangeTepmForm_" + item.SerialNumber }))
+                                    {
+                                        <input name="Type" type="hidden" value="2" />
+                                        <input name="DesiredTemperature" type="hidden" value="" onchange="OnInputChange('#ChangeTepmForm_@item.SerialNumber')" />
+                                    }
+                                    <div id="flat-slider-vertical-@item.SerialNumber"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    <!-- /climate controle -->
-    }
-</div>
-<br />
-<h4>Temperature Sensors</h4>
-<div class="uk-grid uk-grid-medium uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l uk-child-width-1-5@xl uk-grid-match js-filter" data-uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div > .uk-card; delay: 200" data-uk-grid>
+            <!-- /climate controle -->
+        }
+    </div>
+    <br />
+}
 
-    @foreach (var item in Model.TempSensors)
-    {
-        <!-- termometr -->
-        <div>
-            <div class="uk-card uk-card-default uk-card-hover uk-card-small">
-                <div class="uk-card-header">
-                    <div class="uk-grid uk-grid-small">
-                        <div class="uk-width-auto"><h4>@item.Name</h4></div>
-                        <div class="uk-text-left"><span class="uk-text-@(item.IsOnline ? "success" : "danger")">@(item.IsOnline ? "Online" : "Offline")</span></div>
-                        <div class="uk-width-expand uk-text-right panel-icons">
-                            <a id="js-modal-confirm" href="@Url.Action("DeleteDevice", "climate", new { area = "Dashboard", serial_number = item.SerialNumber}, null)" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
-                            <a href="#" class="uk-icon-link" title="Configuration" data-uk-tooltip data-uk-icon="icon: cog; ratio: 1.2"></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="uk-card-body">
-                    <div class="uk-grid uk-grid-small">
-                        <div class="uk-width-1-2" style="margin-top: 10px;">
-                            <div class="uk-text-center">
-                                <img src="~/Content/img/dashboard/temperature.png">
+@if (Model.TempSensors.Count() > 0)
+{
+    <h4>Temperature Sensors</h4>
+    <div class="uk-grid uk-grid-medium uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l uk-child-width-1-5@xl uk-grid-match js-filter" data-uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div > .uk-card; delay: 200" data-uk-grid>
+
+        @foreach (var item in Model.TempSensors)
+        {
+            <!-- termometr -->
+            <div>
+                <div class="uk-card uk-card-default uk-card-hover uk-card-small">
+                    <div class="uk-card-header">
+                        <div class="uk-grid uk-grid-small">
+                            <div class="uk-width-auto"><h4>@item.Name</h4></div>
+                            <div class="uk-text-left"><span class="uk-text-@(item.IsOnline ? "success" : "danger")">@(item.IsOnline ? "Online" : "Offline")</span></div>
+                            <div class="uk-width-expand uk-text-right panel-icons">
+                                <a id="js-modal-confirm" href="@Url.Action("DeleteDevice", "climate", new { area = "Dashboard", serial_number = item.SerialNumber}, null)" class="uk-icon-link" title="Delete" data-uk-tooltip data-uk-icon="icon: trash; ratio: 1.2"></a>
+                                <a href="#" class="uk-icon-link" title="Configuration" data-uk-tooltip data-uk-icon="icon: cog; ratio: 1.2"></a>
                             </div>
                         </div>
-                        <div class="uk-width-expand">
-                            <p>Temperature</p>
-                            <p class="mb-0 mt-2 display-5">
-                                <span>@(item.IsOnline ? item.TempC.ToString() : "-")</span>
-                                <sup>°C</sup>
-                            </p>
-                            <p class="mb-0 mt-2 lead">
-                                <span>@(item.IsOnline ? item.TempF.ToString() : "-")</span>
-                                <sup>°F</sup>
-                            </p>
+                    </div>
+                    <div class="uk-card-body">
+                        <div class="uk-grid uk-grid-small">
+                            <div class="uk-width-1-2" style="margin-top: 10px;">
+                                <div class="uk-text-center">
+                                    <img src="~/Content/img/dashboard/temperature.png">
+                                </div>
+                            </div>
+                            <div class="uk-width-expand">
+                                <p>Temperature</p>
+                                <p class="mb-0 mt-2 display-5">
+                                    <span>@((item.IsOnline && item.TempC != -127) ? item.TempC.ToString() : "-")</span>
+                                    <sup>°C</sup>
+                                </p>
+                                <p class="mb-0 mt-2 lead">
+                                    <span>@((item.IsOnline && item.TempC != -127) ? item.TempF.ToString() : "-")</span>
+                                    <sup>°F</sup>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- /termometr -->
-    }
+            <!-- /termometr -->
+        }
 
-</div>
+    </div>
+}
 
 <div class="md-fab-wrapper">
     <a class="md-fab md-fab-accent md-fab-wave-light waves-effect waves-button waves-light uk-toggle" uk-toggle href="#add-device-modal-sections">
@@ -175,54 +182,54 @@ htmlAttributes: new { id = "ChangeTepmForm_" + item.SerialNumber }))
 
 @section Scripts {
     <script>
-    UIkit.util.on('#js-modal-confirm', 'click', function (e) {
-    e.preventDefault();
-    e.target.blur();
+        UIkit.util.on('#js-modal-confirm', 'click', function (e) {
+            e.preventDefault();
+            e.target.blur();
 
-    var url = e["currentTarget"];
+            var url = e["currentTarget"];
 
-    UIkit.modal.confirm('Are you sure?').then(function () { OnConfirmDelete(url)}, function () { });
+            UIkit.modal.confirm('Are you sure?').then(function () { OnConfirmDelete(url) }, function () { });
 
-    function OnConfirmDelete(ulr) {
+            function OnConfirmDelete(ulr) {
 
-        $.ajax({
-            url: url,
-            type: 'DELETE',
-            dataType: 'json',
-            success: function (data) {
-                window.location.href = location.href;
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                UIkit.notification({ message: "<span uk-icon=\'icon: warning\'></span>&#8195" + "Error! Please, try again later", status: 'warning', timeout: 7000 });
-            }
+                $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    dataType: 'json',
+                    success: function (data) {
+                        window.location.href = location.href;
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        UIkit.notification({ message: "<span uk-icon=\'icon: warning\'></span>&#8195" + "Error! Please, try again later", status: 'warning', timeout: 7000 });
+                    }
+                });
+            };
         });
+    </script>
+    <script>
+        $("div[id*='flat-slider-vertical']")
+            .slider({
+                max: 27,
+                min: 19,
+                range: "min",
+                value: 23,
+                orientation: "vertical"
+            })
+            .slider("pips", {
+                first: "pip",
+                last: "pip"
+            })
+            .slider("float")
+            .on("slidechange", function (e, ui) {
+
+                $("#ChangeTepmForm_JRB65GFBC87BD5423 > input").val(ui.value);
+                $("#ChangeTepmForm_JRB65GFBC87BD5423 > input").trigger("change");
+
+            });
+    </script>
+    <script>
+        function OnInputChange(form_id) {
+            $(form_id).submit();
         };
-    });
-    </script>
-    <script>
-    $("div[id*='flat-slider-vertical']")
-        .slider({
-            max: 27,
-            min: 19,
-            range: "min",
-            value: 23,
-            orientation: "vertical"
-        })
-        .slider("pips", {
-            first: "pip",
-            last: "pip"
-        })
-        .slider("float")
-        .on("slidechange", function (e, ui) {
-
-            $("#ChangeTepmForm_JRB65GFBC87BD5423 > input").val(ui.value);
-            $("#ChangeTepmForm_JRB65GFBC87BD5423 > input").trigger("change");
-
-        });
-    </script>
-    <script>
-    function OnInputChange(form_id) {
-        $(form_id).submit();
-    };
     </script>
 }

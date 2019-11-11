@@ -31,6 +31,8 @@ namespace SDmS.Resource.Domain.Interfaces.Services
         Task ExecuteActionAsync(string userId, string serialNumber, string actionName, int deviceType, IDictionary<string, dynamic> parameters);
         ExecutionResult ExecuteActionWithResult(string userId, string serialNumber, string actionName, int deviceType, IDictionary<string, dynamic> parameters);
         Task<ExecutionResult> ExecuteActionWithResultAsync(string userId, string serialNumber, string actionName, int deviceType, IDictionary<string, dynamic> parameters);
+        Task<bool> UpdateDeviceParameterAsync(string serialNumber, string parameterName, string value);
+        Task UpdateDeviceAsync(DeviceDomainModel model);
 
         int DeviceCount(string userId, int deviceType);
         int DeviceAllCount(string userId);

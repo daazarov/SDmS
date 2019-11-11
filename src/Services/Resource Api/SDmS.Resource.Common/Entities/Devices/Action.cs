@@ -9,5 +9,6 @@ namespace SDmS.Resource.Common.Entities.Devices
 		public int device_type_id { get; set; }
 
         public virtual DeviceType DeviceType { get; set; }
+        public virtual ICollection<ActionParameterBinding> Bindings { get; set; }
     }
 }

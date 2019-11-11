@@ -1,0 +1,562 @@
+2019-11-06T17:59:36.6782044+03:00 80000010-0003-fd00-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44373/api/values   (ca22a1cb)
+2019-11-06T17:59:42.4676873+03:00 80000010-0003-fd00-b63f-84710c7967bb [INF] Request finished in 5722.4947ms 404  (791a596a)
+2019-11-06T18:05:16.2280067+03:00 80000002-0003-fb00-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44373/api/values   (ca22a1cb)
+2019-11-06T18:05:16.9297442+03:00 80000002-0003-fb00-b63f-84710c7967bb [INF] Request finished in 711.1716ms 404  (791a596a)
+2019-11-06T18:17:22.9385094+03:00 80000004-0000-fd00-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44373/api/values   (ca22a1cb)
+2019-11-06T18:17:23.4528891+03:00 80000004-0000-fd00-b63f-84710c7967bb [INF] Request finished in 522.9702ms 404  (791a596a)
+2019-11-06T19:28:59.0606154+03:00 80000013-0003-fb00-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44373/api/values   (ca22a1cb)
+2019-11-06T19:28:59.3708109+03:00 80000013-0003-fb00-b63f-84710c7967bb [INF] Request finished in 318.3452ms 404  (791a596a)
+2019-11-06T19:33:53.2824656+03:00 80000005-0001-fe00-b63f-84710c7967bb [INF] Request starting HTTP/1.1 GET https://localhost:44373/api/v1/users/f36e553a-8283-4f64-a368-8d506235c358/devices?type=3&limit=0&offset=0   (ca22a1cb)
+2019-11-06T19:33:54.6048632+03:00 80000005-0001-fe00-b63f-84710c7967bb [INF] Failed to validate the token. (616bef97)
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidSignatureException: IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateSignature(String token, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2019-11-06T19:33:54.6093978+03:00 80000005-0001-fe00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'." (48071232)
+2019-11-06T19:33:54.6149786+03:00 80000005-0001-fe00-b63f-84710c7967bb [INF] Executing endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (500cc934)
+2019-11-06T19:33:56.7197951+03:00 80000005-0001-fe00-b63f-84710c7967bb [INF] Entity Framework Core "2.2.6-servicing-10079" initialized '"ResourceDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "using lazy-loading proxies " (9958f5bb)
+2019-11-06T19:33:59.6898533+03:00 80000005-0001-fe00-b63f-84710c7967bb [INF] Executed DbCommand ("1,634"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0" (0723d8ff)
+2019-11-06T19:33:59.7591399+03:00 80000005-0001-fe00-b63f-84710c7967bb [INF] Route matched with "{action = \"GetDevices\", controller = \"Devices\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDevices(SDmS.Resource.Api.Models.Devices.DeviceRequestModel)" on controller "SDmS.Resource.Api.Controllers.v1.DevicesController" ("SDmS.Resource.Api"). (122b2fdf)
+2019-11-06T19:33:59.7750821+03:00 80000005-0001-fe00-b63f-84710c7967bb [INF] Authorization failed. (b15dd539)
+2019-11-06T19:33:59.7794094+03:00 80000005-0001-fe00-b63f-84710c7967bb [INF] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'. (8b6446cb)
+2019-11-06T19:33:59.7944233+03:00 80000005-0001-fe00-b63f-84710c7967bb [INF] Executing ChallengeResult with authentication schemes ([]). (f3dca807)
+2019-11-06T19:33:59.8119206+03:00 80000005-0001-fe00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2019-11-06T19:33:59.8186321+03:00 80000005-0001-fe00-b63f-84710c7967bb [INF] Executed action "SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)" in 53.0102ms (afa2e885)
+2019-11-06T19:33:59.8215709+03:00 80000005-0001-fe00-b63f-84710c7967bb [INF] Executed endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (99874f2b)
+2019-11-06T19:33:59.8595740+03:00 80000005-0001-fe00-b63f-84710c7967bb [INF] Request finished in 6576.228ms 401  (791a596a)
+2019-11-06T19:39:21.6907551+03:00 80000007-0001-fe00-b63f-84710c7967bb [INF] Request starting HTTP/1.1 GET https://localhost:44373/api/v1/users/f36e553a-8283-4f64-a368-8d506235c358/devices?type=3&limit=0&offset=0   (ca22a1cb)
+2019-11-06T19:39:21.6961358+03:00 80000007-0001-fe00-b63f-84710c7967bb [INF] Failed to validate the token. (616bef97)
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidSignatureException: IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateSignature(String token, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2019-11-06T19:39:21.7068916+03:00 80000007-0001-fe00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'." (48071232)
+2019-11-06T19:39:21.7101279+03:00 80000007-0001-fe00-b63f-84710c7967bb [INF] Executing endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (500cc934)
+2019-11-06T19:39:21.7172486+03:00 80000007-0001-fe00-b63f-84710c7967bb [INF] Entity Framework Core "2.2.6-servicing-10079" initialized '"ResourceDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "using lazy-loading proxies " (9958f5bb)
+2019-11-06T19:39:23.9603346+03:00 80000007-0001-fe00-b63f-84710c7967bb [INF] Executed DbCommand ("1,955"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0" (0723d8ff)
+2019-11-06T19:39:23.9630082+03:00 80000007-0001-fe00-b63f-84710c7967bb [INF] Route matched with "{action = \"GetDevices\", controller = \"Devices\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDevices(SDmS.Resource.Api.Models.Devices.DeviceRequestModel)" on controller "SDmS.Resource.Api.Controllers.v1.DevicesController" ("SDmS.Resource.Api"). (122b2fdf)
+2019-11-06T19:39:23.9659252+03:00 80000007-0001-fe00-b63f-84710c7967bb [INF] Authorization failed. (b15dd539)
+2019-11-06T19:39:23.9681069+03:00 80000007-0001-fe00-b63f-84710c7967bb [INF] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'. (8b6446cb)
+2019-11-06T19:39:23.9704087+03:00 80000007-0001-fe00-b63f-84710c7967bb [INF] Executing ChallengeResult with authentication schemes ([]). (f3dca807)
+2019-11-06T19:39:23.9728232+03:00 80000007-0001-fe00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2019-11-06T19:39:23.9749894+03:00 80000007-0001-fe00-b63f-84710c7967bb [INF] Executed action "SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)" in 9.7814ms (afa2e885)
+2019-11-06T19:39:23.9776120+03:00 80000007-0001-fe00-b63f-84710c7967bb [INF] Executed endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (99874f2b)
+2019-11-06T19:39:23.9810616+03:00 80000007-0001-fe00-b63f-84710c7967bb [INF] Request finished in 2289.7328ms 401  (791a596a)
+2019-11-06T19:40:08.1930133+03:00 80000008-0001-fe00-b63f-84710c7967bb [INF] Request starting HTTP/1.1 GET https://localhost:44373/api/v1/users/f36e553a-8283-4f64-a368-8d506235c358/devices?type=3&limit=0&offset=0   (ca22a1cb)
+2019-11-06T19:40:08.1969479+03:00 80000008-0001-fe00-b63f-84710c7967bb [INF] Failed to validate the token. (616bef97)
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidSignatureException: IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateSignature(String token, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2019-11-06T19:40:08.1995558+03:00 80000008-0001-fe00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'." (48071232)
+2019-11-06T19:40:08.2025216+03:00 80000008-0001-fe00-b63f-84710c7967bb [INF] Executing endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (500cc934)
+2019-11-06T19:40:08.2060958+03:00 80000008-0001-fe00-b63f-84710c7967bb [INF] Entity Framework Core "2.2.6-servicing-10079" initialized '"ResourceDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "using lazy-loading proxies " (9958f5bb)
+2019-11-06T19:40:11.2583180+03:00 80000008-0001-fe00-b63f-84710c7967bb [INF] Executed DbCommand ("3,049"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0" (0723d8ff)
+2019-11-06T19:40:11.2606241+03:00 80000008-0001-fe00-b63f-84710c7967bb [INF] Route matched with "{action = \"GetDevices\", controller = \"Devices\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDevices(SDmS.Resource.Api.Models.Devices.DeviceRequestModel)" on controller "SDmS.Resource.Api.Controllers.v1.DevicesController" ("SDmS.Resource.Api"). (122b2fdf)
+2019-11-06T19:40:11.2626793+03:00 80000008-0001-fe00-b63f-84710c7967bb [INF] Authorization failed. (b15dd539)
+2019-11-06T19:40:11.2649259+03:00 80000008-0001-fe00-b63f-84710c7967bb [INF] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'. (8b6446cb)
+2019-11-06T19:40:11.2675247+03:00 80000008-0001-fe00-b63f-84710c7967bb [INF] Executing ChallengeResult with authentication schemes ([]). (f3dca807)
+2019-11-06T19:40:11.2699872+03:00 80000008-0001-fe00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2019-11-06T19:40:11.2727581+03:00 80000008-0001-fe00-b63f-84710c7967bb [INF] Executed action "SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)" in 9.4867ms (afa2e885)
+2019-11-06T19:40:11.2754376+03:00 80000008-0001-fe00-b63f-84710c7967bb [INF] Executed endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (99874f2b)
+2019-11-06T19:40:11.2803229+03:00 80000008-0001-fe00-b63f-84710c7967bb [INF] Request finished in 3086.8221ms 401  (791a596a)
+2019-11-06T19:40:47.5800984+03:00 80000009-0001-fe00-b63f-84710c7967bb [INF] Request starting HTTP/1.1 GET https://localhost:44373/api/v1/users/f36e553a-8283-4f64-a368-8d506235c358/devices?type=3&limit=0&offset=0   (ca22a1cb)
+2019-11-06T19:40:47.5842320+03:00 80000009-0001-fe00-b63f-84710c7967bb [INF] Failed to validate the token. (616bef97)
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidSignatureException: IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateSignature(String token, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2019-11-06T19:40:47.5877929+03:00 80000009-0001-fe00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'." (48071232)
+2019-11-06T19:40:47.5912351+03:00 80000009-0001-fe00-b63f-84710c7967bb [INF] Executing endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (500cc934)
+2019-11-06T19:40:47.5950958+03:00 80000009-0001-fe00-b63f-84710c7967bb [INF] Entity Framework Core "2.2.6-servicing-10079" initialized '"ResourceDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "using lazy-loading proxies " (9958f5bb)
+2019-11-06T19:40:47.6222134+03:00 80000009-0001-fe00-b63f-84710c7967bb [INF] Executed DbCommand ("25"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0" (0723d8ff)
+2019-11-06T19:40:47.6246361+03:00 80000009-0001-fe00-b63f-84710c7967bb [INF] Route matched with "{action = \"GetDevices\", controller = \"Devices\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDevices(SDmS.Resource.Api.Models.Devices.DeviceRequestModel)" on controller "SDmS.Resource.Api.Controllers.v1.DevicesController" ("SDmS.Resource.Api"). (122b2fdf)
+2019-11-06T19:40:47.6266655+03:00 80000009-0001-fe00-b63f-84710c7967bb [INF] Authorization failed. (b15dd539)
+2019-11-06T19:40:47.6286016+03:00 80000009-0001-fe00-b63f-84710c7967bb [INF] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'. (8b6446cb)
+2019-11-06T19:40:47.6305893+03:00 80000009-0001-fe00-b63f-84710c7967bb [INF] Executing ChallengeResult with authentication schemes ([]). (f3dca807)
+2019-11-06T19:40:47.6331477+03:00 80000009-0001-fe00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2019-11-06T19:40:47.6355068+03:00 80000009-0001-fe00-b63f-84710c7967bb [INF] Executed action "SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)" in 8.5315ms (afa2e885)
+2019-11-06T19:40:47.6378044+03:00 80000009-0001-fe00-b63f-84710c7967bb [INF] Executed endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (99874f2b)
+2019-11-06T19:40:47.6406077+03:00 80000009-0001-fe00-b63f-84710c7967bb [INF] Request finished in 60.6323ms 401  (791a596a)
+2019-11-06T19:42:31.9102818+03:00 80000058-0002-ff00-b63f-84710c7967bb [INF] Request starting HTTP/1.1 GET https://localhost:44373/api/v1/users/f36e553a-8283-4f64-a368-8d506235c358/devices?type=3&limit=0&offset=0   (ca22a1cb)
+2019-11-06T19:42:31.9144998+03:00 80000058-0002-ff00-b63f-84710c7967bb [INF] Failed to validate the token. (616bef97)
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidSignatureException: IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateSignature(String token, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2019-11-06T19:42:31.9174659+03:00 80000058-0002-ff00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'." (48071232)
+2019-11-06T19:42:31.9196918+03:00 80000058-0002-ff00-b63f-84710c7967bb [INF] Executing endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (500cc934)
+2019-11-06T19:42:31.9226905+03:00 80000058-0002-ff00-b63f-84710c7967bb [INF] Entity Framework Core "2.2.6-servicing-10079" initialized '"ResourceDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "using lazy-loading proxies " (9958f5bb)
+2019-11-06T19:42:32.6698401+03:00 80000058-0002-ff00-b63f-84710c7967bb [INF] Executed DbCommand ("743"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0" (0723d8ff)
+2019-11-06T19:42:32.6737499+03:00 80000058-0002-ff00-b63f-84710c7967bb [INF] Route matched with "{action = \"GetDevices\", controller = \"Devices\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDevices(SDmS.Resource.Api.Models.Devices.DeviceRequestModel)" on controller "SDmS.Resource.Api.Controllers.v1.DevicesController" ("SDmS.Resource.Api"). (122b2fdf)
+2019-11-06T19:42:32.6770560+03:00 80000058-0002-ff00-b63f-84710c7967bb [INF] Authorization failed. (b15dd539)
+2019-11-06T19:42:32.6805514+03:00 80000058-0002-ff00-b63f-84710c7967bb [INF] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'. (8b6446cb)
+2019-11-06T19:42:32.6840588+03:00 80000058-0002-ff00-b63f-84710c7967bb [INF] Executing ChallengeResult with authentication schemes ([]). (f3dca807)
+2019-11-06T19:42:32.6871816+03:00 80000058-0002-ff00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2019-11-06T19:42:32.6898778+03:00 80000058-0002-ff00-b63f-84710c7967bb [INF] Executed action "SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)" in 13.4184ms (afa2e885)
+2019-11-06T19:42:32.6933328+03:00 80000058-0002-ff00-b63f-84710c7967bb [INF] Executed endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (99874f2b)
+2019-11-06T19:42:32.6969498+03:00 80000058-0002-ff00-b63f-84710c7967bb [INF] Request finished in 786.8966ms 401  (791a596a)
+2019-11-06T19:50:49.1255948+03:00 80000040-0000-ff00-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44373/api/values   (ca22a1cb)
+2019-11-06T19:50:50.2304246+03:00 80000040-0000-ff00-b63f-84710c7967bb [INF] Request finished in 1084.802ms 404  (791a596a)
+2019-11-06T19:51:58.0360249+03:00 80000020-0005-fe00-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44373/api/v1/users/f36e553a-8283-4f64-a368-8d506235c358/devices?type=3&limit=0&offset=0   (ca22a1cb)
+2019-11-06T19:51:58.0932081+03:00 80000020-0005-fe00-b63f-84710c7967bb [INF] Executing endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (500cc934)
+2019-11-06T19:52:02.8734145+03:00 80000020-0005-fe00-b63f-84710c7967bb [INF] Entity Framework Core "2.2.6-servicing-10079" initialized '"ResourceDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "using lazy-loading proxies " (9958f5bb)
+2019-11-06T19:52:09.1684686+03:00 80000020-0005-fe00-b63f-84710c7967bb [INF] Executed DbCommand ("2,225"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0" (0723d8ff)
+2019-11-06T19:52:09.3179999+03:00 80000020-0005-fe00-b63f-84710c7967bb [INF] Route matched with "{action = \"GetDevices\", controller = \"Devices\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDevices(SDmS.Resource.Api.Models.Devices.DeviceRequestModel)" on controller "SDmS.Resource.Api.Controllers.v1.DevicesController" ("SDmS.Resource.Api"). (122b2fdf)
+2019-11-06T19:52:09.3499393+03:00 80000020-0005-fe00-b63f-84710c7967bb [INF] Authorization failed. (b15dd539)
+2019-11-06T19:52:09.3529097+03:00 80000020-0005-fe00-b63f-84710c7967bb [INF] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'. (8b6446cb)
+2019-11-06T19:52:09.3694209+03:00 80000020-0005-fe00-b63f-84710c7967bb [INF] Executing ChallengeResult with authentication schemes ([]). (f3dca807)
+2019-11-06T19:52:09.3890978+03:00 80000020-0005-fe00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2019-11-06T19:52:09.3963784+03:00 80000020-0005-fe00-b63f-84710c7967bb [INF] Executed action "SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)" in 71.114ms (afa2e885)
+2019-11-06T19:52:09.3991276+03:00 80000020-0005-fe00-b63f-84710c7967bb [INF] Executed endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (99874f2b)
+2019-11-06T19:52:09.4272733+03:00 80000020-0005-fe00-b63f-84710c7967bb [INF] Request finished in 11390.8498ms 401  (791a596a)
+2019-11-06T19:54:29.4876116+03:00 80000009-0001-fd00-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44373/api/v1/users/f36e553a-8283-4f64-a368-8d506235c358/devices?type=3&limit=0&offset=0   (ca22a1cb)
+2019-11-06T19:54:29.4946058+03:00 80000009-0001-fd00-b63f-84710c7967bb [INF] Executing endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (500cc934)
+2019-11-06T19:54:29.5614668+03:00 80000009-0001-fd00-b63f-84710c7967bb [INF] Entity Framework Core "2.2.6-servicing-10079" initialized '"ResourceDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "using lazy-loading proxies " (9958f5bb)
+2019-11-06T19:54:29.5855680+03:00 80000009-0001-fd00-b63f-84710c7967bb [INF] Executed DbCommand ("20"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0" (0723d8ff)
+2019-11-06T19:54:29.5886942+03:00 80000009-0001-fd00-b63f-84710c7967bb [INF] Route matched with "{action = \"GetDevices\", controller = \"Devices\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDevices(SDmS.Resource.Api.Models.Devices.DeviceRequestModel)" on controller "SDmS.Resource.Api.Controllers.v1.DevicesController" ("SDmS.Resource.Api"). (122b2fdf)
+2019-11-06T19:54:29.5913426+03:00 80000009-0001-fd00-b63f-84710c7967bb [INF] Authorization failed. (b15dd539)
+2019-11-06T19:54:29.5932652+03:00 80000009-0001-fd00-b63f-84710c7967bb [INF] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'. (8b6446cb)
+2019-11-06T19:54:29.5954716+03:00 80000009-0001-fd00-b63f-84710c7967bb [INF] Executing ChallengeResult with authentication schemes ([]). (f3dca807)
+2019-11-06T19:54:29.5978169+03:00 80000009-0001-fd00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2019-11-06T19:54:29.6003811+03:00 80000009-0001-fd00-b63f-84710c7967bb [INF] Executed action "SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)" in 9.137ms (afa2e885)
+2019-11-06T19:54:29.6030121+03:00 80000009-0001-fd00-b63f-84710c7967bb [INF] Executed endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (99874f2b)
+2019-11-06T19:54:29.6061563+03:00 80000009-0001-fd00-b63f-84710c7967bb [INF] Request finished in 118.1418ms 401  (791a596a)
+2019-11-06T20:09:05.5124993+03:00 8000000d-0001-fe00-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44373/api/values   (ca22a1cb)
+2019-11-06T20:09:06.0265285+03:00 8000000d-0001-fe00-b63f-84710c7967bb [INF] Request finished in 522.2122ms 404  (791a596a)
+2019-11-06T20:10:38.9546056+03:00 80000034-0006-f800-b63f-84710c7967bb [INF] Request starting HTTP/1.1 GET https://localhost:44373/api/v1/users/f36e553a-8283-4f64-a368-8d506235c358/devices?type=3&limit=0&offset=0   (ca22a1cb)
+2019-11-06T20:10:40.3972406+03:00 80000034-0006-f800-b63f-84710c7967bb [INF] Failed to validate the token. (616bef97)
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidSignatureException: IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateSignature(String token, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2019-11-06T20:10:40.4049713+03:00 80000034-0006-f800-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'." (48071232)
+2019-11-06T20:10:40.4119203+03:00 80000034-0006-f800-b63f-84710c7967bb [INF] Executing endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (500cc934)
+2019-11-06T20:10:42.7879463+03:00 80000034-0006-f800-b63f-84710c7967bb [INF] Entity Framework Core "2.2.6-servicing-10079" initialized '"ResourceDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "using lazy-loading proxies " (9958f5bb)
+2019-11-06T20:10:47.9635829+03:00 80000034-0006-f800-b63f-84710c7967bb [INF] Executed DbCommand ("1,623"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0" (0723d8ff)
+2019-11-06T20:10:48.0315017+03:00 80000034-0006-f800-b63f-84710c7967bb [INF] Route matched with "{action = \"GetDevices\", controller = \"Devices\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDevices(SDmS.Resource.Api.Models.Devices.DeviceRequestModel)" on controller "SDmS.Resource.Api.Controllers.v1.DevicesController" ("SDmS.Resource.Api"). (122b2fdf)
+2019-11-06T20:10:48.0474766+03:00 80000034-0006-f800-b63f-84710c7967bb [INF] Authorization failed. (b15dd539)
+2019-11-06T20:10:48.0505935+03:00 80000034-0006-f800-b63f-84710c7967bb [INF] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'. (8b6446cb)
+2019-11-06T20:10:48.0642230+03:00 80000034-0006-f800-b63f-84710c7967bb [INF] Executing ChallengeResult with authentication schemes ([]). (f3dca807)
+2019-11-06T20:10:48.0918327+03:00 80000034-0006-f800-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2019-11-06T20:10:48.0974636+03:00 80000034-0006-f800-b63f-84710c7967bb [INF] Executed action "SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)" in 60.4964ms (afa2e885)
+2019-11-06T20:10:48.0999069+03:00 80000034-0006-f800-b63f-84710c7967bb [INF] Executed endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (99874f2b)
+2019-11-06T20:10:48.1141592+03:00 80000034-0006-f800-b63f-84710c7967bb [INF] Request finished in 9168.795ms 401  (791a596a)
+2019-11-06T20:16:18.6975005+03:00 80000057-0007-ff00-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44373/api/values   (ca22a1cb)
+2019-11-06T20:16:18.8217559+03:00 80000057-0007-ff00-b63f-84710c7967bb [INF] Request finished in 128.1939ms 404  (791a596a)
+2019-11-06T20:16:28.1214583+03:00 80000059-0007-ff00-b63f-84710c7967bb [INF] Request starting HTTP/1.1 GET https://localhost:44373/api/v1/users/f36e553a-8283-4f64-a368-8d506235c358/devices?type=3&limit=0&offset=0   (ca22a1cb)
+2019-11-06T20:16:28.3060751+03:00 80000059-0007-ff00-b63f-84710c7967bb [INF] Failed to validate the token. (616bef97)
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidSignatureException: IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateSignature(String token, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2019-11-06T20:16:28.3097007+03:00 80000059-0007-ff00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'." (48071232)
+2019-11-06T20:16:28.3132554+03:00 80000059-0007-ff00-b63f-84710c7967bb [INF] Executing endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (500cc934)
+2019-11-06T20:16:29.1625891+03:00 80000059-0007-ff00-b63f-84710c7967bb [INF] Entity Framework Core "2.2.6-servicing-10079" initialized '"ResourceDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "using lazy-loading proxies " (9958f5bb)
+2019-11-06T20:16:32.3452447+03:00 80000059-0007-ff00-b63f-84710c7967bb [INF] Executed DbCommand ("1,143"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0" (0723d8ff)
+2019-11-06T20:16:32.3743841+03:00 80000059-0007-ff00-b63f-84710c7967bb [INF] Route matched with "{action = \"GetDevices\", controller = \"Devices\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDevices(SDmS.Resource.Api.Models.Devices.DeviceRequestModel)" on controller "SDmS.Resource.Api.Controllers.v1.DevicesController" ("SDmS.Resource.Api"). (122b2fdf)
+2019-11-06T20:16:32.3899189+03:00 80000059-0007-ff00-b63f-84710c7967bb [INF] Authorization failed. (b15dd539)
+2019-11-06T20:16:32.3923043+03:00 80000059-0007-ff00-b63f-84710c7967bb [INF] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'. (8b6446cb)
+2019-11-06T20:16:32.4071741+03:00 80000059-0007-ff00-b63f-84710c7967bb [INF] Executing ChallengeResult with authentication schemes ([]). (f3dca807)
+2019-11-06T20:16:32.4185922+03:00 80000059-0007-ff00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2019-11-06T20:16:32.4276205+03:00 80000059-0007-ff00-b63f-84710c7967bb [INF] Executed action "SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)" in 44.6251ms (afa2e885)
+2019-11-06T20:16:32.4313608+03:00 80000059-0007-ff00-b63f-84710c7967bb [INF] Executed endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (99874f2b)
+2019-11-06T20:16:32.4365586+03:00 80000059-0007-ff00-b63f-84710c7967bb [INF] Request finished in 4315.2245ms 401  (791a596a)
+2019-11-06T20:17:33.8683003+03:00 8000005a-0007-ff00-b63f-84710c7967bb [INF] Request starting HTTP/1.1 GET https://localhost:44373/api/v1/users/f36e553a-8283-4f64-a368-8d506235c358/devices?type=3&limit=0&offset=0   (ca22a1cb)
+2019-11-06T20:17:33.8733209+03:00 8000005a-0007-ff00-b63f-84710c7967bb [INF] Failed to validate the token. (616bef97)
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidSignatureException: IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateSignature(String token, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2019-11-06T20:17:33.8756556+03:00 8000005a-0007-ff00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'." (48071232)
+2019-11-06T20:17:33.8778214+03:00 8000005a-0007-ff00-b63f-84710c7967bb [INF] Executing endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (500cc934)
+2019-11-06T20:17:33.9306254+03:00 8000005a-0007-ff00-b63f-84710c7967bb [INF] Entity Framework Core "2.2.6-servicing-10079" initialized '"ResourceDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "using lazy-loading proxies " (9958f5bb)
+2019-11-06T20:17:34.1827712+03:00 8000005a-0007-ff00-b63f-84710c7967bb [INF] Executed DbCommand ("248"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0" (0723d8ff)
+2019-11-06T20:17:34.1862766+03:00 8000005a-0007-ff00-b63f-84710c7967bb [INF] Route matched with "{action = \"GetDevices\", controller = \"Devices\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDevices(SDmS.Resource.Api.Models.Devices.DeviceRequestModel)" on controller "SDmS.Resource.Api.Controllers.v1.DevicesController" ("SDmS.Resource.Api"). (122b2fdf)
+2019-11-06T20:17:34.1900398+03:00 8000005a-0007-ff00-b63f-84710c7967bb [INF] Authorization failed. (b15dd539)
+2019-11-06T20:17:34.1933425+03:00 8000005a-0007-ff00-b63f-84710c7967bb [INF] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'. (8b6446cb)
+2019-11-06T20:17:34.1961852+03:00 8000005a-0007-ff00-b63f-84710c7967bb [INF] Executing ChallengeResult with authentication schemes ([]). (f3dca807)
+2019-11-06T20:17:34.1997339+03:00 8000005a-0007-ff00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2019-11-06T20:17:34.2027761+03:00 8000005a-0007-ff00-b63f-84710c7967bb [INF] Executed action "SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)" in 13.5508ms (afa2e885)
+2019-11-06T20:17:34.2064332+03:00 8000005a-0007-ff00-b63f-84710c7967bb [INF] Executed endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (99874f2b)
+2019-11-06T20:17:34.2100124+03:00 8000005a-0007-ff00-b63f-84710c7967bb [INF] Request finished in 342.8231ms 401  (791a596a)
+2019-11-06T20:19:09.6707572+03:00 80000016-0003-fc00-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44373/api/values   (ca22a1cb)
+2019-11-06T20:19:09.7836104+03:00 80000016-0003-fc00-b63f-84710c7967bb [INF] Request finished in 121.7271ms 404  (791a596a)
+2019-11-06T20:19:26.9794022+03:00 80000018-0003-fc00-b63f-84710c7967bb [INF] Request starting HTTP/1.1 GET https://localhost:44373/api/v1/users/f36e553a-8283-4f64-a368-8d506235c358/devices?type=3&limit=0&offset=0   (ca22a1cb)
+2019-11-06T20:19:27.1483863+03:00 80000018-0003-fc00-b63f-84710c7967bb [INF] Failed to validate the token. (616bef97)
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidSignatureException: IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateSignature(String token, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2019-11-06T20:19:27.1521509+03:00 80000018-0003-fc00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'." (48071232)
+2019-11-06T20:19:27.1560628+03:00 80000018-0003-fc00-b63f-84710c7967bb [INF] Executing endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (500cc934)
+2019-11-06T20:19:27.8958925+03:00 80000018-0003-fc00-b63f-84710c7967bb [INF] Entity Framework Core "2.2.6-servicing-10079" initialized '"ResourceDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "using lazy-loading proxies " (9958f5bb)
+2019-11-06T20:19:28.9948955+03:00 80000018-0003-fc00-b63f-84710c7967bb [INF] Executed DbCommand ("143"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0" (0723d8ff)
+2019-11-06T20:19:29.0269499+03:00 80000018-0003-fc00-b63f-84710c7967bb [INF] Route matched with "{action = \"GetDevices\", controller = \"Devices\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDevices(SDmS.Resource.Api.Models.Devices.DeviceRequestModel)" on controller "SDmS.Resource.Api.Controllers.v1.DevicesController" ("SDmS.Resource.Api"). (122b2fdf)
+2019-11-06T20:19:29.0420875+03:00 80000018-0003-fc00-b63f-84710c7967bb [INF] Authorization failed. (b15dd539)
+2019-11-06T20:19:29.0460284+03:00 80000018-0003-fc00-b63f-84710c7967bb [INF] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'. (8b6446cb)
+2019-11-06T20:19:29.0564481+03:00 80000018-0003-fc00-b63f-84710c7967bb [INF] Executing ChallengeResult with authentication schemes ([]). (f3dca807)
+2019-11-06T20:19:29.2952633+03:00 80000018-0003-fc00-b63f-84710c7967bb [INF] Executed action "SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)" in 261.3093ms (afa2e885)
+2019-11-06T20:19:29.3220582+03:00 80000018-0003-fc00-b63f-84710c7967bb [INF] Executed endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (99874f2b)
+2019-11-06T20:19:29.4223253+03:00 80000018-0003-fc00-b63f-84710c7967bb [ERR] An unhandled exception has occurred while executing the request. (48a46595)
+System.InvalidOperationException: No authenticationScheme was specified, and there was no DefaultChallengeScheme found.
+   at Microsoft.AspNetCore.Authentication.AuthenticationService.ChallengeAsync(HttpContext context, String scheme, AuthenticationProperties properties)
+   at Microsoft.AspNetCore.Mvc.ChallengeResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeResultAsync(IActionResult result)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResultFilterAsync[TFilter,TFilterAsync]()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResultExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAlwaysRunResultFilters()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2019-11-06T20:19:29.6850584+03:00 80000018-0003-fc00-b63f-84710c7967bb [INF] Request finished in 2705.4305ms 500 text/html; charset=utf-8 (791a596a)
+2019-11-06T20:23:14.9769867+03:00 8000002d-0006-f700-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44373/api/values   (ca22a1cb)
+2019-11-06T20:23:15.0856356+03:00 8000002d-0006-f700-b63f-84710c7967bb [INF] Request finished in 115.9876ms 404  (791a596a)
+2019-11-06T20:23:26.9885459+03:00 80000013-0004-f900-b63f-84710c7967bb [INF] Request starting HTTP/1.1 GET https://localhost:44373/api/v1/users/f36e553a-8283-4f64-a368-8d506235c358/devices?type=3&limit=0&offset=0   (ca22a1cb)
+2019-11-06T20:23:27.4306880+03:00 80000013-0004-f900-b63f-84710c7967bb [INF] Failed to validate the token. (616bef97)
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidSignatureException: IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateSignature(String token, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2019-11-06T20:23:27.4380877+03:00 80000013-0004-f900-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'." (48071232)
+2019-11-06T20:23:27.4443969+03:00 80000013-0004-f900-b63f-84710c7967bb [INF] Executing endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (500cc934)
+2019-11-06T20:23:28.5944700+03:00 80000013-0004-f900-b63f-84710c7967bb [INF] Entity Framework Core "2.2.6-servicing-10079" initialized '"ResourceDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "using lazy-loading proxies " (9958f5bb)
+2019-11-06T20:23:30.7694889+03:00 80000013-0004-f900-b63f-84710c7967bb [INF] Executed DbCommand ("565"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0" (0723d8ff)
+2019-11-06T20:23:30.8067265+03:00 80000013-0004-f900-b63f-84710c7967bb [INF] Route matched with "{action = \"GetDevices\", controller = \"Devices\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDevices(SDmS.Resource.Api.Models.Devices.DeviceRequestModel)" on controller "SDmS.Resource.Api.Controllers.v1.DevicesController" ("SDmS.Resource.Api"). (122b2fdf)
+2019-11-06T20:23:30.8204574+03:00 80000013-0004-f900-b63f-84710c7967bb [INF] Authorization failed. (b15dd539)
+2019-11-06T20:23:30.8242463+03:00 80000013-0004-f900-b63f-84710c7967bb [INF] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'. (8b6446cb)
+2019-11-06T20:23:30.8383468+03:00 80000013-0004-f900-b63f-84710c7967bb [INF] Executing ChallengeResult with authentication schemes ([]). (f3dca807)
+2019-11-06T20:23:30.8478670+03:00 80000013-0004-f900-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2019-11-06T20:23:30.8551735+03:00 80000013-0004-f900-b63f-84710c7967bb [INF] Executed action "SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)" in 41.6939ms (afa2e885)
+2019-11-06T20:23:30.8576171+03:00 80000013-0004-f900-b63f-84710c7967bb [INF] Executed endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (99874f2b)
+2019-11-06T20:23:30.8627533+03:00 80000013-0004-f900-b63f-84710c7967bb [INF] Request finished in 3874.929ms 401  (791a596a)
+2019-11-06T20:32:00.4614664+03:00 80000016-0001-fe00-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44373/api/values   (ca22a1cb)
+2019-11-06T20:32:00.5691718+03:00 80000016-0001-fe00-b63f-84710c7967bb [INF] Request finished in 118.0037ms 404  (791a596a)
+2019-11-06T20:34:05.5376957+03:00 80000060-0007-ff00-b63f-84710c7967bb [INF] Request starting HTTP/1.1 GET https://localhost:44373/api/v1/users/f36e553a-8283-4f64-a368-8d506235c358/devices?type=3&limit=0&offset=0   (ca22a1cb)
+2019-11-06T20:34:06.8292828+03:00 80000060-0007-ff00-b63f-84710c7967bb [INF] Failed to validate the token. (616bef97)
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidSignatureException: IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateSignature(String token, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2019-11-06T20:34:06.8322256+03:00 80000060-0007-ff00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'." (48071232)
+2019-11-06T20:34:06.8359809+03:00 80000060-0007-ff00-b63f-84710c7967bb [INF] Executing endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (500cc934)
+2019-11-06T20:34:09.3564564+03:00 80000060-0007-ff00-b63f-84710c7967bb [INF] Entity Framework Core "2.2.6-servicing-10079" initialized '"ResourceDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "using lazy-loading proxies " (9958f5bb)
+2019-11-06T20:34:13.3691884+03:00 80000060-0007-ff00-b63f-84710c7967bb [INF] Executed DbCommand ("1,784"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0" (0723d8ff)
+2019-11-06T20:34:13.5032618+03:00 80000060-0007-ff00-b63f-84710c7967bb [INF] Route matched with "{action = \"GetDevices\", controller = \"Devices\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDevices(SDmS.Resource.Api.Models.Devices.DeviceRequestModel)" on controller "SDmS.Resource.Api.Controllers.v1.DevicesController" ("SDmS.Resource.Api"). (122b2fdf)
+2019-11-06T20:34:13.5190372+03:00 80000060-0007-ff00-b63f-84710c7967bb [INF] Authorization failed. (b15dd539)
+2019-11-06T20:34:13.5223703+03:00 80000060-0007-ff00-b63f-84710c7967bb [INF] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'. (8b6446cb)
+2019-11-06T20:34:13.5421813+03:00 80000060-0007-ff00-b63f-84710c7967bb [INF] Executing ChallengeResult with authentication schemes ([]). (f3dca807)
+2019-11-06T20:34:13.5629824+03:00 80000060-0007-ff00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2019-11-06T20:34:13.5689871+03:00 80000060-0007-ff00-b63f-84710c7967bb [INF] Executed action "SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)" in 59.8505ms (afa2e885)
+2019-11-06T20:34:13.5719799+03:00 80000060-0007-ff00-b63f-84710c7967bb [INF] Executed endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (99874f2b)
+2019-11-06T20:34:13.5897922+03:00 80000060-0007-ff00-b63f-84710c7967bb [INF] Request finished in 8051.8724ms 401  (791a596a)
+2019-11-06T20:47:27.7150813+03:00 80000015-0003-fb00-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44373/api/values   (ca22a1cb)
+2019-11-06T20:47:28.0874175+03:00 80000015-0003-fb00-b63f-84710c7967bb [INF] Request finished in 359.7898ms 404  (791a596a)
+2019-11-06T20:47:44.3008541+03:00 80000033-0006-f700-b63f-84710c7967bb [INF] Request starting HTTP/1.1 GET https://localhost:44373/api/v1/users/f36e553a-8283-4f64-a368-8d506235c358/devices?type=3&limit=0&offset=0   (ca22a1cb)
+2019-11-06T20:47:45.1157317+03:00 80000033-0006-f700-b63f-84710c7967bb [INF] Failed to validate the token. (616bef97)
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidSignatureException: IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateSignature(String token, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2019-11-06T20:47:45.1198881+03:00 80000033-0006-f700-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10503: Signature validation failed. Keys tried: '[PII is hidden]'.
+Exceptions caught:
+ '[PII is hidden]'.
+token: '[PII is hidden]'." (48071232)
+2019-11-06T20:47:45.1245743+03:00 80000033-0006-f700-b63f-84710c7967bb [INF] Executing endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (500cc934)
+2019-11-06T20:47:47.9303120+03:00 80000033-0006-f700-b63f-84710c7967bb [INF] Entity Framework Core "2.2.6-servicing-10079" initialized '"ResourceDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "using lazy-loading proxies " (9958f5bb)
+2019-11-06T20:47:52.2335248+03:00 80000033-0006-f700-b63f-84710c7967bb [INF] Executed DbCommand ("1,717"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0" (0723d8ff)
+2019-11-06T20:47:52.4152763+03:00 80000033-0006-f700-b63f-84710c7967bb [INF] Route matched with "{action = \"GetDevices\", controller = \"Devices\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDevices(SDmS.Resource.Api.Models.Devices.DeviceRequestModel)" on controller "SDmS.Resource.Api.Controllers.v1.DevicesController" ("SDmS.Resource.Api"). (122b2fdf)
+2019-11-06T20:47:52.4475631+03:00 80000033-0006-f700-b63f-84710c7967bb [INF] Authorization failed. (b15dd539)
+2019-11-06T20:47:52.4520194+03:00 80000033-0006-f700-b63f-84710c7967bb [INF] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'. (8b6446cb)
+2019-11-06T20:47:52.4779159+03:00 80000033-0006-f700-b63f-84710c7967bb [INF] Executing ChallengeResult with authentication schemes ([]). (f3dca807)
+2019-11-06T20:47:52.5029680+03:00 80000033-0006-f700-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2019-11-06T20:47:52.5136996+03:00 80000033-0006-f700-b63f-84710c7967bb [INF] Executed action "SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)" in 87.8512ms (afa2e885)
+2019-11-06T20:47:52.5171591+03:00 80000033-0006-f700-b63f-84710c7967bb [INF] Executed endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (99874f2b)
+2019-11-06T20:47:52.5366894+03:00 80000033-0006-f700-b63f-84710c7967bb [INF] Request finished in 8235.1697ms 401  (791a596a)
+2019-11-06T20:53:08.2240514+03:00 8000005e-0002-ff00-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44373/api/values   (ca22a1cb)
+2019-11-06T20:53:08.7722099+03:00 8000005e-0002-ff00-b63f-84710c7967bb [INF] Request finished in 551.1943ms 404  (791a596a)
+2019-11-06T20:53:20.0961966+03:00 80000065-0007-ff00-b63f-84710c7967bb [INF] Request starting HTTP/1.1 GET https://localhost:44373/api/v1/users/f36e553a-8283-4f64-a368-8d506235c358/devices?type=3&limit=0&offset=0   (ca22a1cb)
+2019-11-06T20:53:21.6258891+03:00 80000065-0007-ff00-b63f-84710c7967bb [INF] Failed to validate the token. (616bef97)
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidSignatureException: IDX10503: Signature validation failed. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey , KeyId: 
+'.
+Exceptions caught:
+ ''.
+token: '{"alg":"http://www.w3.org/2001/04/xmldsig-more#hmac-sha256","typ":"JWT"}.{"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier":"f36e553a-8283-4f64-a368-8d506235c358","http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name":["daazarov","Dmitriy Azarov"],"http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider":"ASP.NET Identity","AspNet.Identity.SecurityStamp":"66fff94b-2258-47ad-a5a8-54878ce616c2","http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid":"f36e553a-8283-4f64-a368-8d506235c358","http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress":"azarchik94@gmail.com","FirstName":"Dmitriy","LastName":"Azarov","JoinDate":"06.11.2019 16:02:08","nbf":1573057324,"exp":1604593324,"iss":"http://localhost:52595","aud":"414e1927a3884f68abc79f7283837fd1"}'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateSignature(String token, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2019-11-06T20:53:21.6326973+03:00 80000065-0007-ff00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10503: Signature validation failed. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey , KeyId: 
+'.
+Exceptions caught:
+ ''.
+token: '{\"alg\":\"http://www.w3.org/2001/04/xmldsig-more#hmac-sha256\",\"typ\":\"JWT\"}.{\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier\":\"f36e553a-8283-4f64-a368-8d506235c358\",\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name\":[\"daazarov\",\"Dmitriy Azarov\"],\"http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider\":\"ASP.NET Identity\",\"AspNet.Identity.SecurityStamp\":\"66fff94b-2258-47ad-a5a8-54878ce616c2\",\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid\":\"f36e553a-8283-4f64-a368-8d506235c358\",\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress\":\"azarchik94@gmail.com\",\"FirstName\":\"Dmitriy\",\"LastName\":\"Azarov\",\"JoinDate\":\"06.11.2019 16:02:08\",\"nbf\":1573057324,\"exp\":1604593324,\"iss\":\"http://localhost:52595\",\"aud\":\"414e1927a3884f68abc79f7283837fd1\"}'." (48071232)
+2019-11-06T20:53:21.6405212+03:00 80000065-0007-ff00-b63f-84710c7967bb [INF] Executing endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (500cc934)
+2019-11-06T20:53:26.0884277+03:00 80000065-0007-ff00-b63f-84710c7967bb [INF] Entity Framework Core "2.2.6-servicing-10079" initialized '"ResourceDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "using lazy-loading proxies " (9958f5bb)
+2019-11-06T20:53:32.8836118+03:00 80000065-0007-ff00-b63f-84710c7967bb [INF] Executed DbCommand ("3,182"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0" (0723d8ff)
+2019-11-06T20:53:33.0442232+03:00 80000065-0007-ff00-b63f-84710c7967bb [INF] Route matched with "{action = \"GetDevices\", controller = \"Devices\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDevices(SDmS.Resource.Api.Models.Devices.DeviceRequestModel)" on controller "SDmS.Resource.Api.Controllers.v1.DevicesController" ("SDmS.Resource.Api"). (122b2fdf)
+2019-11-06T20:53:33.0696836+03:00 80000065-0007-ff00-b63f-84710c7967bb [INF] Authorization failed. (b15dd539)
+2019-11-06T20:53:33.0751057+03:00 80000065-0007-ff00-b63f-84710c7967bb [INF] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'. (8b6446cb)
+2019-11-06T20:53:33.0991769+03:00 80000065-0007-ff00-b63f-84710c7967bb [INF] Executing ChallengeResult with authentication schemes ([]). (f3dca807)
+2019-11-06T20:53:33.1262403+03:00 80000065-0007-ff00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2019-11-06T20:53:33.1339230+03:00 80000065-0007-ff00-b63f-84710c7967bb [INF] Executed action "SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)" in 82.0285ms (afa2e885)
+2019-11-06T20:53:33.1378951+03:00 80000065-0007-ff00-b63f-84710c7967bb [INF] Executed endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (99874f2b)
+2019-11-06T20:53:33.1917710+03:00 80000065-0007-ff00-b63f-84710c7967bb [INF] Request finished in 13103.6565ms 401  (791a596a)
+2019-11-06T20:55:39.5007759+03:00 8000001f-0001-ff00-b63f-84710c7967bb [INF] Request starting HTTP/1.1 GET https://localhost:44373/api/v1/users/f36e553a-8283-4f64-a368-8d506235c358/devices?type=3&limit=0&offset=0   (ca22a1cb)
+2019-11-06T20:55:39.5062640+03:00 8000001f-0001-ff00-b63f-84710c7967bb [INF] Failed to validate the token. (616bef97)
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidSignatureException: IDX10503: Signature validation failed. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey , KeyId: 
+'.
+Exceptions caught:
+ ''.
+token: '{"alg":"http://www.w3.org/2001/04/xmldsig-more#hmac-sha256","typ":"JWT"}.{"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier":"f36e553a-8283-4f64-a368-8d506235c358","http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name":["daazarov","Dmitriy Azarov"],"http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider":"ASP.NET Identity","AspNet.Identity.SecurityStamp":"66fff94b-2258-47ad-a5a8-54878ce616c2","http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid":"f36e553a-8283-4f64-a368-8d506235c358","http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress":"azarchik94@gmail.com","FirstName":"Dmitriy","LastName":"Azarov","JoinDate":"06.11.2019 16:02:08","nbf":1573057324,"exp":1604593324,"iss":"http://localhost:52595","aud":"414e1927a3884f68abc79f7283837fd1"}'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateSignature(String token, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2019-11-06T20:55:39.5102625+03:00 8000001f-0001-ff00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10503: Signature validation failed. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey , KeyId: 
+'.
+Exceptions caught:
+ ''.
+token: '{\"alg\":\"http://www.w3.org/2001/04/xmldsig-more#hmac-sha256\",\"typ\":\"JWT\"}.{\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier\":\"f36e553a-8283-4f64-a368-8d506235c358\",\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name\":[\"daazarov\",\"Dmitriy Azarov\"],\"http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider\":\"ASP.NET Identity\",\"AspNet.Identity.SecurityStamp\":\"66fff94b-2258-47ad-a5a8-54878ce616c2\",\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid\":\"f36e553a-8283-4f64-a368-8d506235c358\",\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress\":\"azarchik94@gmail.com\",\"FirstName\":\"Dmitriy\",\"LastName\":\"Azarov\",\"JoinDate\":\"06.11.2019 16:02:08\",\"nbf\":1573057324,\"exp\":1604593324,\"iss\":\"http://localhost:52595\",\"aud\":\"414e1927a3884f68abc79f7283837fd1\"}'." (48071232)
+2019-11-06T20:55:39.5156815+03:00 8000001f-0001-ff00-b63f-84710c7967bb [INF] Executing endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (500cc934)
+2019-11-06T20:55:39.6592720+03:00 8000001f-0001-ff00-b63f-84710c7967bb [INF] Entity Framework Core "2.2.6-servicing-10079" initialized '"ResourceDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "using lazy-loading proxies " (9958f5bb)
+2019-11-06T20:55:39.8209162+03:00 8000001f-0001-ff00-b63f-84710c7967bb [INF] Executed DbCommand ("145"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0" (0723d8ff)
+2019-11-06T20:55:39.8247749+03:00 8000001f-0001-ff00-b63f-84710c7967bb [INF] Route matched with "{action = \"GetDevices\", controller = \"Devices\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDevices(SDmS.Resource.Api.Models.Devices.DeviceRequestModel)" on controller "SDmS.Resource.Api.Controllers.v1.DevicesController" ("SDmS.Resource.Api"). (122b2fdf)
+2019-11-06T20:55:39.8301998+03:00 8000001f-0001-ff00-b63f-84710c7967bb [INF] Authorization failed. (b15dd539)
+2019-11-06T20:55:39.8341654+03:00 8000001f-0001-ff00-b63f-84710c7967bb [INF] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'. (8b6446cb)
+2019-11-06T20:55:39.8379023+03:00 8000001f-0001-ff00-b63f-84710c7967bb [INF] Executing ChallengeResult with authentication schemes ([]). (f3dca807)
+2019-11-06T20:55:39.8410682+03:00 8000001f-0001-ff00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2019-11-06T20:55:39.8443310+03:00 8000001f-0001-ff00-b63f-84710c7967bb [INF] Executed action "SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)" in 16.3606ms (afa2e885)
+2019-11-06T20:55:39.8474308+03:00 8000001f-0001-ff00-b63f-84710c7967bb [INF] Executed endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (99874f2b)
+2019-11-06T20:55:39.8521637+03:00 8000001f-0001-ff00-b63f-84710c7967bb [INF] Request finished in 390.7743ms 401  (791a596a)
+2019-11-06T21:01:07.0985344+03:00 8000001b-0003-fc00-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44373/api/values   (ca22a1cb)
+2019-11-06T21:01:07.4964939+03:00 8000001b-0003-fc00-b63f-84710c7967bb [INF] Request finished in 411.6008ms 404  (791a596a)
+2019-11-06T21:01:23.8746022+03:00 80000067-0007-ff00-b63f-84710c7967bb [INF] Request starting HTTP/1.1 GET https://localhost:44373/api/v1/users/f36e553a-8283-4f64-a368-8d506235c358/devices?type=3&limit=0&offset=0   (ca22a1cb)
+2019-11-06T21:01:26.3357131+03:00 80000067-0007-ff00-b63f-84710c7967bb [INF] Failed to validate the token. (616bef97)
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidSignatureException: IDX10503: Signature validation failed. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey , KeyId: 
+'.
+Exceptions caught:
+ ''.
+token: '{"alg":"http://www.w3.org/2001/04/xmldsig-more#hmac-sha256","typ":"JWT"}.{"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier":"f36e553a-8283-4f64-a368-8d506235c358","http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name":["daazarov","Dmitriy Azarov"],"http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider":"ASP.NET Identity","AspNet.Identity.SecurityStamp":"66fff94b-2258-47ad-a5a8-54878ce616c2","http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid":"f36e553a-8283-4f64-a368-8d506235c358","http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress":"azarchik94@gmail.com","FirstName":"Dmitriy","LastName":"Azarov","JoinDate":"06.11.2019 16:02:08","nbf":1573057324,"exp":1604593324,"iss":"http://localhost:52595","aud":"414e1927a3884f68abc79f7283837fd1"}'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateSignature(String token, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2019-11-06T21:01:26.3401583+03:00 80000067-0007-ff00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10503: Signature validation failed. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey , KeyId: 
+'.
+Exceptions caught:
+ ''.
+token: '{\"alg\":\"http://www.w3.org/2001/04/xmldsig-more#hmac-sha256\",\"typ\":\"JWT\"}.{\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier\":\"f36e553a-8283-4f64-a368-8d506235c358\",\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name\":[\"daazarov\",\"Dmitriy Azarov\"],\"http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider\":\"ASP.NET Identity\",\"AspNet.Identity.SecurityStamp\":\"66fff94b-2258-47ad-a5a8-54878ce616c2\",\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid\":\"f36e553a-8283-4f64-a368-8d506235c358\",\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress\":\"azarchik94@gmail.com\",\"FirstName\":\"Dmitriy\",\"LastName\":\"Azarov\",\"JoinDate\":\"06.11.2019 16:02:08\",\"nbf\":1573057324,\"exp\":1604593324,\"iss\":\"http://localhost:52595\",\"aud\":\"414e1927a3884f68abc79f7283837fd1\"}'." (48071232)
+2019-11-06T21:01:26.3439467+03:00 80000067-0007-ff00-b63f-84710c7967bb [INF] Executing endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (500cc934)
+2019-11-06T21:01:29.5180438+03:00 80000067-0007-ff00-b63f-84710c7967bb [INF] Entity Framework Core "2.2.6-servicing-10079" initialized '"ResourceDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "using lazy-loading proxies " (9958f5bb)
+2019-11-06T21:01:35.5482263+03:00 80000067-0007-ff00-b63f-84710c7967bb [INF] Executed DbCommand ("3,005"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0" (0723d8ff)
+2019-11-06T21:01:35.9209560+03:00 80000067-0007-ff00-b63f-84710c7967bb [INF] Route matched with "{action = \"GetDevices\", controller = \"Devices\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDevices(SDmS.Resource.Api.Models.Devices.DeviceRequestModel)" on controller "SDmS.Resource.Api.Controllers.v1.DevicesController" ("SDmS.Resource.Api"). (122b2fdf)
+2019-11-06T21:01:35.9441119+03:00 80000067-0007-ff00-b63f-84710c7967bb [INF] Authorization failed. (b15dd539)
+2019-11-06T21:01:35.9493527+03:00 80000067-0007-ff00-b63f-84710c7967bb [INF] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'. (8b6446cb)
+2019-11-06T21:01:35.9649103+03:00 80000067-0007-ff00-b63f-84710c7967bb [INF] Executing ChallengeResult with authentication schemes ([]). (f3dca807)
+2019-11-06T21:01:36.0195841+03:00 80000067-0007-ff00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2019-11-06T21:01:36.0331949+03:00 80000067-0007-ff00-b63f-84710c7967bb [INF] Executed action "SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)" in 99.2843ms (afa2e885)
+2019-11-06T21:01:36.0382805+03:00 80000067-0007-ff00-b63f-84710c7967bb [INF] Executed endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (99874f2b)
+2019-11-06T21:01:36.0594148+03:00 80000067-0007-ff00-b63f-84710c7967bb [INF] Request finished in 12182.4184ms 401  (791a596a)
+2019-11-06T21:03:26.2166500+03:00 80000068-0007-ff00-b63f-84710c7967bb [INF] Request starting HTTP/1.1 GET https://localhost:44373/api/v1/users/f36e553a-8283-4f64-a368-8d506235c358/devices?type=3&limit=0&offset=0   (ca22a1cb)
+2019-11-06T21:03:26.2212766+03:00 80000068-0007-ff00-b63f-84710c7967bb [INF] Failed to validate the token. (616bef97)
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidSignatureException: IDX10503: Signature validation failed. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey , KeyId: 
+'.
+Exceptions caught:
+ ''.
+token: '{"alg":"http://www.w3.org/2001/04/xmldsig-more#hmac-sha256","typ":"JWT"}.{"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier":"f36e553a-8283-4f64-a368-8d506235c358","http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name":["daazarov","Dmitriy Azarov"],"http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider":"ASP.NET Identity","AspNet.Identity.SecurityStamp":"66fff94b-2258-47ad-a5a8-54878ce616c2","http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid":"f36e553a-8283-4f64-a368-8d506235c358","http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress":"azarchik94@gmail.com","FirstName":"Dmitriy","LastName":"Azarov","JoinDate":"06.11.2019 16:02:08","nbf":1573057324,"exp":1604593324,"iss":"http://localhost:52595","aud":"414e1927a3884f68abc79f7283837fd1"}'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateSignature(String token, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2019-11-06T21:03:26.2241601+03:00 80000068-0007-ff00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10503: Signature validation failed. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey , KeyId: 
+'.
+Exceptions caught:
+ ''.
+token: '{\"alg\":\"http://www.w3.org/2001/04/xmldsig-more#hmac-sha256\",\"typ\":\"JWT\"}.{\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier\":\"f36e553a-8283-4f64-a368-8d506235c358\",\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name\":[\"daazarov\",\"Dmitriy Azarov\"],\"http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider\":\"ASP.NET Identity\",\"AspNet.Identity.SecurityStamp\":\"66fff94b-2258-47ad-a5a8-54878ce616c2\",\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid\":\"f36e553a-8283-4f64-a368-8d506235c358\",\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress\":\"azarchik94@gmail.com\",\"FirstName\":\"Dmitriy\",\"LastName\":\"Azarov\",\"JoinDate\":\"06.11.2019 16:02:08\",\"nbf\":1573057324,\"exp\":1604593324,\"iss\":\"http://localhost:52595\",\"aud\":\"414e1927a3884f68abc79f7283837fd1\"}'." (48071232)
+2019-11-06T21:03:26.2268086+03:00 80000068-0007-ff00-b63f-84710c7967bb [INF] Executing endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (500cc934)
+2019-11-06T21:03:26.3755452+03:00 80000068-0007-ff00-b63f-84710c7967bb [INF] Entity Framework Core "2.2.6-servicing-10079" initialized '"ResourceDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "using lazy-loading proxies " (9958f5bb)
+2019-11-06T21:03:26.5321304+03:00 80000068-0007-ff00-b63f-84710c7967bb [INF] Executed DbCommand ("152"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0" (0723d8ff)
+2019-11-06T21:03:26.5367599+03:00 80000068-0007-ff00-b63f-84710c7967bb [INF] Route matched with "{action = \"GetDevices\", controller = \"Devices\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDevices(SDmS.Resource.Api.Models.Devices.DeviceRequestModel)" on controller "SDmS.Resource.Api.Controllers.v1.DevicesController" ("SDmS.Resource.Api"). (122b2fdf)
+2019-11-06T21:03:26.5419436+03:00 80000068-0007-ff00-b63f-84710c7967bb [INF] Authorization failed. (b15dd539)
+2019-11-06T21:03:26.5465253+03:00 80000068-0007-ff00-b63f-84710c7967bb [INF] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'. (8b6446cb)
+2019-11-06T21:03:26.5504089+03:00 80000068-0007-ff00-b63f-84710c7967bb [INF] Executing ChallengeResult with authentication schemes ([]). (f3dca807)
+2019-11-06T21:03:26.5539182+03:00 80000068-0007-ff00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2019-11-06T21:03:26.5594042+03:00 80000068-0007-ff00-b63f-84710c7967bb [INF] Executed action "SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)" in 17.3066ms (afa2e885)
+2019-11-06T21:03:26.5630529+03:00 80000068-0007-ff00-b63f-84710c7967bb [INF] Executed endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (99874f2b)
+2019-11-06T21:03:26.5675036+03:00 80000068-0007-ff00-b63f-84710c7967bb [INF] Request finished in 350.6565ms 401  (791a596a)
+2019-11-06T21:11:37.5976729+03:00 8000006a-0007-ff00-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44373/api/values   (ca22a1cb)
+2019-11-06T21:12:39.6379871+03:00 8000006a-0007-ff00-b63f-84710c7967bb [INF] Request finished in 62053.7878ms 404  (791a596a)
+2019-11-06T21:13:10.9925799+03:00 8000006a-0002-ff00-b63f-84710c7967bb [INF] Request starting HTTP/1.1 GET https://localhost:44373/api/v1/users/f36e553a-8283-4f64-a368-8d506235c358/devices?type=3&limit=0&offset=0   (ca22a1cb)
+2019-11-06T21:13:12.0791972+03:00 8000006a-0002-ff00-b63f-84710c7967bb [INF] Failed to validate the token. (616bef97)
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidSignatureException: IDX10503: Signature validation failed. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey , KeyId: 
+'.
+Exceptions caught:
+ ''.
+token: '{"alg":"http://www.w3.org/2001/04/xmldsig-more#hmac-sha256","typ":"JWT"}.{"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier":"f36e553a-8283-4f64-a368-8d506235c358","http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name":["daazarov","Dmitriy Azarov"],"http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider":"ASP.NET Identity","AspNet.Identity.SecurityStamp":"66fff94b-2258-47ad-a5a8-54878ce616c2","http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid":"f36e553a-8283-4f64-a368-8d506235c358","http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress":"azarchik94@gmail.com","FirstName":"Dmitriy","LastName":"Azarov","JoinDate":"06.11.2019 16:02:08","nbf":1573057324,"exp":1604593324,"iss":"http://localhost:52595","aud":"414e1927a3884f68abc79f7283837fd1"}'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateSignature(String token, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2019-11-06T21:13:12.0838993+03:00 8000006a-0002-ff00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10503: Signature validation failed. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey , KeyId: 
+'.
+Exceptions caught:
+ ''.
+token: '{\"alg\":\"http://www.w3.org/2001/04/xmldsig-more#hmac-sha256\",\"typ\":\"JWT\"}.{\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier\":\"f36e553a-8283-4f64-a368-8d506235c358\",\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name\":[\"daazarov\",\"Dmitriy Azarov\"],\"http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider\":\"ASP.NET Identity\",\"AspNet.Identity.SecurityStamp\":\"66fff94b-2258-47ad-a5a8-54878ce616c2\",\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid\":\"f36e553a-8283-4f64-a368-8d506235c358\",\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress\":\"azarchik94@gmail.com\",\"FirstName\":\"Dmitriy\",\"LastName\":\"Azarov\",\"JoinDate\":\"06.11.2019 16:02:08\",\"nbf\":1573057324,\"exp\":1604593324,\"iss\":\"http://localhost:52595\",\"aud\":\"414e1927a3884f68abc79f7283837fd1\"}'." (48071232)
+2019-11-06T21:13:12.0893910+03:00 8000006a-0002-ff00-b63f-84710c7967bb [INF] Executing endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (500cc934)
+2019-11-06T21:13:13.7343337+03:00 8000006a-0002-ff00-b63f-84710c7967bb [INF] Entity Framework Core "2.2.6-servicing-10079" initialized '"ResourceDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "using lazy-loading proxies " (9958f5bb)
+2019-11-06T21:13:18.7014661+03:00 8000006a-0002-ff00-b63f-84710c7967bb [INF] Executed DbCommand ("2,170"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0" (0723d8ff)
+2019-11-06T21:13:18.7933399+03:00 8000006a-0002-ff00-b63f-84710c7967bb [INF] Route matched with "{action = \"GetDevices\", controller = \"Devices\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDevices(SDmS.Resource.Api.Models.Devices.DeviceRequestModel)" on controller "SDmS.Resource.Api.Controllers.v1.DevicesController" ("SDmS.Resource.Api"). (122b2fdf)
+2019-11-06T21:13:18.8068405+03:00 8000006a-0002-ff00-b63f-84710c7967bb [INF] Authorization failed. (b15dd539)
+2019-11-06T21:13:18.8094987+03:00 8000006a-0002-ff00-b63f-84710c7967bb [INF] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'. (8b6446cb)
+2019-11-06T21:13:18.8259391+03:00 8000006a-0002-ff00-b63f-84710c7967bb [INF] Executing ChallengeResult with authentication schemes ([]). (f3dca807)
+2019-11-06T21:13:18.8458806+03:00 8000006a-0002-ff00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2019-11-06T21:13:18.8538751+03:00 8000006a-0002-ff00-b63f-84710c7967bb [INF] Executed action "SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)" in 52.7785ms (afa2e885)
+2019-11-06T21:13:18.8573384+03:00 8000006a-0002-ff00-b63f-84710c7967bb [INF] Executed endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (99874f2b)
+2019-11-06T21:13:18.8638633+03:00 8000006a-0002-ff00-b63f-84710c7967bb [INF] Request finished in 7871.7568ms 401  (791a596a)
+2019-11-06T21:17:31.6713836+03:00 8000005b-0006-f800-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44373/api/values   (ca22a1cb)
+2019-11-06T21:17:36.9947656+03:00 8000005b-0006-f800-b63f-84710c7967bb [INF] Request finished in 5329.5817ms 404  (791a596a)
+2019-11-06T21:17:46.9063384+03:00 8000005d-0006-f800-b63f-84710c7967bb [INF] Request starting HTTP/1.1 GET https://localhost:44373/api/v1/users/f36e553a-8283-4f64-a368-8d506235c358/devices?type=3&limit=0&offset=0   (ca22a1cb)
+2019-11-06T21:17:47.1883863+03:00 8000005d-0006-f800-b63f-84710c7967bb [INF] Failed to validate the token. (616bef97)
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidSignatureException: IDX10503: Signature validation failed. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey , KeyId: 
+'.
+Exceptions caught:
+ ''.
+token: '{"alg":"http://www.w3.org/2001/04/xmldsig-more#hmac-sha256","typ":"JWT"}.{"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier":"f36e553a-8283-4f64-a368-8d506235c358","http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name":["daazarov","Dmitriy Azarov"],"http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider":"ASP.NET Identity","AspNet.Identity.SecurityStamp":"66fff94b-2258-47ad-a5a8-54878ce616c2","http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid":"f36e553a-8283-4f64-a368-8d506235c358","http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress":"azarchik94@gmail.com","FirstName":"Dmitriy","LastName":"Azarov","JoinDate":"06.11.2019 16:02:08","nbf":1573057324,"exp":1604593324,"iss":"http://localhost:52595","aud":"414e1927a3884f68abc79f7283837fd1"}'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateSignature(String token, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2019-11-06T21:17:47.1925642+03:00 8000005d-0006-f800-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10503: Signature validation failed. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey , KeyId: 
+'.
+Exceptions caught:
+ ''.
+token: '{\"alg\":\"http://www.w3.org/2001/04/xmldsig-more#hmac-sha256\",\"typ\":\"JWT\"}.{\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier\":\"f36e553a-8283-4f64-a368-8d506235c358\",\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name\":[\"daazarov\",\"Dmitriy Azarov\"],\"http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider\":\"ASP.NET Identity\",\"AspNet.Identity.SecurityStamp\":\"66fff94b-2258-47ad-a5a8-54878ce616c2\",\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid\":\"f36e553a-8283-4f64-a368-8d506235c358\",\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress\":\"azarchik94@gmail.com\",\"FirstName\":\"Dmitriy\",\"LastName\":\"Azarov\",\"JoinDate\":\"06.11.2019 16:02:08\",\"nbf\":1573057324,\"exp\":1604593324,\"iss\":\"http://localhost:52595\",\"aud\":\"414e1927a3884f68abc79f7283837fd1\"}'." (48071232)
+2019-11-06T21:17:47.1967157+03:00 8000005d-0006-f800-b63f-84710c7967bb [INF] Executing endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (500cc934)
+2019-11-06T21:17:48.1061681+03:00 8000005d-0006-f800-b63f-84710c7967bb [INF] Entity Framework Core "2.2.6-servicing-10079" initialized '"ResourceDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "using lazy-loading proxies " (9958f5bb)
+2019-11-06T21:17:51.2871991+03:00 8000005d-0006-f800-b63f-84710c7967bb [INF] Executed DbCommand ("1,735"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0" (0723d8ff)
+2019-11-06T21:17:51.3191188+03:00 8000005d-0006-f800-b63f-84710c7967bb [INF] Route matched with "{action = \"GetDevices\", controller = \"Devices\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDevices(SDmS.Resource.Api.Models.Devices.DeviceRequestModel)" on controller "SDmS.Resource.Api.Controllers.v1.DevicesController" ("SDmS.Resource.Api"). (122b2fdf)
+2019-11-06T21:17:51.3324753+03:00 8000005d-0006-f800-b63f-84710c7967bb [INF] Authorization failed. (b15dd539)
+2019-11-06T21:17:51.3363526+03:00 8000005d-0006-f800-b63f-84710c7967bb [INF] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'. (8b6446cb)
+2019-11-06T21:17:51.3483354+03:00 8000005d-0006-f800-b63f-84710c7967bb [INF] Executing ChallengeResult with authentication schemes ([]). (f3dca807)
+2019-11-06T21:17:51.3569285+03:00 8000005d-0006-f800-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2019-11-06T21:17:51.3634347+03:00 8000005d-0006-f800-b63f-84710c7967bb [INF] Executed action "SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)" in 37.7878ms (afa2e885)
+2019-11-06T21:17:51.3659637+03:00 8000005d-0006-f800-b63f-84710c7967bb [INF] Executed endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (99874f2b)
+2019-11-06T21:17:51.3719122+03:00 8000005d-0006-f800-b63f-84710c7967bb [INF] Request finished in 4465.5185ms 401  (791a596a)
+2019-11-06T23:22:50.9906680+03:00 80000018-0005-fb00-b63f-84710c7967bb [INF] Request starting HTTP/2.0 GET https://localhost:44373/api/values   (ca22a1cb)
+2019-11-06T23:22:51.3642288+03:00 80000018-0005-fb00-b63f-84710c7967bb [INF] Request finished in 379.427ms 404  (791a596a)
+2019-11-06T23:23:44.0507836+03:00 8000002f-0006-fa00-b63f-84710c7967bb [INF] Request starting HTTP/1.1 GET https://localhost:44373/api/v1/users/f36e553a-8283-4f64-a368-8d506235c358/devices?type=3&limit=0&offset=0   (ca22a1cb)
+2019-11-06T23:23:46.9054151+03:00 8000002f-0006-fa00-b63f-84710c7967bb [INF] Failed to validate the token. (616bef97)
+Microsoft.IdentityModel.Tokens.SecurityTokenInvalidSignatureException: IDX10503: Signature validation failed. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey, KeyId: '', InternalId: '080d04be-94c0-4585-b74a-f50a2a7eb6fb'. , KeyId: 
+'.
+Exceptions caught:
+ ''.
+token: '{"alg":"http://www.w3.org/2001/04/xmldsig-more#hmac-sha256","typ":"JWT"}.{"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier":"f36e553a-8283-4f64-a368-8d506235c358","http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name":"daazarov","http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider":"ASP.NET Identity","AspNet.Identity.SecurityStamp":"66fff94b-2258-47ad-a5a8-54878ce616c2","http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid":"f36e553a-8283-4f64-a368-8d506235c358","http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress":"azarchik94@gmail.com","FirstName":"Dmitriy","FullName":"Dmitriy Azarov","LastName":"Azarov","JoinDate":"06.11.2019 16:02:08","nbf":1573071507,"exp":1604607507,"iss":"http://localhost:52595","aud":"414e1927a3884f68abc79f7283837fd1"}'.
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateSignature(String token, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler.HandleAuthenticateAsync()
+2019-11-06T23:23:46.9090047+03:00 8000002f-0006-fa00-b63f-84710c7967bb [INF] "Bearer" was not authenticated. Failure message: "IDX10503: Signature validation failed. Keys tried: 'Microsoft.IdentityModel.Tokens.SymmetricSecurityKey, KeyId: '', InternalId: '080d04be-94c0-4585-b74a-f50a2a7eb6fb'. , KeyId: 
+'.
+Exceptions caught:
+ ''.
+token: '{\"alg\":\"http://www.w3.org/2001/04/xmldsig-more#hmac-sha256\",\"typ\":\"JWT\"}.{\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier\":\"f36e553a-8283-4f64-a368-8d506235c358\",\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name\":\"daazarov\",\"http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider\":\"ASP.NET Identity\",\"AspNet.Identity.SecurityStamp\":\"66fff94b-2258-47ad-a5a8-54878ce616c2\",\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid\":\"f36e553a-8283-4f64-a368-8d506235c358\",\"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress\":\"azarchik94@gmail.com\",\"FirstName\":\"Dmitriy\",\"FullName\":\"Dmitriy Azarov\",\"LastName\":\"Azarov\",\"JoinDate\":\"06.11.2019 16:02:08\",\"nbf\":1573071507,\"exp\":1604607507,\"iss\":\"http://localhost:52595\",\"aud\":\"414e1927a3884f68abc79f7283837fd1\"}'." (48071232)
+2019-11-06T23:23:46.9119906+03:00 8000002f-0006-fa00-b63f-84710c7967bb [INF] Executing endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (500cc934)
+2019-11-06T23:23:49.2041002+03:00 8000002f-0006-fa00-b63f-84710c7967bb [INF] Entity Framework Core "2.2.6-servicing-10079" initialized '"ResourceDbContext"' using provider '"Microsoft.EntityFrameworkCore.SqlServer"' with options: "using lazy-loading proxies " (9958f5bb)
+2019-11-06T23:23:54.4179949+03:00 8000002f-0006-fa00-b63f-84710c7967bb [INF] Executed DbCommand ("2,782"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE') SELECT 1 ELSE SELECT 0" (0723d8ff)
+2019-11-06T23:23:54.5127810+03:00 8000002f-0006-fa00-b63f-84710c7967bb [INF] Route matched with "{action = \"GetDevices\", controller = \"Devices\"}". Executing controller action with signature "System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDevices(SDmS.Resource.Api.Models.Devices.DeviceRequestModel)" on controller "SDmS.Resource.Api.Controllers.v1.DevicesController" ("SDmS.Resource.Api"). (122b2fdf)
+2019-11-06T23:23:54.5308358+03:00 8000002f-0006-fa00-b63f-84710c7967bb [INF] Authorization failed. (b15dd539)
+2019-11-06T23:23:54.5351263+03:00 8000002f-0006-fa00-b63f-84710c7967bb [INF] Authorization failed for the request at filter '"Microsoft.AspNetCore.Mvc.Authorization.AuthorizeFilter"'. (8b6446cb)
+2019-11-06T23:23:54.5480660+03:00 8000002f-0006-fa00-b63f-84710c7967bb [INF] Executing ChallengeResult with authentication schemes ([]). (f3dca807)
+2019-11-06T23:23:54.5739886+03:00 8000002f-0006-fa00-b63f-84710c7967bb [INF] AuthenticationScheme: "Bearer" was challenged. (d45f1f38)
+2019-11-06T23:23:54.5800732+03:00 8000002f-0006-fa00-b63f-84710c7967bb [INF] Executed action "SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)" in 61.3752ms (afa2e885)
+2019-11-06T23:23:54.5826698+03:00 8000002f-0006-fa00-b63f-84710c7967bb [INF] Executed endpoint '"SDmS.Resource.Api.Controllers.v1.DevicesController.GetDevices (SDmS.Resource.Api)"' (99874f2b)
+2019-11-06T23:23:54.5996840+03:00 8000002f-0006-fa00-b63f-84710c7967bb [INF] Request finished in 10549.3724ms 401  (791a596a)

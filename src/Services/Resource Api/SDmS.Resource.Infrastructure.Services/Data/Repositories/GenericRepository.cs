@@ -82,22 +82,70 @@ namespace SDmS.Resource.Infrastructure.Services.Data.Repositories
 
         public IEnumerable<T> GetAll(int limit, int offset)
         {
-            return this.Entities.Skip(offset).Take(limit).ToList();
+            var Query = (IQueryable<T>)this.Entities;
+
+            if (offset > 0)
+            {
+                Query = Query.Skip(offset);
+            }
+
+            if (limit != 0)
+            {
+                Query = Query.Take(limit);
+            }
+
+            return Query.ToList();
         }
 
         public async Task<IEnumerable<T>> GetAllAsync(int limit, int offset)
         {
-            return await this.Entities.Skip(offset).Take(limit).ToListAsync();
+            var Query = (IQueryable<T>)this.Entities;
+
+            if (offset > 0)
+            {
+                Query = Query.Skip(offset);
+            }
+
+            if (limit != 0)
+            {
+                Query = Query.Take(limit);
+            }
+
+            return await Query.ToListAsync();
         }
 
         public IEnumerable<T> GetbyFilter(Expression<Func<T, bool>> filter, int limit, int offset)
         {
-            return this.Entities.Where(filter).Skip(offset).Take(limit).ToList();
+            var Query = this.Entities.Where(filter);
+
+            if (offset > 0)
+            {
+                Query = Query.Skip(offset);
+            }
+
+            if (limit != 0)
+            {
+                Query = Query.Take(limit);
+            }
+
+            return Query.ToList();
         }
 
         public async Task<IEnumerable<T>> GetbyFilterAsync(Expression<Func<T, bool>> filter, int limit, int offset)
         {
-            return await this.Entities.Where(filter).Skip(offset).Take(limit).ToListAsync();
+            var Query = this.Entities.Where(filter);
+
+            if (offset > 0)
+            {
+                Query = Query.Skip(offset);
+            }
+
+            if (limit != 0)
+            {
+                Query = Query.Take(limit);
+            }
+
+            return await Query.ToListAsync();
         }
 
         public void Insert(T entity)

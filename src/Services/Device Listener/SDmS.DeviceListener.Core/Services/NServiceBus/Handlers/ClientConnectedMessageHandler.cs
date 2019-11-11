@@ -19,7 +19,23 @@ namespace SDmS.DeviceListener.Core.Services.NServiceBus.Handlers
 
         public async Task Handle(MqttClientConnectedEvent message, IMessageHandlerContext context)
         {
-            await this._mqttClientManager.ChangeDevicesStatusAsync(true, message.client_id);
+            _logger.Info($"ClientConnectedMessage recived. DETAILS:\n{message.ToString()}");
+
+            var devices = await this._mqttClientManager.GetDevicesByMqttClientAsync(message.client_id);
+
+            foreach (var device in devices)
+            {
+                var @event = new DeviceConnectEvent
+                {
+                    mqtt_client_id = device.mqtt_client_id,
+                    serial_number = device.serial_number,
+                    type_text = device.type_text
+                };
+
+                await context.Publish(@event);
+            }
+
+            //await this._mqttClientManager.ChangeDevicesStatusAsync(true, message.client_id);
         }
     }
 }

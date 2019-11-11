@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using NServiceBus;
 using NServiceBus.ObjectBuilder.MSDependencyInjection;
@@ -52,21 +54,34 @@ namespace SDmS.Resource.Api
             RegisterComponent<InfrastructureServicesModule>(services, Configuration);
             RegisterComponent<ModelMapperModule>(services, Configuration);
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer(options =>
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            })
+                    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
                     {
                         options.RequireHttpsMetadata = false;
+                        options.SaveToken = true;
+                        options.IncludeErrorDetails = true;
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
                             ValidateIssuer = true,
                             ValidIssuer = Configuration["ISSUER"],
                             ValidateAudience = true,
                             ValidAudience = Configuration["AUDIENCE"],
-                            ValidateLifetime = true,
-                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(Configuration["SECRET_KEY"]),
                             ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(Configuration["SECRET_KEY"]),
+                            ValidateLifetime = true,
+                            ClockSkew = TimeSpan.FromSeconds(20)
                         };
                     });
+
+            IEndpointInstance endpointInstance = null;
+            services.AddSingleton<IEndpointInstance>(_ => endpointInstance);
 
             var endpointConfiguration = services.AddNServiceBus(Configuration);
 
@@ -83,7 +98,7 @@ namespace SDmS.Resource.Api
             });
             #endregion
 
-            var endpoint = NServiceBus.Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
+            endpointInstance = NServiceBus.Endpoint.Start(endpointConfiguration).GetAwaiter().GetResult();
 
             return container;
         }
@@ -94,16 +109,15 @@ namespace SDmS.Resource.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                IdentityModelEventSource.ShowPII = true;
             }
             else
             {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                //app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-            app.UseDefaultFiles();
-            app.UseStaticFiles();
+            //app.UseHttpsRedirection();
 
             app.UseAuthentication();
             app.UseMvc();

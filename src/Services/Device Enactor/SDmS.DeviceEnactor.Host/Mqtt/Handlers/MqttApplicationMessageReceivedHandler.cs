@@ -56,7 +56,7 @@ namespace SDmS.DeviceEnactor.Host.Mqtt.Handlers
                     
                 case MessageType.DeviceMessage:
                     {
-                        var message = handler.ParseDeviceEvent(eventArgs);
+                        var message = handler.ParseDeviceMessage(eventArgs);
                         if (message == null)
                         {
                             _logger.LogError($"ClientId: {eventArgs.ClientId}. Message in topic: {eventArgs.ApplicationMessage.Topic}. ERROR: Message parsing error.");

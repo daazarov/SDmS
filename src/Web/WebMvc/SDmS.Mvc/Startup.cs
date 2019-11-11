@@ -4,6 +4,7 @@ using Microsoft.Owin.Security.DataHandler.Encoder;
 using Microsoft.Owin.Security.Jwt;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
+using System;
 using System.Configuration;
 
 [assembly: OwinStartup(typeof(SDmS.Mvc.Startup))]
@@ -23,7 +24,8 @@ namespace SDmS.Mvc
 
             var issuer = ConfigurationManager.AppSettings["as:Issuer"];
             string audienceId = ConfigurationManager.AppSettings["as:AudienceId"];
-            byte[] audienceSecret = TextEncodings.Base64Url.Decode(ConfigurationManager.AppSettings["as:AudienceSecret"]);
+            //byte[] audienceSecret = TextEncodings.Base64Url.Decode(ConfigurationManager.AppSettings["as:AudienceSecret"]);
+            byte[] audienceSecret = Convert.FromBase64String(ConfigurationManager.AppSettings["as:AudienceSecret"]);
 
             // Api controllers with an [Authorize] attribute will be validated with JWT
             app.UseJwtBearerAuthentication(

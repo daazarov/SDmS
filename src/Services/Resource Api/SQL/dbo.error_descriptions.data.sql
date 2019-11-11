@@ -1,7 +1,8 @@
-INSERT INTO [dbo].[error_descriptions] ([error_id], [error_code], [description]) VALUES (N'f5b5090f-9fbb-4ecb-9647-63d7fc5d5cc6', -201, N'
-The device is not registered in the system')
-INSERT INTO [dbo].[error_descriptions] ([error_id], [error_code], [description]) VALUES (N'8c4f6391-674f-4941-a335-d8e23cbcaf20', -203, N'
-Тo response about device existence. Please, try again later')
-INSERT INTO [dbo].[error_descriptions] ([error_id], [error_code], [description]) VALUES (N'b6646fe3-b49a-4b55-9881-b5a5a75da2f0', -204, N'
-Unknown device type')
 INSERT INTO [dbo].[error_descriptions] ([error_id], [error_code], [description]) VALUES (N'4d16ce3f-211e-4981-871a-038db83b22e6', -205, N'The type of device being added does not match the real device')
+INSERT INTO [dbo].[error_descriptions] ([error_id], [error_code], [description]) VALUES (N'6e2f6967-9efb-4288-be83-4c8ca0500e8b', -207, N'The device does not support this type of command')
+INSERT INTO [dbo].[error_descriptions] ([error_id], [error_code], [description]) VALUES (N'f5b5090f-9fbb-4ecb-9647-63d7fc5d5cc6', -201, N'The device is not registered in the system')
+INSERT INTO [dbo].[error_descriptions] ([error_id], [error_code], [description]) VALUES (N'b7a147b6-e6b1-4cdf-acbf-66e2b6070f07', -202, N'The device is already in use')
+INSERT INTO [dbo].[error_descriptions] ([error_id], [error_code], [description]) VALUES (N'6fe47996-6594-48ac-b8f8-6fed19b139bc', -206, N'Parameter name not found in data base')
+INSERT INTO [dbo].[error_descriptions] ([error_id], [error_code], [description]) VALUES (N'b6646fe3-b49a-4b55-9881-b5a5a75da2f0', -204, N'Unknown device type')
+INSERT INTO [dbo].[error_descriptions] ([error_id], [error_code], [description]) VALUES (N'8c4f6391-674f-4941-a335-d8e23cbcaf20', -203, N'Тo response about device existence. Please, try again later')
+INSERT INTO [dbo].[error_descriptions] ([error_id], [error_code], [description]) VALUES (N'cf28f736-0a70-419e-96cc-15d3711b20d4', -208, N'Not all parameters specified for command execution')

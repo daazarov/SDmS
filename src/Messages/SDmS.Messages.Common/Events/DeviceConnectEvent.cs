@@ -1,20 +1,18 @@
 ﻿using SDmS.Messages.Common.Models;
 using System.Text;
 
-namespace SDmS.Messages.Common.Messages
+namespace SDmS.Messages.Common.Events
 {
-    public class TemperatureDataMessage : DevicePublishedMessage
+    public class DeviceConnectEvent : DevicePublishedEvent
     {
-        public string temperature_data { get; set; }
-
         public override string ToString()
         {
             var type = GetType();
 
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine($"Command name: {type.FullName}");
+            builder.AppendLine($"Event name: {type.FullName}");
             builder.AppendLine($"Serial Number: {serial_number}");
-            builder.AppendLine($"Temperature Data: {temperature_data}");
+            builder.AppendLine($"Device Type: {this.type_text}");
 
             return builder.ToString();
         }

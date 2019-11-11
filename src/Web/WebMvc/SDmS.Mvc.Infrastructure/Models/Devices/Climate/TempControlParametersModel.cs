@@ -2,8 +2,8 @@
 {
     public class TempControlParametersModel
     {
-        public double temp_c { get; set; }
-        public bool is_control_enable { get; set; }
-        public int desired_temp { get; set; }
+        public double temperature_data { get; set; }
+        public bool desired_enabled { get; set; }
+        public int desired_temperature { get; set; }
     }
 }

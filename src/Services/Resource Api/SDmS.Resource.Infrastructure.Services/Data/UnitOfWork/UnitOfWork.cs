@@ -16,6 +16,7 @@ namespace SDmS.Resource.Infrastructure.Services.Data
         private readonly ResourceDbContext _context;
         private Dictionary<string, object> repositories;
 
+        public DbContext DataBase => _context;
 
         public UnitOfWork(ResourceDbContext context)
         {
@@ -59,6 +60,24 @@ namespace SDmS.Resource.Infrastructure.Services.Data
             }
         }
 
+        public IGenericRepository<T> Repository<T>() where T : class
+        {
+            if (repositories == null)
+            {
+                repositories = new Dictionary<string, object>();
+            }
+
+            var type = typeof(T).Name;
+
+            if (!repositories.ContainsKey(type))
+            {
+                var repositoryType = typeof(GenericRepository<>);
+                var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(T)), _context);
+                repositories.Add(type, repositoryInstance);
+            }
+            return (IGenericRepository<T>)repositories[type];
+        }
+
         public TRepo Repository<TRepo, DbEntity>() 
             where TRepo : IGenericRepository<DbEntity>
             where DbEntity : class
@@ -72,7 +91,7 @@ namespace SDmS.Resource.Infrastructure.Services.Data
 
             if (!repositories.ContainsKey(type))
             {
-                var repositoryType = typeof(TRepo);
+                var repositoryType = typeof(GenericRepository<>);
                 var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(DbEntity)), _context);
                 repositories.Add(type, repositoryInstance);
             }

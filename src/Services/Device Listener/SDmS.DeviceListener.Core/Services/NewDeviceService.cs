@@ -120,9 +120,9 @@ namespace SDmS.DeviceListener.Core.Services
                 {
                     device.device_info.is_online = deviceDoc["is_online"].AsBoolean;
                 }
-                if (deviceDoc.Contains("type"))
+                if (deviceDoc.Contains("type_text"))
                 {
-                    device.device_info.type_text = deviceDoc["type"].AsString;
+                    device.device_info.type_text = deviceDoc["type_text"].AsString;
                 }
 
                 return device;

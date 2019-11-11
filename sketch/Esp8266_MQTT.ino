@@ -26,18 +26,19 @@
 #define MQTT_LED_STATUS_TOPIC (String("devices/6519515/led/status").c_str())
 #define MQTT_LED_STATUS_RESPONSE_TOPIC (String("devices/6519515/led/status/response").c_str())
 #define MQTT_LED_SWITCH_RESPONSE_TOPIC (String("devices/6519515/led/switch/response").c_str())
-#define MQTT_ERROR_TOPIC (String("devices/6519515/errors").c_str())
+#define MQTT_DISCONNECT_TOPIC (String("devices/6519515/disconnect").c_str())
+#define MQTT_CONNECT_TOPIC (String("devices/6519515/connect").c_str())
 #define MQTT_TEMP_RESPONSE_TOPIC (String("devices/6519515/temperature/data").c_str())
 
 const char *chip_id = "6519515";
 
-const char *ssid =  "<SSID_NAME>";  // Name of WiFi endpoint
-const char *pass =  "<SSID_PASSWORD>"; // WiFi password
+const char *ssid =  "TP-LINK_C1E974";  // Name of WiFi endpoint
+const char *pass =  "azarovdima"; // WiFi password
 
-const char *mqtt_server = "<MQTT_SERVER_NAME>"; // MQTT server name
-const int mqtt_port = 1883; // MQTT connection port
-const char *mqtt_user = "<MQTT_USERNAME>"; // MQTT username
-const char *mqtt_pass = "<MQTT_PASSWORD>"; // MQTT password
+const char *mqtt_server = "192.168.1.106"; // MQTT server name
+const int mqtt_port = 2587; // MQTT connection port
+const char *mqtt_user = "sdms_mqtt"; // MQTT username
+const char *mqtt_pass = "zaq1@WSX"; // MQTT password
 
 // Create OneWire & DallasTemperature for each temperature sensor
 // Multiple (1 pin = multiple devices)
@@ -61,8 +62,8 @@ ledObject ledObjectArr[LED_DEVICE_COUNT] {
 
 // type---serial number
 temperatureSensor temperatureSensorArr[TEMP_DEVICE_COUNT] {
-  {"temperature", "GX98S76M6QZ23U32"},
-  {"temperature", "6G5VF42Z45927573"}
+  {"temperature", "GX98S76M6QZ23U32", true},
+  {"temperature", "6G5VF42Z45927573", true}
 };
 
 int tm = 3000;
@@ -210,7 +211,7 @@ void callback(const MQTT::Publish& pub)
     // If we need to get the status of all led
     if (payload == "") {
       for (uint8_t i = 0; i < LED_DEVICE_COUNT; ++i) {
-        String response = String("{ \n\t\"type\": \"led\", \n\t\"enable\": \"") + String(ledObjectArr[i].enable) + "\", \n\t\"serial_number\": \"" + ledObjectArr[i].serial_number + "\" \n}";
+        String response = String("{\"type_text\": \"led\", \"enable\": \"") + String(ledObjectArr[i].enable) + "\", \"serial_number\": \"" + ledObjectArr[i].serial_number + "\"}";
         Serial.printf("Response:\n %s\n", response.c_str());
         client.publish(MQTT_LED_STATUS_RESPONSE_TOPIC, response);
       }
@@ -223,7 +224,7 @@ void callback(const MQTT::Publish& pub)
       Serial.printf("LED with serial number %s was not found\n", payload.c_str());
       return;
     }
-    String response = String("{ \n\t\"type\": \"led\", \n\t\"enable\": \"") + String(led->enable) + "\", \n\t\"serial_number\": \"" + led->serial_number + "\" \n}";
+    String response = String("{\"type_text\": \"led\", \"enable\": \"") + String(led->enable) + "\", \"serial_number\": \"" + led->serial_number + "\"}";
     Serial.printf("Response: \n%s\n\n", response.c_str());
     client.publish(MQTT_LED_STATUS_RESPONSE_TOPIC, response);
     return;
@@ -238,11 +239,11 @@ void callback(const MQTT::Publish& pub)
       led->enable = !led->enable;
 
       // Send result response
-      String response = String("{ \n\t\"type\": \"led\", \n\t\"serial_number\": \"") + String(led->serial_number) + "\", \n\t\"result\": \"OK\" \n}";
+      String response = String("{\"type_text\": \"led\", \"serial_number\": \"") + String(led->serial_number) + "\", \"result\": \"OK\"}";
       client.publish(MQTT_LED_SWITCH_RESPONSE_TOPIC, response);
       return;
     }
-    String response = String("{ \n\t\"type\": \"led\", \n\t\"serial_number\": \"") + String(led->serial_number) + "\", \n\t\"result\": \"NO_CHANGE\" \n}";
+    String response = String("{\"type_text\": \"led\", \"serial_number\": \"") + String(led->serial_number) + "\", \"result\": \"NO_CHANGE\"}";
     client.publish(MQTT_LED_SWITCH_RESPONSE_TOPIC, response);
   }
 }
@@ -354,6 +355,26 @@ bool MQTT_CONNECT()
 }
 
 /*-----------------------------------------------------------------------------------------------
+ * Function: FIND_TEMP_SENSOR_BY_SN
+ * Description: Searches for the serial number in the declared array of LED objects
+ * Ins: Serial number of led
+ * Outs: Return ledObject if exists / NULL if not exists
+ * ----------------------------------------------------------------------------------------------*/
+temperatureSensor *FIND_TEMP_SENSOR_BY_SN(String serial_number)
+{
+  Serial.println("\n\nDEBUG: FIND_TEMP_SENSOR_BY_SN function execution");
+  temperatureSensor tmp;
+  for (uint8_t i = 0; i < TEMP_DEVICE_COUNT; ++i) {
+    if (String(temperatureSensorArr[i].serial_number) == serial_number) {
+      Serial.println("DEBUG: TEMPERATURE SENSOR FOUND!\n\n");
+      return &temperatureSensorArr[i];
+    }
+  }
+  Serial.println("DEBUG: TEMPERATURE SENSOR NOT FOUND\n\n");
+  return &tmp;
+}
+
+/*-----------------------------------------------------------------------------------------------
  * Function: FIND_LED_BY_SN
  * Description: Searches for the serial number in the declared array of LED objects
  * Ins: Serial number of led
@@ -423,13 +444,13 @@ void SEND_HELLO_MESSAGE()
   if (!hello_message) {
     // LED
     for (uint8_t i = 0; i < LED_DEVICE_COUNT; ++i) {
-      String message = String("{\n\t\"type\": \"") + ledObjectArr[i].device_type + "\", \n\t\"serial_number\": \"" + ledObjectArr[i].serial_number + "\"\n}";
+      String message = String("{\"type_text\": \"") + ledObjectArr[i].device_type + "\", \"serial_number\": \"" + ledObjectArr[i].serial_number + "\"}";
       Serial.printf("Send hello message:%s \n", message.c_str());
       client.publish(MQTT_HELLO_TOPIC, message);
     }
     // TEMPERATURE
     for (uint8_t i = 0; i < TEMP_DEVICE_COUNT; ++i) {
-      String message = String("{ \n\t\"type\": \"") + temperatureSensorArr[i].device_type + "\", \n\t\"serial_number\": \"" + temperatureSensorArr[i].serial_number + "\"\n}";
+      String message = String("{\"type_text\": \"") + temperatureSensorArr[i].device_type + "\", \"serial_number\": \"" + temperatureSensorArr[i].serial_number + "\"}";
       Serial.printf("Send hello message:%s \n", message.c_str());
       client.publish(MQTT_HELLO_TOPIC, message);
     }
@@ -449,12 +470,12 @@ void SEND_HELLO_MESSAGE()
   if (tempC == DEVICE_DISCONNECTED_C)
   {
     Serial.printf("Temperature sensor disconnected: serial number - %s\n", serial_number);
-    String message = String("{ \n\t\"type\": \"temperature\", \n\t\"message\": \"disconnected\", \n\t\"serial_number\": \"") + serial_number + "\"\n}";
-    client.publish(MQTT_ERROR_TOPIC, message);
+    String message = String("{\"type_text\": \"temperature\", \"message\": \"disconnected\", \"serial_number\": \"") + serial_number + "\"}";
+    client.publish(MQTT_DISCONNECT_TOPIC, message);
     return;
   }
 
-  String data = String("{ \n\t\"type\": \"temperature\", \n\t\"serial_number\": \"") + serial_number + "\", \n\t\"data\": \"" + String(tempC) + "\"\n}";
+  String data = String("{\"type_text\": \"temperature\", \"serial_number\": \"") + serial_number + "\", \"data\": \"" + String(tempC) + "\"}";
   client.publish(MQTT_TEMP_RESPONSE_TOPIC, data);
 
   Serial.print(serial_number);
@@ -472,16 +493,33 @@ void SEND_HELLO_MESSAGE()
  * ----------------------------------------------------------------------------------------------*/
 void DS18B20_CELSIUS_1(DallasTemperature sensor, DeviceAddress deviceAddress, char* serial_number)
 {
+  temperatureSensor *temp;
+  temp = FIND_TEMP_SENSOR_BY_SN(String(serial_number));
+
   float tempC = sensor.getTempC(deviceAddress);
   if (tempC == DEVICE_DISCONNECTED_C)
   {
-    Serial.printf("Temperature sensor disconnected: serial number - %s\n", serial_number);
-    String message = String("{ \n\t\"type\": \"temperature\", \n\t\"message\": \"disconnected\", \n\t\"serial_number\": \"") + serial_number + "\"\n}";
-    client.publish(MQTT_ERROR_TOPIC, message);
+    if (temp->is_online)
+    {
+      Serial.printf("Temperature sensor disconnected: serial number - %s\n", serial_number);
+      String message = String("{\"type_text\": \"temperature\", \"serial_number\": \"") + serial_number + "\"}";
+      client.publish(MQTT_DISCONNECT_TOPIC, message);
+
+      temp->is_online = !temp->is_online;
+    }
     return;
   }
 
-  String data = String("{ \n\t\"type\": \"temperature\", \n\t\"serial_number\": \"") + serial_number + "\", \n\t\"temperature_data\": \"" + String(tempC) + "\"\n}";
+  if (!temp->is_online)
+  {
+    Serial.printf("Temperature sensor connected: serial number - %s\n", serial_number);
+    String message = String("{\"type_text\": \"temperature\", \"serial_number\": \"") + serial_number + "\"}";
+    client.publish(MQTT_CONNECT_TOPIC, message);
+
+    temp->is_online = !temp->is_online;
+  }
+
+  String data = String("{\"type_text\": \"temperature\", \"serial_number\": \"") + serial_number + "\", \"temperature_data\": \"" + String(tempC) + "\"}";
   client.publish(MQTT_TEMP_RESPONSE_TOPIC, data);
 
   Serial.print(serial_number);

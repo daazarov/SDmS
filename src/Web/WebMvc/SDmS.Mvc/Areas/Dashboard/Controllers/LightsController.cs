@@ -19,19 +19,19 @@ using SDmS.Domain.Core.Models.Enums;
 
 namespace SDmS.Mvc.Areas.Dashboard.Controllers
 {
-    //[DashboardAuthorization]
+    [DashboardAuthorization]
 	public class LightsController : BaseDashboardController
     {
-        private bool _useFakeData = true;
+        private bool _useFakeData = false;
 
         private readonly IIdentityParser<ApplicationUser> _identityParser;
         private readonly ILedDeviceService _ledDeviceService;
 
         private static List<LedViewModel> fakeModels = new List<LedViewModel>
         {
-            new LedViewModel { Name = "Kitchen", Intensity = 68, IsEnable = true, IsOnline = true, Power = 24, SerialNumber = "JHB4345KHJ35K", VoltageRange = "110-130V" },
-            new LedViewModel { Name = "Garage", Intensity = 100, IsEnable = false, IsOnline = false, Power = 24, SerialNumber = "JHB75KTJ35K", VoltageRange = "110-130V" },
-            new LedViewModel { Name = "Pool", Intensity = 20, IsEnable = false, IsOnline = true, Power = 60, SerialNumber = "TGB6835KHJ12K", VoltageRange = "220V" }
+            new LedViewModel { Name = "Kitchen", Intensity = 68, IsEnable = true, IsOnline = true, Power = "24W", SerialNumber = "JHB4345KHJ35K", VoltageRange = "110-130V" },
+            new LedViewModel { Name = "Garage", Intensity = 100, IsEnable = false, IsOnline = false, Power = "24W", SerialNumber = "JHB75KTJ35K", VoltageRange = "110-130V" },
+            new LedViewModel { Name = "Pool", Intensity = 20, IsEnable = false, IsOnline = true, Power = "60W", SerialNumber = "TGB6835KHJ12K", VoltageRange = "220V" }
         };
 
         public LightsController(
@@ -67,10 +67,7 @@ namespace SDmS.Mvc.Areas.Dashboard.Controllers
             {
                 ShowMessage(new GenericMessageViewModel { Type = MessageTypes.warning, Message = response.Error });
 
-                if (response.Collection == null)
-                {
-                    model.Leds = new List<LedViewModel>();
-                }
+                model.Leds = new List<LedViewModel>();
             }
             else
             {
@@ -95,7 +92,7 @@ namespace SDmS.Mvc.Areas.Dashboard.Controllers
                 {
                     Name = model.Name,
                     SerialNumber = model.SerialNumber,
-                    Power = new Random().Next(10, 120),
+                    Power = String.Format("{0}W", new Random().Next(10, 120)),
                     Intensity = new Random().Next(10, 100),
                     IsEnable = new Random().Next(0, 1) == 1 ? true : false,
                     IsOnline = new Random().Next(0, 1) == 1 ? true : false,
@@ -156,6 +153,8 @@ namespace SDmS.Mvc.Areas.Dashboard.Controllers
             if (model.Intensity != null)
             {
                 await this._ledDeviceService.ChangeIntensityAsync(model.Intensity.Value, model.Type, serial_number);
+
+                return Json(true);
             }
             else if (model.IsEnable != null)
             {

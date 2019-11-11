@@ -9,7 +9,7 @@ namespace SDmS.Resource.Infrastructure.Services.Data.Context
     {
         public ResourceDbContext(DbContextOptions<ResourceDbContext> options) : base(options)
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

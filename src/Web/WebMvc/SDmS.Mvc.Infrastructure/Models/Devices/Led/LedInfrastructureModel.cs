@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace SDmS.Infrastructure.Models.Devices.Led
 {
     public class LedInfrastructureModel
@@ -9,6 +11,6 @@ namespace SDmS.Infrastructure.Models.Devices.Led
         public bool is_online { get; set; }
         public string user_id { get; set; }
 
-        public LedParametersModel parameters { get; set; }
+        public Dictionary<string, dynamic> parameters { get; set; }
     }
 }

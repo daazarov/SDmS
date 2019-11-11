@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
 using SDmS.Messages.Common.Commands;
+using SDmS.Messages.Common.Messages;
 using SDmS.Resource.Api.Configuration;
 using System;
 using System.Collections.Generic;
@@ -28,10 +29,6 @@ namespace SDmS.Resource.Api.Extensions
             var settings = new BusSettingsModel();
             Configuration.Bind("NServiceBus", settings);
 
-            IEndpointInstance endpointInstance = null;
-            //services.AddSingleton<IMessageSession>(_ => endpointInstance);
-            services.AddSingleton<IEndpointInstance>(_ => endpointInstance);
-
             var endpointConfiguration = new EndpointConfiguration(settings.RabbitEndPoint.Name);
             var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
 
@@ -44,7 +41,6 @@ namespace SDmS.Resource.Api.Extensions
 
             endpointConfiguration.EnableInstallers();
 
-            //endpointConfiguration.EnableUniformSession();
             endpointConfiguration.EnableCallbacks();
 			endpointConfiguration.MakeInstanceUniquelyAddressable("response-queue");
 
@@ -58,7 +54,9 @@ namespace SDmS.Resource.Api.Extensions
         private static void ConfigureRouting(RoutingSettings<RabbitMQTransport> routing)
         {
             routing.RouteToEndpoint(typeof(DeviceDeleteCommand), "sdms.device-listener.host");
+            routing.RouteToEndpoint(typeof(DeviceVerificationMessage), "sdms.device-listener.host");
             routing.RouteToEndpoint(typeof(DeviceAssignCommand), "sdms.device-listener.host");
+            routing.RouteToEndpoint(typeof(DeviceCommandExecute), "sdms.device-enactor.host");
         }
     }
 }

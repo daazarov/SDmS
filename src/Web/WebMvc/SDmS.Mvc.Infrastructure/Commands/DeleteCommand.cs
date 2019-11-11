@@ -171,23 +171,22 @@ namespace SDmS.Infrastructure.Commands
         {
             T entity = default(T);
 
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            try
             {
-                try
+                BaseCommandResult<T> result = null;
+
+                if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                 {
-                    entity = await response.Content.ReadAsAsync<T>();
+                    result = new BaseCommandResult<T>(response);
+                    return result;
                 }
-                catch { }
-                
-                var result = new BaseCommandResult<T>(response, entity);
+
+                entity = await response.Content.ReadAsAsync<T>();
+
+                result = new BaseCommandResult<T>(response, entity);
                 return result;
             }
-            else if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
-            {
-                var result = new BaseCommandResult<T>(response);
-                return result;
-            }
-            else
+            catch
             {
                 string error = string.Empty;
 

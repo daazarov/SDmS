@@ -175,18 +175,14 @@ namespace SDmS.Infrastructure.Commands
         {
             T entity = default(T);
 
-            if (response.IsSuccessStatusCode)
+            try
             {
-                try
-                {
-                    entity = await response.Content.ReadAsAsync<T>();
-                }
-                catch { }
-                
+                entity = await response.Content.ReadAsAsync<T>();
+
                 var result = new BaseCommandResult<T>(response, entity);
                 return result;
             }
-            else
+            catch
             {
                 string error = string.Empty;
 
@@ -196,14 +192,14 @@ namespace SDmS.Infrastructure.Commands
                     error = stream.ReadToEnd();
                 }
 
-                var result = new BaseCommandResult<T>
+                var errorResult = new BaseCommandResult<T>
                     (
                     response: response,
                     code: (int)response.StatusCode,
                     error: error
                     );
 
-                return result;
+                return errorResult;
             }
         }
         #endregion

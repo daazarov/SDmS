@@ -30,7 +30,7 @@ namespace SDmS.Resource.Api.Models.Mappers
 
             foreach (var parameter in @this.DeviceParameters)
             {
-                model.parameters.Add(parameter.parameter_name, parameter.value);
+                model.parameters.Add(parameter.parameter_name.ToLower(), parameter.value);
             }
 
             return model;

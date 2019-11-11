@@ -6,7 +6,7 @@
     </div>
     <div class="left-content-box  content-box-dark">
         <img src="~/Content/img/dashboard/avatar.svg" alt="" class="uk-border-circle profile-img">
-        <h4 class="uk-text-center uk-margin-remove-vertical text-light">@(((ClaimsIdentity)User.Identity).FindFirst(x => x.Type == "Firstname")?.Value)</h4>
+        <h4 class="uk-text-center uk-margin-remove-vertical text-light">@(((ClaimsIdentity)User.Identity).FindFirst(x => x.Type == "FirstName")?.Value)</h4>
 
         <div class="uk-position-relative uk-text-center uk-display-block">
             <!--<a href="#" class="uk-text-small uk-text-muted uk-display-block uk-text-center" data-uk-icon="icon: triangle-down; ratio: 0.7">Admin</a> -->

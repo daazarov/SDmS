@@ -1,0 +1,43 @@
+version: '3.4'
+
+services:
+  sdms.deviceenactor.host:
+    image: ${DOCKER_REGISTRY-}sdmsdeviceenactorhost
+    container_name: sdms.deviceenactor.host
+    build:
+      context: .
+      dockerfile: src/Services/Device Enactor/SDmS.DeviceEnactor.Host/Dockerfile
+    depends_on:
+     - rabbitmq
+
+  sdms.devicelistener.host:
+    image: ${DOCKER_REGISTRY-}sdmsdevicelistenerhost
+    container_name: sdms.devicelistener.host
+    build:
+      context: .
+      dockerfile: src/Services/Device Listener/SDmS.DeviceListener.Host/Dockerfile
+    depends_on:
+     - rabbitmq
+
+
+  sdms.resource.api:
+    image: ${DOCKER_REGISTRY-}sdmsresourceapi
+    container_name: sdms.resource.api
+    build:
+      context: .
+      dockerfile: src/Services/Resource Api/SDmS.Resource.Api/Dockerfile
+    depends_on:
+     - rabbitmq
+
+
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    hostname: "rabbit1"
+    container_name: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - "15672:15672"
+      - "5672:5672"

@@ -153,6 +153,7 @@ namespace SDmS.Domain.Services
                     response.Next = result.Value.Next;
                     response.Previous = result.Value.Previous;
                     response.TotalCount = result.Value.TotalCount;
+                    response.HttpResponseCode = (int)result.ResponseCode;
                 }
                 else
                 {

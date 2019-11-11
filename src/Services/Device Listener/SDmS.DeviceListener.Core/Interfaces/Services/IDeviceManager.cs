@@ -9,6 +9,7 @@ namespace SDmS.DeviceListener.Core.Interfaces.Services
     public interface IDeviceManager
     {
         Task<UpdateResult> ChangeOneDeviceParameterAsync<T>(string serialNumber, string collection, string parameterName, T value);
-        Task<UpdateResult> ChangeManyDeviceParameterAsync(string collection);
+        Task<UpdateResult> ChangeOneDeviceParameterAsync<T>(string serialNumber, string parameterName, T value);
+        Task<DeleteResult> DeleteOneAsync(string collection, string serialNumber);
     }
 }

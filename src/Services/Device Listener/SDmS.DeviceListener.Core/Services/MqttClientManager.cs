@@ -2,6 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
 using SDmS.DeviceListener.Core.Interfaces.Services;
+using SDmS.DeviceListener.Infrastructure.Data.Entities;
 using SDmS.DeviceListener.Infrastructure.Interfaces.Data;
 using System;
 using System.Collections.Generic;
@@ -39,6 +40,32 @@ namespace SDmS.DeviceListener.Core.Services
                 var update = Builders<BsonDocument>.Update.Set("is_online", status).CurrentDate("last_modified");
                 var result = collection.UpdateMany(filter, update);
             }
+        }
+
+        public async Task<IEnumerable<Device>> GetDevicesByMqttClientAsync(string mqtt_client_id)
+        {
+            if (!_context.IsConnected)
+            {
+                _logger.LogError($"Method: {nameof(ChangeDevicesStatusAsync)} >> mongodb connection was NOT successful");
+                throw new InvalidOperationException("Сonnection with MongoDB not established");
+            }
+
+            List<Device> devices = new List<Device>();
+
+            var dbCollections = await GetCollections();
+
+            foreach (var collectionName in dbCollections)
+            {
+                var collection = _context.Database.GetCollection<Device>(collectionName);
+                var filter = Builders<Device>.Filter.Eq("mqtt_client_id", mqtt_client_id);
+
+                var result = await collection.FindAsync(filter);
+
+                devices.AddRange(await result.ToListAsync());
+            }
+
+            return devices;
+
         }
 
         private async Task<List<string>> GetCollections()

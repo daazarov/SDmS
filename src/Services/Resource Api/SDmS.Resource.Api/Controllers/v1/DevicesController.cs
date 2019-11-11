@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -29,23 +28,30 @@ namespace SDmS.Resource.Api.Controllers.v1
         #region [Device CRUD operations]
         [HttpGet]
         [Route("api/v1/users/{user_id:guid}/devices")]
-        public async Task<IActionResult> GetDevices([FromQuery]DeviceRequestModel model)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetDevices(string user_id, [FromQuery]DeviceRequestModel model)
         {
             var response = await GetCollectionResultAsync<DeviceResponseModel>(
-                getCount: () => _deviceService.DeviceAllCount(model.user_id),
+                getCount: () => _deviceService.DeviceAllCount(user_id),
                 getItems: async () =>
                 {
-                    var devices = await _deviceService.GetDevicesAsync(model.user_id, model.RequestToDomain());
+                    var devices = await _deviceService.GetDevicesAsync(user_id, model.RequestToDomain());
                     return devices.Select(x => x.DomainToResponse());
                 },
                 modelState: ModelState
                 );
 
-            return Ok(new string[] { "value1", "value2" });
+            return Result(response);
         }
 
         [HttpGet]
         [Route("api/v1/users/{user_id:guid}/devices/{serial_number}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetDeviceBySerialNumber([FromQuery]string serial_number, [FromQuery]string user_id)
         {
             var response = await GetResultAsync<DeviceResponseModel>(
@@ -57,39 +63,54 @@ namespace SDmS.Resource.Api.Controllers.v1
                 modelState: ModelState
                 );
 
-            return Ok("value");
+            return Result(response);
         }
 
         [HttpPost]
         [Route("api/v1/users/{user_id:guid}/devices")]
-        public async Task<IActionResult> AddDevice([FromQuery]string user_id, [FromBody]DeviceAddModel model)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> AddDevice(string user_id, [FromBody]DeviceAddModel model)
         {
             var response = await GetResultAsync<bool>(
                 getItem: async () => await _deviceService.AddDeviceAsync(model.RequestToDomain()),
                 modelState: ModelState
                 );
 
-            return new StatusCodeResult((int)HttpStatusCode.Created);
+            return Result(response);
         }
 
         [HttpDelete]
-        [Route("api/v1/users/{user_id:guid}/devices{serial_number}")]
+        [Route("api/v1/users/{user_id:guid}/devices/{serial_number}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> DeleteDevice(string user_id, string serial_number)
         {
             var response = await GetResultAsync<bool>(
                 getItem: async () => await _deviceService.DeleteDeviceAsync(user_id, serial_number),
-                modelState: ModelState
+                modelState: ModelState,
+                httpStatusCode: 204
                 );
 
-            return NoContent();
+            return Result(response);
         }
         #endregion
 
         [HttpPost]
         [Route("api/v1/users/{user_id:guid}/devices/{serial_number}/commands")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> ExecuteCommand([FromQuery]string user_id, [FromQuery]string serial_number, [FromBody]DeviceCommandModel model)
         {
-            return Ok();
+            var response = await GetResultAsync(
+                action: async () => await this._deviceService.ExecuteActionAsync(user_id, serial_number, model.action_name, model.type, model.parameters),
+                modelState: ModelState
+                );
+
+            return Result(response);
         }
     }
 }

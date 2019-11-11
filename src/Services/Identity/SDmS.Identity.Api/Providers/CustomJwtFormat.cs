@@ -28,7 +28,8 @@ namespace SDmS.Identity.Api.Providers
 
             string symmetricKeyAsBase64 = ConfigurationManager.AppSettings["as:AudienceSecret"];
 
-            var keyByteArray = TextEncodings.Base64Url.Decode(symmetricKeyAsBase64);
+            //var keyByteArray = TextEncodings.Base64Url.Decode(symmetricKeyAsBase64);
+			var keyByteArray = Convert.FromBase64String(symmetricKeyAsBase64);
 
             var securityKey = new SymmetricSecurityKey(keyByteArray);
             var signingKey = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);

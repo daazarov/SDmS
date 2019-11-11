@@ -15,9 +15,9 @@ namespace SDmS.Infrastructure.Models.Devices
             this._type = deviceType;
         }
 
-        public string ActionName { get { return _actionName; } }
-        public int Type { get { return _type; } }
-        public Dictionary<string, dynamic> Parameters { get { return _parameters; } }
+        public string action_name { get { return _actionName; } }
+        public int type { get { return _type; } }
+        public Dictionary<string, dynamic> parameters { get { return _parameters; } }
 
         public void AddParameter(string name, dynamic value)
         {

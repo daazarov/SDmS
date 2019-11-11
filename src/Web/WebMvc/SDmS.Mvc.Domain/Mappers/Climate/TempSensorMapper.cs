@@ -1,5 +1,6 @@
 ﻿using SDmS.Domain.Core.Models.Climate;
 using SDmS.Infrastructure.Models.Devices.Climate;
+using System.Globalization;
 
 namespace SDmS.Domain.Mappers.Climate
 {
@@ -14,7 +15,9 @@ namespace SDmS.Domain.Mappers.Climate
                 name = @this.name,
                 serial_number = @this.serial_number,
                 is_online = @this.is_online,
-                temp_c = @this.parameters.temp_c
+                temp_c = @this.parameters.TryGetValue("temperature_data", out dynamic val_temperature_data) 
+                        ? double.Parse(val_temperature_data, CultureInfo.InvariantCulture) 
+                        : -127
             };
         }
     }

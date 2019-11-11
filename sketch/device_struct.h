@@ -9,6 +9,7 @@ typedef struct {
 typedef struct { 
   char* device_type;
   char* serial_number;
+  bool is_online;
 }temperatureSensor;
 
 

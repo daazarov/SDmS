@@ -22,8 +22,10 @@ namespace SDmS.Resource.DI.Modules
         {
             CreateMap<DeviceParameterValue, DeviceParameterValueDomain>()
                 .ForMember("parameter_name", opt => opt.MapFrom(c => c.Parameter.description));
+            CreateMap<DeviceParameterValueDomain, DeviceParameterValue>();
 
             CreateMap<Device, DeviceDomainModel>();
+            CreateMap<DeviceDomainModel, Device>();
         }
     }
 }

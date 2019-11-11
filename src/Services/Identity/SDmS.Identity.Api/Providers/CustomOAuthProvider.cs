@@ -74,9 +74,9 @@ namespace SDmS.Identity.Api.Providers
             var claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.Sid, Convert.ToString(user.Id)),
-                new Claim(ClaimTypes.Name, user.FirstName + " " + user.LastName),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim("FirstName", user.FirstName),
+                new Claim("FullName", string.Format("{0} {1}", user.FirstName, user.LastName)),
                 new Claim("LastName", user.LastName),
                 new Claim("JoinDate", user.JoinDate.ToString())
             };

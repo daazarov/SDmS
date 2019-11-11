@@ -4,7 +4,7 @@
     {
         public bool IsEnable { get; set; }
         public int Intensity { get; set; }
-        public int Power { get; set; }
+        public string Power { get; set; }
         public string VoltageRange { get; set; }
     }
 }

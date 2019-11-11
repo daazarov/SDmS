@@ -12,7 +12,6 @@ namespace SDmS.Mvc.Areas.Dashboard.Mappers.Led
             var model = new LedViewModel();
 
             model.Name = @this.name;
-            model.Power = @this.power;
             model.SerialNumber = @this.serial_number;
             model.IsOnline = @this.is_online;
             model.IsEnable = @this.is_enabled;
@@ -32,7 +31,16 @@ namespace SDmS.Mvc.Areas.Dashboard.Mappers.Led
             }
             else
             {
-                model.VoltageRange = "no data";
+                model.VoltageRange = "-";
+            }
+
+            if (@this.power == 0)
+            {
+                model.Power = "-";
+            }
+            else
+            {
+                model.Power = string.Format("{0}W", @this.power);
             }
 
             return model;

@@ -25,6 +25,7 @@ namespace SDmS.DeviceListener.Host
         public void Register(IServiceCollection services)
         {
             services.AddTransient<INewDeviceService, NewDeviceService>();
+            services.AddTransient<IDeviceManager, DeviceManager>();
             services.AddTransient<IMqttClientManager, MqttClientManager>();
         }
     }

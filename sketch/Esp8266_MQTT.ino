@@ -32,13 +32,13 @@
 
 const char *chip_id = "6519515";
 
-const char *ssid =  "TP-LINK_C1E974";  // Name of WiFi endpoint
-const char *pass =  "azarovdima"; // WiFi password
+const char *ssid =  "<SSID_NAME>";  // Name of WiFi endpoint
+const char *pass =  "<SSID_PASSWORD>"; // WiFi password
 
-const char *mqtt_server = "192.168.1.106"; // MQTT server name
+const char *mqtt_server = "<ADDRESS>"; // MQTT server name
 const int mqtt_port = 2587; // MQTT connection port
-const char *mqtt_user = "sdms_mqtt"; // MQTT username
-const char *mqtt_pass = "zaq1@WSX"; // MQTT password
+const char *mqtt_user = "<MQTT_USER>"; // MQTT username
+const char *mqtt_pass = "<MQTT_PASSWORD>"; // MQTT password
 
 // Create OneWire & DallasTemperature for each temperature sensor
 // Multiple (1 pin = multiple devices)
